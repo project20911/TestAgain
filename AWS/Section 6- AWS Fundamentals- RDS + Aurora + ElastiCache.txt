@@ -1,0 +1,325 @@
+What does RDS stand for?
+A: RDS stands for Relational Database Service
+-----------
+What is RDS?
+A: It's a managed DB service for DB use SQL as a query language.
+-----------
+What does RDS allow?
+A: It allows you to create databases in the cloud that are managed by AWS,
+- Postgres
+- MySQL
+- MariaDB
+- Oracle
+- Microsoft SQL Server
+- Aurora (AWS Proprietary database)
+-----------
+Advantages of using RDS vs EC2
+A: - RDS is a managed service:
+- - Automated provisioning, OS patching
+- - Continuous backups and restore to specific timestamp (Point in Time Restore) 
+- - Monitoring dashboards 
+- - Read replicas for improved read performance
+- - Multi AZ setup for DR (Disaster Recovery)
+- - Scaling capability (vertical and horizontal)
+- - Storage back by EBS (gp2 or io I)
+-----------
+Disadvantages of RDS
+A: - Unable to access RDS instances via SSH
+-----------
+Are RDS backups automatically enabled?
+A: Yes, backups are automatically enabled in RDS.
+-----------
+During the RDS maintenance window, does a full backup take place? And, how often (daily, weekly, monthly)?
+A: Yes, a full backup of the database takes place during the maintenance window, which is done daily.
+-----------
+In an automated RDS backup, transaction logs are backed up by RDS every 5 minute. True or False?
+A: True
+-----------
+What is the default retention policy for RDS automated backups?
+A: The default retention policy is 7 days.
+-----------
+What is the maximum amount of days or weeks supported by the RDS retention policy for automated backups?
+A: The retention policy can increased by 35 days.
+-----------
+How long can the retention policy be for an RDS DB Snapshot?
+A: The retention policy can be as long as you want.
+-----------
+Is an RDS DB Snapshot automated or manually triggered?
+A: A DB snapshot is manually triggered by the user.
+-----------
+What are RDS read replicas for?
+A: To help with read scalability for RDS database?
+-----------
+How many read replicas does RDS support up to?
+A: Up to 5 read replicas are supported for RDS.
+-----------
+What are the three AZ options for RDS read replicas?
+A: - Within the AZ
+- Cross AZs 
+- Cross region
+-----------
+RDS reads are ASYNC so replication is ___________ consistent
+A: Eventually consistent
+-----------
+Is RDS read replication is synchronous or asynchronous?
+A: RDS read replication is asynchronous.
+-----------
+Can RDS replication be promoted to their own DB?
+A: Yes
+-----------
+What are RDS Read Replica use cases?
+A: - You have a production database that is taking on normal load
+- You want to run a reporting application to run some analytics
+- You create a Read Replica to run the new workload there.
+- The production application is unaffected
+- Read replicas are used for SELECT (=read) only kind of statements. DO NOT use (INSERT, UPDATE, DELETE)
+-----------
+In RDS, how would you reduce Network cost from transferring data between a database and a replica?
+A: To reduce the Network cost, you can have your replicas in the same AZ.
+-----------
+What is RDS Multi AZ used for?
+A: It is used for Disaster Recovery
+-----------
+What replication does an RDS Standby Database use?
+A: It uses SYNC (synchronous) replication.
+-----------
+Does RDS Standby Database have it's own DNS name?
+A: No, it uses the same DNS name for the purposes of failover.
+-----------
+Is a RDS standby database read, write, or exact replica?
+A: A standby database is an exact SYNC replica to be used when the MASTER database fails.
+-----------
+In the event of an RDS Master Database failure, what disaster recovery event occurs?
+A: There will be an AUTOMATIC failover to the standby database. (using the single DNS name)
+-----------
+What manual intervention does OR does not take place when the RDS master database experiences a failure?
+A: No manual intervention is required. The standby database be promoted as master. (as long is the application/service is connecting correct DNS name shared by the MASTER database)
+-----------
+Could the RDS standby database be used for scaling?
+A: No, the standby database is only used to standby for disaster recovery events.
+-----------
+Can you read or write to a Standby database?
+A: No, it's sole purpose is to act as a standby by ONLY replicating (SYNC) with the MASTER database.
+-----------
+Can RDS read replicas be configured as Multi-AZ for Disaster Recovery?
+A: Yes, you can set read replicas as Multi-AZ (for DR)
+-----------
+Are you able to use IAM with RDS authentication?
+A: Yes, you are able to configure IAM to be used as RDS authentication.
+-----------
+Does RDS have the possibility to encrypt master & read replicas with AWS KMS?
+A: Yes, it is possible to encrypt the master and read replica databases with AES-256 encryption via KMS
+-----------
+For RDS encryption, does it need to be defined at launch time?
+A: Yes, it needs to be defined at launch time. If the master is NOT encrypted , the read replicas cannot be encrypted.
+-----------
+Does RDS Oracle and SQL server support TDE?
+A: (Transparent Data Encryption) TDE is supported by Oracle and SQL RDS database servers.
+-----------
+Does RDS support in-flight encryption?
+A: Yes, RDS supports SSL certificates to encrypt data to RDS in flight.
+-----------
+Do you need to explicitly configure RDS databases to support SSL?
+A: Yes, to enforce SSL, Postgre and MySQL databases require a configuration change.
+Postgre: Required a parameter group change
+MySQL: required a query within the DB to grant usage (requiring SSL)
+-----------
+Can you unencrypt a snapshot of an RDS database?
+A: Yes, you can do this by copying the SNAPSHOT into an encrypted one.
+-----------
+How do you encrypt an un-encrypted RDS database?
+A: You will have to create a RDS snapshot of the un-encrypted database. The snapshot will need to be configured as encrypted. You will then restore the ENCRYPTED snapshot into the RDS database. You will migrate applications to the new database and delete the old database.
+-----------
+What are some RDS Network Security points?
+A: - RDS databases are usually deployed within a private subnet, not in a public one.
+- RDS security works by leveraging security groups (the same concept as for ECS instances) - it controls which IP / Security Group can communicate with TDS
+-----------
+What are some RDS Access Management points?
+A: - IAM policies help control who can manage AWS RDS (through the RDS API)
+- Traditional Username and Password can be used to login into the database
+- IAM-Based authentication can be used to login into RDS MySQL & PostgreSQL
+-----------
+What types of RDS databases support AWS IAM authentication?
+A: MySQL and PostgreSQL
+-----------
+Do you need a password when using IAM with RDS Database authentication?
+A: No, you don't need a password, just an authentication token obtained through IAM & RDS API calls.
+-----------
+What is the lifespan of an IAM RDS authentication (auth) token?
+A: The auth token has a lifetime of 15 minutes?
+-----------
+Can an IAM role be used between EC2 and RDS communication?
+A: Yes, an IAM role can be used to integrate an EC2 instance with RDS. Under the hood, the IAM role will issue an API call to get the auth token used to grant permission for communicating with the database.
+-----------
+When using RDS IAM authentication, is SSL required?
+A: Yes, SSL encryption is used in passing the auth token.
+-----------
+Is RDS encryption at rest done when first creating the RDS database?
+A: Yes, it is done only when you first create the DB instance.
+-----------
+What is the administrator's responsibility when creating an AWS RDS database?
+A: The administrator's responsibility is to,
+- Check the ports / IP / security group INBOUND rules in the DBs SG (security group) 
+- In-database user creation and permissions OR manage it through IAM
+- Creating a database with or without public access.
+- Ensure parameter groups or DB is configured to ONLY allow SSL connections.
+-----------
+What is AWS's responsibility when creating an AWS RDS database?
+A: - No SSH access
+- No manual DB patching
+- No manual OS patching
+- No way to audit the underlying instance
+- The above will be managed by AWS.
+-----------
+What is Amazon Aurora?
+A: Aurora is a proprietary technology from AWS (not open source)
+-----------
+What database types does Amazon Aurora support?
+A: It supports Postgres and MySQL as Aurora DB (that means your drivers from your service/application will work as if Aurora was Postgres or MySQL database)
+-----------
+Why use Amazon/AWS Aurora?
+A: AWS is "Cloud Optimized" and claims 5x performance improvement over MySQL on RDS, over 3x the performance of Postgres on RDS.
+-----------
+Does AWS Aurora storage automatically grow?
+A: Yes, Aurora storage will automatically grow in increments of 10GB, up to 64 TB.
+-----------
+How many read replicas can AWS Aurora support?
+A: Aurora can support up to 15 replicas. And, the replication process is faster compared to RDS it's counterpart. (while RDS-MySQL can only support up to 5)
+-----------
+What is the speed of an Aurora failover?
+A: A failover in Aurora is instantaneous. It's HA (high availability) native.
+-----------
+How many replica copies does Aurora have (High Availability)?
+A: It has a total of 6 copies across 3 AZ (availability zones)
+-----------
+Out of 6, how many write replica copies are needed for Aurora?
+A: 4 copies out of 6 are needed for writes
+-----------
+Out of 6, how many read replica copies are needed for Aurora?
+A: 3 copies out of 6 needed for reads
+-----------
+What capability does Aurora have when there is an issue with data, such as corruption or bad data?
+A: - Aurora is self healing with poor-to-poor replication.
+- Storag is striped across 100s of volumes
+-----------
+What are three main features of AWS Aurora?
+A: AWS Aurora has 3 main features (but not limited to)
+- Replication
+- Self Healing
+- Auto Expanding
+-----------
+In AWS Aurora, do read replicas support autoscaling?
+A: Yes, read replicas can autoscale up to 15 replicas.
+-----------
+In AWS Aurora, if you have multiple read replicas, how do you point your application(s) to access these?
+A: You can use a "Read Endpoint" which is a connection load balancer for the read replicas.
+-----------
+In AWS Aurora, does load balancing happen at the connection level or statement level?
+A: When using load balancing in Aurora, the load balancing occurs at the connection level.
+-----------
+What are main database features to know for AWS Aurora database?
+A: - One writer and multiple readers (when you need your DB to support volumes which consist of high amount of READS)
+- Multiple writers (when you need your DB to support volumes which consist of high amount of WRITES)
+- Serverless (when you're unsure of what kind of load your database will experience and it's unpredictable)
+-----------
+Is it recommended to use the single endpoint for the AWS Aurora database?
+A: You can do this, but it is NOT reccomended. However, it is recommended to use the READ Aurora endpoint to perform READ operations and the WRITE endpoint for write query operations.
+-----------
+Is it recommended to use the main, reader, or writer endpoint when performing READ query operations to Aurora RDS database?
+A: (Neither) This depends on whether you're performing READ or WRITE statements. If you are performing READ statements, then use the READ endpoint. If you are performing WRITE statements, then use the WRITE endpoint. IT IS NOT recommended to use the main endpoint.
+-----------
+Is it recommended to use the main, reader, or writer endpoint when performing WRITE query operations to Aurora RDS database?
+A: (Neither) This depends on whether you're performing READ or WRITE statements. If you are performing READ statements, then use the READ endpoint. If you are performing WRITE statements, then use the WRITE endpoint. IT IS NOT recommended to use the main endpoint.
+-----------
+What is ElastiCache used for?
+A: It is used to get managed REDIS or Memcached cache.
+-----------
+What is ElastiCache?
+A: - ElastiCache is a managed cache service. A cache is an in-memory database with really high performance, low latency.
+- The role is ElastiCache is to help reduce load off of databases for read intensive workloads.
+-----------
+How does ElastiCache assist with AWS RDS database performance and workloads?
+A: - The role is ElastiCache is to help reduce load off of databases for read intensive workloads. 
+- It also helps make your application stateless by storing states in a common cache.
+-----------
+How does ElastiCache perform write scaling?
+A: ElastiCache does this by using sharding.
+-----------
+How does ElastiCache perform read scaling?
+A: ElastiCache does this by using Read Replicas.
+-----------
+Does ElastiCache of HA (high availability)?
+A: Yes, ElastiCache is capable of Multi AZ with failover capability (just like RDS).
+-----------
+What is AWS's responsibility of ElastiCache?
+A: AWS takes care of OS maintenance / patching, optimizations, setup, configuration, monitoring, failure, recovery and backups.
+-----------
+How does ElastiCache work starting from the application?
+A: The application first performs a "cache-hit". If the data exists, then data will be retrieves from the cache without needing to query the RDS database. If the data does not exist, then it will be a "cache-miss". When a "cache-miss" is encountered, then the application will perform a read statement from the RDS DB. If a read statement is performed on the RDS database, it should written to cache for future use.
+-----------
+What is the benefit from Elasticache?
+A: - Help relieve load in RDS.
+- Can be used to store user session data so that the user wouldn't have to re-authenticate every time the hit a different application/server (in a LB situation). The same stateless session will be retrieved from the cache.
+-----------
+What is an important point for ElastiCache?
+A: The cache must have an invalidation strategy to make sure only the most current data is used in there.
+-----------
+Differences between REDIS and Memcached (in ElastiCache)
+A: - REDIS uses Multi-AZ with Failover (replication)
+- Read replicas to scale reads and have high availability 
+- REDIS capable of backup and restore features
+- Memcached uses multi-node for partitioning of data (sharding)
+- Non persistent
+- Pure cache, only lives in memory (volatile)
+- No backup and restore
+- Multi-threaded architecture
+-----------
+ElastiCache, important points and security for REDIS.
+A: - REDIS in ElastiCache
+- - Support SSL in flight encryption
+- - Do NOT support IAM authentication
+- - IAM policies on ElastiCache are only used for AWS API-level security.
+- REDIS AUTH
+- - You can set a "password/token" when you create a REDIS cluster.
+- - The above (password/token) is an extra level of security for your cache (on top of security groups)
+- - It's important to use Security Groups for accessing REDIS on top of password/token
+-----------
+Does ElastiCache support IAM authentication?
+A: No, ElastiCache does NOT support IAM authentication. And, sometimes is used as a trick question in exams.
+-----------
+ElastiCache, important points and security for Memcached.
+A: - Supports SASL-based authentication (advanced)
+-----------
+What are the patterns for ElastiCache?
+A: - Lazy Loading: All the read data is cached, data can become stale in cache
+- Write Through: Adds or update data in the cache when written to a DB (no stale data)
+- Session Store: Store temporary session data in a cache (using TTL features)
+-----------
+You have a requirement to use TDE (Transparent Data Encryption) on top of KMS. Which database technology does NOT support TDE on RDS?
+A: PostgreSQL
+-----------
+You would like to ensure you have a database available in another region if a disaster happens to your main region. Which database do you recommend?
+A: RDS Read Replicas
+-----------
+You would like to create a disaster recovery strategy for your RDS PostgreSQL database so that in case of a regional outage, a database can be quickly made available for Read and Write workload in another region. The DR database must be highly available. What do you recommend?
+A: Create a Read Replica in the same region and enable multi-AZ on the read replica
+-----------
+List of Ports to be familiar with
+A: Here's a list of standard ports you should see at least once. You shouldn't remember them (the exam will not test you on that), but you should be able to differentiate between an Important (HTTPS - port 443) and a database port (PostgreSQL - port 5432)
+Important ports:
+FTP: 21
+SSH: 22
+SFTP: 22 (same as SSH)
+HTTP: 80
+HTTPS: 443
+vs RDS Databases ports:
+PostgreSQL: 5432
+MySQL: 3306
+Oracle RDS: 1521
+MSSQL Server: 1433
+MariaDB: 3306 (same as MySQL)
+Aurora: 5432 (if PostgreSQL compatible) or 3306 (if MySQL compatible)
+
+Don't stress out on remember those, just read that list once today and once before going into the exam and you should be all set :)
+Remember, you should just be able to differentiate an "Important Port" vs an "RDS database Port".
+-----------

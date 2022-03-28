@@ -1,0 +1,162 @@
+As part of your disaster recovery strategy, you would like to have only the critical systems up and running in AWS. You don't mind a longer RTO. Which DR strategy do you recommend?
+A:
+Answer: Pilot Light
+-----------
+You would like to get the DR strategy with the lowest RTO and RPO, regardless of the cost, which one do you recommend?
+A:
+Multi Site
+-----------
+Which of the following strategies has a potentially high RPO and RTO?
+A:
+Backup and Restore
+-----------
+Disaster Recovery Overview
+A:
+- Any event that has a negative impact on a company's business continuity or finances is a distaster 
+- Disaster recovery (DR) is about preparing for and recovering from a disaster 
+- What kind of disaster recovery?
+- - On-premise => On-premise: traditional DR, and very expensive
+ - - On-premise => AWS Cloud: hybrid recovery
+ - - AWS Cloud Region A => AWS Cloud Region B
+- Need to define two terms:
+ - - RPO: Recovery Point Objective
+ - - RTO: Recovery Time Objective
+-----------
+Disaster Recovery - Pilot Light
+A:
+- A small version of the app is always running in the cloud
+- Useful for the critical core (pilot light)
+- Very similar to Backup and Restore
+- Faster than Backup and Restore as critical systems are already backed up
+-----------
+Disaster Recovery - Warm Standby
+A:
+- Full system is up and running, but at minimum size
+- Upon disaster, we can scale to production load
+-----------
+Disaster Recovery - Multi Site / Hot Site Approach
+A:
+- Very low RTO (minutes or seconds) - very expensive
+- Full production Scale is running AWS and On Premise
+-----------
+Disaster Recovery Tips
+A:
+- Backup
+- - EBS Snapshots, RDS automated backups / Snapshots etc...
+- - Regular pushes to S3 / S3 IA / Glacier, Lifecycle Policy, Cross Region Replication
+- From On-Premise: Snowball or Storage Gateway
+
+- High Availability
+- - Use Route53 to migrate DNS over from Region to Region
+- - RDS Multi-AZ, ElastiCache Multi-AZ, EFS, S3
+- - Site to Site VPN as a recovery from Direct Connect
+
+- Replication
+- - RDS Replication (cross region), AWS Aurora + Global Databases
+- - Database replication from on-premise to RDS
+- - Storage Gateway
+
+- Automation
+- - CloudFormation / Elastic Beanstalk to re-create a whole new environment
+- - Recover / Reboot EC2 instances with CloudWatch if alarms fail
+ - - AWS Lambda functions for customized automations
+
+- Chaos
+- - Netflix has "simian-army" randomly terminating EC2 resources
+-----------
+DMS - Database Migration Service
+A:
+- Quickly and securely migrate databases to AWS, resilient, self healing
+
+- The source database remains available during the migration
+
+- Supports:
+- - Homogeneous migrations: ex Oracle to Oravle
+- - Heterogenous migrations: ex Migration SQL Server to Aurora
+
+- Continuous Data Replication using CDC
+
+- You must create an EC2 instance to perform the replication tasks
+-----------
+DMS Sources and Targets
+A:
+Sources:
+- - On-premise and EC2 instances databases: Oracle, MS SQL Server, MySQL, MariaDB, PostgreSQL, MongoDB, SAP, DB2
+- - Azure: Azure SQL Database
+- - Amazon RDS: all including Aurora
+- - Amazon S3
+
+
+Targets:
+- - On-Premise and EC2 instances databases: Oracle, MS SQL Server, MySQL, MariaDB, PostgreSQL, SAP
+- - Amazon RDS
+- - Amazon Redshift
+- - Amazon DynamoDB
+- - Amazon S3
+- - ElastiSearch Service
+- - Kinesis Data Streams
+- - DocumentDB
+-----------
+AWS Schema Conversion Tool (SCT)
+A:
+- Convert your database's Schema from one engine to another
+- Example OLTP: (SQL Server or Oracle) to MySQL, PostgreSQL, Aurora
+- Example OLAP: (Teradata or Oracle) to Amazon Redshift
+
+- You do not need to use SCT if you are migrating the same DB engine
+ - - EX: On-premise PostgreSQL => RDS PostgreSQL
+ - - The DB engine is still PostgreSQL (RDS is the platform)
+-----------
+On-premise Strategy with AWS
+A:
+- Ability to download Amazon Linux 2 AMI as a VM (.iso format) 
+- - VMware, KVM, Virtualbox (Oracle VM), Microsoft Hyper-V
+
+- VM Import / Export
+- - Migrate existing applications into EC2
+- - Create a DR repository 
+- - Can export back the VMs from EC2 to on-premise
+
+- AWS Application Discovery Service
+- - Gather information about your on-premise servers to plan a migration
+- - Server utilization and dependency mappings
+- - Track with AWS Migration Hub
+
+- AWS Database Migration Server (DMS)
+- - Replicate On-premise => AWS, AWS => AWS, AWS => On-premise
+- - Works with various database technologies (Oracle, MySQL, DynamoDB, etc...)
+
+- AWS Server Migration Service (SMS)
+- - Incremental replication of on-premise live servers to AWS
+-----------
+AWS DataSync
+A:
+- Move large amount of data from on-premise to AWS
+- Can synchronize to : Amazon S3, Amazon EFS, Amazon FSx for Windows
+- Move data from your NAS or file system via NFS or SMB
+- Replication tasks can be scheduled hourly, daily, weekly
+- Leverage the DataSync agent to connect your systems
+-----------
+Transferring large amount of data into AWS
+A:
+- Example: transfer 200 TB of data in the cloud. We have a 100Mbps internet connection
+
+- Over the internet / Site-To-Site VPN:
+- - Immediate to setup
+- - Will take 185 days
+
+- Over direct connect 1 Gbps:
+- - Long for the one-time setup (over a month)
+- - Will take 18.5 days
+
+- Over Snowball:
+- - Will take 2 to 3 snowballs in parallel 
+- - Takes about 1 week for the end-to-end transfer
+
+- Over Snowball
+- - Will take 2 to 3 snowballs in parallel
+- - Takes about 1 week for the end-to-end transfer
+- - Can be combined with DMS
+
+- For on-going replication / transfers: Site-to-Site VPN or DX with DMS or DataSync
+-----------

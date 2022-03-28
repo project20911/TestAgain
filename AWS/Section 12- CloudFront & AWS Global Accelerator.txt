@@ -1,0 +1,152 @@
+What is an overview of AWS CloudFront?
+A:
+AWS CloudFront is and does the following,
+
+- Content Delivery Network (CDN)
+- Improves read performance, content is cached at the edge
+- 216 Point of Presence globally (edge locations)
+- DDoS protection integration with Shield, AWS Web Application Firewall
+- Can expose external HTTPS and can talk to internal HTTPS backends
+-----------
+What are the possible CloudFront origins?
+A:
+- S3 bucket
+- - For distributing files and caching them at the edge
+- - Enhanced security with CloudFront Origin Access Identify (OAI)
+- CloudFront can be used as ingress ( to upload files to S3 )
+
+- - Custom Origin (HTTP)
+- Application Load Balancer 
+- EC2 instance 
+- S3 website (must first enable the bucket as a status S3 website)
+- Any HTTP backend you want
+-----------
+How does CloudFront Geo Restriction work?
+A:
+- You can restrict who can access your distribution 
+- - Whitelist: Allow your users to access your content only if they're in one of the countries on a list of approved countries.
+- - Blacklist: Prevent your users from accessing your content if they're in one of the countries on a blacklist of banned countries.
+
+- The "country" is determined using a 3rd party Geo-IP database
+-----------
+What is the difference between CloudFront and S3 Cross Region Replication?>
+A:
+- CloudFront:
+- - Global Edge Network
+- - Files are cached for a TTL (maybe a day)
+- - Great for static content that must be available everywhere
+
+- S3 Cross Region Replication:
+- - Must be setup for each region you want replication to happen
+- - Files are updated in near real-time
+- - Read only
+- - Great for dynamic content that needs to be available at low-latency in few regions
+-----------
+Overview of CloudFront Signed URL / Signed Cookies
+A:
+- You want to distribute paid shared content to premium users over the world.
+- We can use CloudFront Signed URL / Cookies. We attach a policy with:
+- - Includes URL expiration
+- - Includes IP ranges to access the data from
+- - Trusted signers (which AWS accounts can create signed URLS)
+
+- How long should the URL be valid for?
+- - Shared content (movie, music): make it short (a few minutes)
+- - Private content (private to the user): you can make it last for years
+
+- Signed URL = access to individual files (one signed URL per file)
+- Signed Cookies = access to multiple files (one signed cookie for many files)
+-----------
+CloudFront Signed URL vs S3 Pre-Signed URL
+A:
+- CloudFront Signed URL:
+- - Allow access to a path, no matter the origin
+- - Account wide key-pair, only the root can manage it
+- - Can filter by IP, path, date, expiration
+- - Can leverage caching features
+
+- S3 Pre-Signed URL:
+- - Issue a request as the person who pre-signed the URL
+- - Uses the IAM key of the signing IAM principal
+- - Limited lifetime
+-----------
+What is the AWS Global Accelerator (General info / AnyCast)?
+A:
+- Leverage the AWS internal network to route to your application
+- 2 Anycast IP are created for your application
+- The Anycast IP send traffic directly to Edge Locations
+- The Edge locations send the traffic to your application
+-----------
+What is the AWS Global Accelerator?
+A:
+- Works with Elastic IP, EC2 instances, ALB, NLB, public or private
+- Consistent Performance
+- - Intelligent routing to lowest latency and fast regional failover
+- - No issue with client cache (because the IP doesn't change)
+- - Internal AWS network
+- Health Checks
+- - Global Accelerator performs a health check of your applications
+- - Helps make your application global (failover less than 1 minute for unhealthy)
+- - Great for disaster recovery (thanks to the health checks)
+- Security
+- - only 2 external IP need to be whitelisted
+- - DDoS protection thanks for AWS Shield
+-----------
+AWS Global Accelerator vs CloudFront
+A:
+- They both use the AWS global network and its edge locations around the world
+- Both services integrate with AWS shield for DDoS protection.
+
+- CloudFront
+- - Improves performance for both cacheable content (such as images and videos)
+- - Dynamic content (such as API acceleration and dynamic site delivery)
+
+- Global Accelerator
+- - Improves performance for bot cacheable content (such as images and videos)
+- - Proxying packets at the edge to applications running in one or more AWS regions.
+- - Food fit for non-HTTP use cases, such as gaming (UDP), IoT (MQTT), or Voice over IP
+- - Good for HTTP use cases that require status IP addresses
+- - Good for HTTP use cases that required deterministic, fast regional faiover
+-----------
+Which features allows us to distribute paid content from S3 securely, globally, if the S3 bucket is secured to only exchange data with CloudFront?
+A:
+CloudFront Signed URL
+
+CloudFront Signed URL are commonly used to distribute paid content through dynamic CloudFront Signed URL generation.
+-----------
+You are hosting highly dynamic content in Amazon S3 in us-east-1. Recently, there has been a need to make that data available with low latency in Singapore. What do you recommend using?
+A:
+S3 Cross Region Replication
+
+S3 CRR allows you to replicate the data from one bucket in a region to another bucket in another region
+-----------
+How can you ensure that only users who access our website through Canada are authorized in CloudFront?
+A:
+Use CloudFront Geo Restriction
+-----------
+You would like to provide your users access to hundreds of private files in your CloudFront distribution, which is fronting an HTTP web server behind an application load balancer. What should you use?
+A:
+CloudFront Signed Cookies
+-----------
+You are creating an application that is going to expose an HTTP REST API. There is a need to provide request routing rules at the HTTP level. Due to security requirements, your application can only be exposed through the use of two static IPs. How can you create a solution that validates these requirements?
+A:
+Use Global Accelerator and an Application Load Balancer
+-----------
+What does this S3 bucket policy do?
+
+{
+"Version":"2012-10-17",
+"Id":"Mystery policy",
+"Statement":[
+{
+"Sid":"What could it be?",
+"Effect":"Allow",
+"Principal":{"CanonicalUser":"CloudFront Origin Identity Canonical User ID"},
+"Action":"s3:GetObject",
+"Resource":"arn:aws:s3:::examplebucket/*"
+}
+]
+}
+A:
+Only allows the S3 bucket content to be accessed from your CloudFront distribution origin identity
+-----------

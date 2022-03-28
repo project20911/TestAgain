@@ -1,0 +1,255 @@
+AWS STS - Security Token Service
+A:
+- Allows to grant limited and temporary access to AWS resources.
+
+- Token is valid for up to one hour (must be refreshed)
+
+- AsssumeRole
+ - - Within your own account: for enhanced security
+ - - Cross Account Access: assume role in target account to perform actions there
+
+- AssumeRoleWithSAML
+ - - Return credentials for users logged with SAML
+
+- AssumeRoleWithWebIdentity
+ - - return creds for users logged with an idP ( Facebook login, Google login, OIDC compatible... )
+
+- GetSessionToken
+ - - For MGA, from a user or AWS account root user
+-----------
+Using STS to Assume a Role
+A:
+- Define an IAM Role within your account or cross-account
+- Define which principals can access this IAM Role
+- Use AWS STS (Security Token Service) to retrieve credentials and impersonate the IAM Role you have access to (AssumeRole API)
+- Temporary credentials can be valid between 15 minutes to 1 hour
+-----------
+Identity Federation in AWS
+A:
+- Federation lets users outside of AWS to assume temporary role for accessing AWS resources
+
+- These users assume identity provided access role.
+
+- Federations can have many flavors:
+ - - SAML 2.0
+ - - Custom Identity Broker
+ - - Web Identity Federation with Amazon Cognito
+ - - Single Sign On
+ - - Non-SAML with AWS Microsoft AD
+
+- Using Federation, you don't need to create IAM users (user management is outside of AWS)
+-----------
+SAML 2.0 Federation
+A:
+- To integrate Active Directory / ADFS with AWS (or any SAML 2.0)
+
+- Provides access to AWS Console or CLI (through temporary creds)
+
+- No need to create an IAM user for each of your employees
+-----------
+SAML 2.0 Federation (cont..d)
+A:
+- Needs to setup a trust between AWS IAM and SAML (both ways)
+
+- SAML 2.0 enables web-based, cross domain SSO
+
+- Uses the STS API: AssumeRoleWithSAML
+
+- Note federation through SAML is the "old way" of doing things
+
+- Amazon Single Sign On (SSO) Federation is the new managed and simpler way
+ - - Read more in the AWS documentation (if needed)
+-----------
+Custom Identity Broker Application
+A:
+- Use only if identity provider is not compatible with SAML 2.0
+- The identity broker must determine the appropriate IAM policy
+- Uses the STS API: AssumeRole or GetFederationToken
+-----------
+AWS Cognito
+A:
+- Goal
+ - - Provide direct access to AWS Resources from the Client Side (mobile, web app)
+
+- Example
+ - - provide (temporary) access to write to S3 bucket using Facebook login
+
+- Problem
+ - - We don't want to create IAM users for our app users
+
+- How
+ - - Log in to federated identity provider - or remain anonymous
+ - - Get temporary AWS credentials back from the Federated Identity Pool
+ - - These credentials come with a pre-defined IAM policy statins their permissions
+-----------
+What is Microsoft Active Directory (AD)
+A:
+- Found on any Windows Server with AD Domain Services
+- Database of objects: User aAccounts, Computers, Printers, File Shares, Security Groups
+- Centralized security management, create account, assign permissions
+- Objects are organized in trees 
+- A group of trees is a forest
+-----------
+AWS Directory Services
+A:
+- AWS Managed Microsoft AD
+ - - Crea your own AD in AWS, manage users locally, supports MFA
+ - - Establish a "trust" connections with your on-premis AD
+
+- AD Connector
+ - - Directory Gateway (proxy) to redirect to on-premis AD
+
+- Simple AD
+ - - AD-compatible managed directory on AWS
+ - - Connect be joined with on-premise AD
+-----------
+AWS Organizations
+A:
+- Global Service
+- Allows to manage multiple AWS accounts
+- The main account is the master account - you can't change it
+- Other accounts are member accounts
+- Member accounts can only be part of one organizagtion
+- Pricing benefits from aggregated usage (volume discount for EC2, S3...)
+- API is available to automate AWS account creation
+-----------
+Multi Account Strategies
+A:
+- Create accounts per department, per cost center, per dev /test / prod, based on regulatory restrictions (using SCP), for better resource isolation (ex: VPC), to have separate per-account service limits, isolated account for logging
+
+- Multi Account vs One Account Multi VPC
+- Use tagging standards for billing purposes 
+- Enable CloudTrail on all accounts, send logs to central S3 account
+- Send CloudWatch logs to central logging account
+- Establish Cross Account Roles for Admin purposes
+-----------
+Service Control Policies (SCP)
+A:
+- Whitelist or Blacklist IAM actions
+- Applied at the OU or Account level
+- Does not apply the Master Account 
+- SCP is applied to all the Users and Roles of the Account, including root
+- The SCP does not affect service-linked roles 
+ - - Service-linked roles enable other AWS services to integrate with AWS Organizations
+- SCP must have an explicit Allow (does not allow anything by default)
+
+- Use Cases:
+ - - Restrict access to certain services (for example: can't use EMR)
+ - - Enforce PCI compliance by explicitly disabling services
+-----------
+AWS Organization - Moving Accounts
+A:
+To migrate accounts from one organization to another:
+1. Remove the member account from the old organization
+2. Send an invite to th new organization
+3. Accept the invite to the new organization from the member account
+
+If you want the master account of the old organization to also join the new organization, do the following:
+
+1. Remove the member accounts from the organizations using procedure above
+2. Delete the old organization 
+3. Repeat the process above to invite the old master account to the new org
+-----------
+IAM for S3
+A:
+- ListBucket permission applies to 
+ - - arn:aws:s3:::test
+- bucket level permission
+
+
+- GetObject, PutObject,
+DeleteObject applies to
+ - - arn:aws:s3:::test/*
+ - - object level permission
+-----------
+IAM Roles vs Resource Based Policies
+A:
+- When you assume a role (user, application or service), you give up your original permissions and take the permissions assigned to the role
+
+- When using a resource based policy, the principal doesn't have to give up his permissions
+
+- Example: User in account A needs to scan a DynamoDB table in Account A and dump it in an S3 bucket in Account B
+
+- Support By: Amazon S3 buckets, SNS topics, SQS queues
+-----------
+IAM Permission Boundaries
+A:
+- IAM Permission Boundaries are support for users and roles (not groups)
+
+- Advanced feature to use a managed policy to set the maximum permissions an IAM entity can get.
+-----------
+IAM Permission Boundaries (cont.d)
+A:
+- Can be used in combinations of AWS Organizations SCP
+
+Use cases
+- Delegate responsibilities to non administrators within their permission boundaries, for example create new IAM users
+
+- Allow developers to self-assign policies and manage their own permissions, while making sure they can't "escalate" their privileged (= make themselves admin)
+
+- Useful to restrict one specific user (instead of a whole account using Organizations & SCP)
+-----------
+AWS Resource Access Manager (RAM)
+A:
+- Share AWS resources that you own with other AWS accounts
+- Share with any account within your Orginazation 
+- Avoid resource duplication!
+- VPC Subnets:
+ - - Allow to have all the resources launched in the same subnets
+ - - Must be from the same AWS Organizations.
+ - - Cannot share security groups and default VPC
+ - - Participants can manage their own resources in there
+ - - Participants can't view, modify, delete resources that belong to other participants or the owner
+
+- - AWS Transit Gatewawy
+
+- - Route53 Resolver Rules
+
+- - License Manager Configurations
+-----------
+Resource Access Manager - VPC Example
+A:
+- Each account...
+- - is responsible for its own resources
+- - cannot view, modify or delete other resources in other accounts
+
+- Network is shared so...
+- - Anything deployed in the VPC can talk to other resources in the VPC
+- - Applications are accessed easily accross accounts, using private IP!
+- - Security groups from other accounts can be referenced for maximum security
+-----------
+AWS Single Sign-On (SSO)
+A:
+- Centrally manage Single Sign-On to access multiple accounts and 3rd party business applications.
+- Intefrated with AWS Organizations 
+- Supports SAML 2.0 markup
+- Integration with on-premise Active Directory
+- Centralized permission management
+- Centralized auditing with CloudTrail
+-----------
+We need to gain access to a Role in another AWS account. How is it done?
+A:
+Answer: We should use the STS service to gain temporary credentials
+
+Note: STS will allow us to get cross account access through the creation of a role in our account authorized to access a role in another account. See more here: https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html
+Question 1:
+-----------
+You have a mobile application and would like to give your users access to their own personal space in Amazon S3. How do you achieve that?
+A:
+Answer: Use Cognito Identity Federation
+
+
+Note: Cognito is made to federate mobile user accounts and provide them with their own IAM policy. As such, they should be able thanks to that policy to access their own personal space in Amazon S3.
+-----------
+You have strong regulatory requirements to only allow fully internally audited AWS Services in production. You still want to allow your teams to experiment in development environments while services are being audited. How can you best set this up?
+A:
+Answer: Create an AWS Organization and create two Prod and Dev OU. Apply a SCP on PROD
+-----------
+Which AWS Directory Service allows you to proxy requests to your on-premise active directory?
+A:
+Answer: AD Connector
+-----------
+You have an on-premise active directory setup and would like to provide access for your on-premise users to the multiple accounts you have in AWS. The solution should scale to adding accounts in the future. What do you recommend?
+A:
+Answer: Setup AWS Single Sign-On
+-----------

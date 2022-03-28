@@ -1,0 +1,395 @@
+Serverless in AWS
+A:
+- AWS Lambda
+- DynamoDB
+- AWS Cognito
+- AWS API Gateway
+- Amazon S3
+- AWS SNS & SQS
+- AWS Kinesis Data Firehose
+- Aurora Serverless
+- Step Functions
+- Fargate
+-----------
+Why AWS Lambda (EC2 vs Lambda)
+A:
+Amazon EC2: 
+- Virtual Servers in the Cloud
+- Limited by RAM and CPU
+- Continuously running
+- Scaling means intervention to add / remove servers
+
+Amazon Lambda:
+- Virtual functions - no servers to manage!
+- Limited by time - short executions
+- Run on-demand
+- Scaling is automated
+-----------
+Benefits of AWS Lambda
+A:
+Easy Pricing:
+- pay per request and compute time
+- Free tier of 1,00,000 AWS lambda requesrs and 400,000 GBs of compute time
+
+- Integrated with the whole AWS suite of services
+- Integrated with many programming languages
+- Easy monitoring through AWS CloudWatch
+- Easy to get more resources per functions ( up to 3GB of RAM! )
+- Increasing RAM will also improve CPU and network!
+-----------
+AWS Lambda Pricing: example
+A:
+You can find overall pricing information here:
+ - https://aws.amazon.com/lambda/pricing
+ 
+- Pay per calls:
+ - - First 1,000,000 requests are free
+ - - $0.20 per 1 million requests thereafter ($0.0000002 per request)
+ 
+- Pay per duration: 
+ - - 400,000 GB-seconds of compute time per month if FREE
+ - - == 400,000 seconds if function is 1GB RAM
+ - - == 3,200,000 seconds if function is 128MB RAM
+ - - After that $1.00 for 600,000 GB-seconds
+
+- It is usually very cheap to run AWS lambda so it's very popular
+-----------
+AWS Lambda Limits to Know - per region
+A:
+Execution:
+- Memory allocation: 128MB - 3008 MB (64 MB increments)
+- Maximum execution time: 900 seconds ( 15 minutes )
+- Environment variables (4KB)
+- Disk capacity in the "function container" (in /tmp) :512 MB
+- Concurrency executions: 1000 (can be increased)
+
+Deployment:
+- Lambda function deployment size ( compressed .zip ): 50 MB
+- Size of uncompressed deployment (code + dependencies: 250 MB
+- Can use the /tmp directory to load other files at startup
+- Size of the environment variables: 4KB
+-----------
+AWS Lambda language support
+A:
+- Node.JS (javascript)
+- Python
+- Java
+- C#
+- Golang
+- C# / Powershell
+- Ruby
+- Custom Runtim API (community supported, example Rust)
+
+- Important: Docker is not for AWS Lambda, it's for ECS / Fargate
+-----------
+Lambda@Edge: Use Cases
+A:
+- Website Security and Privacy
+- Dynamic Web Application at the Edge
+- Search Engine Optimization (SEO)
+- Intelligently Route Across Origins and Data Centers
+- Bot Mitigation at the Edge
+- Real-time Image Transformation
+- A/B testing
+- User authentication and Authorization
+- User prioritization
+- UserTracking and Analytics
+
+Note: Whenever you need to integrate lambda function with CDN
+-----------
+DynamoDB - High IOverview
+A:
+- Fully managed, Highly available with replication across 3 AZ
+- NoSQL database - not a relational database
+- Scaled to massive workloads, distributed database
+- Millions of requests per seconds, trillions of row, 100s of TB of storage
+- Fast and consistent in performance (low latency on retrieval)
+- Integrated with IAM for security, authorization and administration 
+- Enables event driven programming with DynamoDB Streams
+- Low cost and auto scaling capabilities
+-----------
+DynamoDB - Basics
+A:
+- DynamoDB is made of tables
+- Each table has a primary key (must be decided at creation time)
+- Each table can have an infinite number of items (=rows)
+- Each item has attributes (can be added over time - can be null)
+- Maximum size of a item is 400KB
+- Data types supported are:
+ - - ScalarTypes: String, Number, Binary, Boolean, Null
+ - - Document Types: List, Map
+ - - SetTypes: String Set, Number Set, Binary Set
+-----------
+DynamoDB - Provisioned Throughput
+A:
+- Table must have provisioned read and write capacity units
+
+- Read Capacity Units (RCU): Throughput for reads 
+- - 1 RCU = 1 Strongly consistent read of 4 KB per second
+ - - 1 RCU = 2 eventually consistent
+
+- Write Capacity Units (WCU): throughput for writes
+- - 1 WCU = 1 write of 1 KB per second
+
+- Option to setup auto-scaling of throughput to meet demand
+- Throughput can be exceeded temporarily using "burst credit"
+- If burst credit are empty, you'll get a "ProvisionedThroughputException"
+- It's then advised to do an exponential back-off retry
+-----------
+DynamoDB - DAX
+A:
+- DAX = DynamoDB Accelerator
+- Seamless cache for DynamoDB, no application re-write
+- Writes go through DAX to DynamoDB
+- Micro seconds latency for cached reads & queries 
+- Solves the Hot Key problem (too many reads)
+- 5 minutes TTL for cache by default
+- Up to 10 nodes in the cluster
+- Multi AZ (3 nodes minimum recommended for production)
+- Secure (Encryption at rest with KMS, VPC, IAM, CloudTrail...)
+-----------
+DynamoDB Streams
+A:
+- Changes in DynamoDB (Create, Update, Delete) can end up in a DynamoDB Stream
+- This stream can be read by AWS Lambda, and we can then do:
+ - - React to changes in real time ( welcome email to new users)
+ - - Analytics
+ - - Create derivative tables / views 
+ - - Insert into ElasticSearch
+
+- Could implement cross region replication using Streams
+- Steam has 24 hours of data retention
+-----------
+DynamoDB - New Features
+A:
+Transaction (new from Nov 2018)
+- All or nothing type of operations
+- Coordinated Inster, Update & Delete across multiple tables
+- Include up to 10 unique items or up to 4 MB of data
+
+On Demand (new from NOV 2018):
+- No capacity planning needed (WCU / RCU) - scaled automatically
+- 2.5x more expensive than provisioned capacity (use with care)
+- Helpful when spikes are un-predictable or the application is very low throughput
+-----------
+DynamoDB - Security & Other Features
+A:
+- Security:
+- - VPC Endpoints available to access DynamoDB without internet
+- - Access fully controlled by IAM
+- - Encryption at rest using KMS
+- - Encryption in transit using SSL / TLS
+
+- Backup and Restore feature avaialble
+- - Point in time restore like RDS
+- - No performance impact
+
+- Global Tables
+- - Multi region, fully replicated, high performance
+
+- Amazon DMS can be used to migrate to DynamoDB (from Mongo, Oracle, MySQL, S3, etc...)
+- You can launch a local DynamoDB on your computer for development purposes
+-----------
+DynamoDB - Other Features
+A:
+- Global Tables: (cross region replication)
+- - Active Active replication, many regions
+- - Must enable DynamoDB streams
+- - Useful for low latency, DR purposes
+
+- Capacity planning:
+- - PLanning capacity: provision WCU & RCU, can enable auto scaling
+- - On-demand capacity: get unlimited WCU & RCU, no throttle, more expensive
+-----------
+AWS API Gateway
+A:
+- AWS Lambda + API Gateway: No infrastructure to manage
+- Support for the WebSocket Protocol
+- Handle API versioning (v1, v2...)
+- Handle different environments (dev, test, prod....)
+- Handle security (Authentication and Authorization)
+- Create API keys, handle request throttling
+- Swagger / Open API import to quickly define APIs
+- Transform and validate requests and responses 
+- Generate SDK and API speicifications
+- Cache API responses
+-----------
+API Gateway - Integrations High Level
+A:
+- Lambda Function
+- - Invoke Lambda Function 
+- - Easy way to expose REST API backed by AWS Lambda
+
+- HTTP
+- - Expose HTTP endpoints in the backend
+- - Example: internal HTTP API on premise, Application Load Balancer
+- Why? Add rate limited, caching, user authentications, API keys, etc...
+
+- AWS Service 
+- - Expose any AWS API through the API Gateway?
+- - Example: start an AWS Step Function workflow, post a message to SQS
+-----------
+API Gateway - Endpoint Types
+A:
+- Edge-Optimized : For global clients
+- - Requests are routed through the Cloud Font Edge locations (improved latency)
+- - The API Gateway still lives in only on region
+
+- Regional:
+- - For clients within the same region
+- - Could manually combine with CloudFront(more control over the caching strategies and the distribution)
+
+- Private:
+- - Can only be access from your VPIC using an interface VPC endpoint (ENI)
+- Use a resource policy to define access
+-----------
+API Gateway - Security (IAM Permissions)
+A:
+IAM Permissions:
+- Create an IAM policy authorization and attach to User / Role 
+- API Gateway verifies IAM permissions passed by the calling application
+- Good to provide access within your own infrastructure 
+- Leverages "Sig v4" capability where IAM credential are in headers
+-----------
+API Gateway - Security (Lambda Authorizer - formerly Custom Authorizers)
+A:
+Lambda Authorizer - formerly Custom Authorizers:
+- Uses AWS Lambda to validate the token in header being passed
+- Option to cache result of authentication
+- Helps to use OAuth / SAML / 3rd party type of authentication
+- Lambda must return an IAM policy for the user
+-----------
+API Gateway - Security (Cognito User Pools)
+A:
+Cognito User Pools
+- Cognito fully manages user lifecycle
+- API Gateway verifies identity automatically from AWS Cognito
+- No custom implementation required 
+- Cognito only helps with authentication, not authorization
+-----------
+API Gateway - Security - Summary
+A:
+- IAM
+- - Great for users / roles already within your AWS account
+- - Handle authentication + autorization
+- - Leverages Sig v4
+
+- Custom Authorizer
+- - Great for 3rd party tokens
+- - Very flexible in terms of what IAM policy is returned 
+- - Pay per lambda invocation
+
+- Cognito User Pool:
+- - You manage your own user pool (can be backed by Facebook, Google login etc....)
+- - No need to write any custom code
+- - Must implement authorization in the backend
+-----------
+AWS Cognito
+A:
+- We want to give our users an identity so that they can interact with our application.
+
+- - Cognito User Pools:
+- - - Sign in functionality for app users
+- - - Integrate with API Gateway
+
+- - Cognito Identity Pools (Federated Identity):
+- - - Provide AWS credentials to suers so they can access AWS resources directly 
+- - - Integrate with Cognito User Pools as an identity provider
+
+- - Cognito Sync:
+- - - Synchronize data from device to Cognito
+- - - May be deprecated and replaced by AppSync
+-----------
+AWS Cognito User Pools (CUP)
+A:
+- Create a serverless database of user for your mobile apps
+- Simple login: Username (or email) / password combination
+- Possibility to verify emails / phone numbers and add MFA
+- Can enable Federated Identities (Facebook, Google, SAML...)
+- Send back a JSON Web Token (JWT)
+- Can be integrated with API Gateway for authentication
+-----------
+AWS Cognito -Federated Identity Pools
+A:
+- Goal:
+- - Provide direct access to AWS Resources from the Client Side
+
+- How: 
+- - Log in to federated identity provider - or remain anonymous
+- - Get temporary AWS credentials back from the Federated Identity Pool
+- - These credentials come with a pre-defined IAM policy stating their permissions
+
+- Eample:
+- - provide (temporary) access to write to S3 bucket using Facebook login
+-----------
+AWS Cognito Sync
+A:
+- Deprecated - use AWS AppSync now
+
+- Store preferences, configuration, state of app
+- Cross device synchronization (any playform, iOS, Android, etc....)
+- Offline capability (synchronization when back online)
+- Requires Federated Identity Pool in Cognito (not User Pool)
+- Store data in datasets (up to 1MB)
+-----------
+AWS Sam - Serverless Application Model
+A:
+- SAM = Serverless Application Model
+
+- Framework for developing and deploying serverless applications
+
+- All the configuration is YAML code
+- - Lambda Functions
+- - DynamoDB tables
+- - API Gateway
+- - Cognito User Pools
+
+- SAM can help you to run Lambda, API Gateway, DynamoDB locally
+- SAM can use CodeDeploy Lambda functions
+-----------
+You have a Lambda function that will process data for 25 minutes before successfully completing. The code is working fine in your machine, but in AWS Lambda it just fails with a "timeout" issue after 3 seconds. What should you do?
+A:
+Run your code somewhere else than Lambda - the maximum timeout is 15 minutes
+-----------
+You'd like to have a dynamic DB_URL variable loaded in your Lambda code
+A:
+Answer: Place it in the environment variables
+
+Note: Environment variables allow for your Lambda to have dynamic variables from within
+-----------
+We have to provision the instance type for our DynamoDB database
+A:
+Answer: false
+
+Note: DynamoDB is a serverless service and as such we don't provision an instance type for our database. We just say how much RCU and WCU we require for our table (or auto scaling)
+-----------
+A DynamoDB table has been provisioned with 10 RCU and 10 WCU. You would like to increase the RCU to sustain more read traffic. What is true about RCU and WCU?
+A:
+RCU and WCU are decoupled, so WCU can stay the same
+-----------
+You are about to enter the Christmas sale and you know a few items in your website are very popular and will be read often. Last year you had a ProvisionedThroughputExceededException. What should you do this year?
+A:
+Answer: Create a DAX cluster
+
+Note: A DynamoDB Accelerator (DAX) cluster is a cache that fronts your DynamoDB tables and caches the most frequently read values. They help offload the heavy reads on hot keys off of DynamoDB itself, hence preventing the ProvisionedThroughputExceededException
+-----------
+You would like to automate sending welcome emails to the users who subscribe to the Users table in DynamoDB. How can you achieve that?
+A:
+Answer: Enable DynamoDB Streams and have the Lambda function receive the events in real-time
+-----------
+To make a serverless API, I should integrate API Gateway with
+A:
+Answer: Lambda
+
+Note: Lambda is a serverless technology
+-----------
+You would like to provide a Facebook login before your users call your API hosted by API Gateway. You need seamlessly authentication integration, you will use
+A:
+Answer: Cognito User Pools
+
+Note: Cognito User Pools directly integration with Facebook Logins
+-----------
+Your production application is leveraging DynamoDB as its backend and is experiencing smooth sustained usage. There is a need to make the application run in development as well, where it will experience unpredictable, sometimes high, sometimes low volume of requests. You would like to make sure you optimize for cost. What do you recommend?
+A:
+Provision WCU & RCU and enable auto-scaling for production and use on-demand capacity for development
+-----------

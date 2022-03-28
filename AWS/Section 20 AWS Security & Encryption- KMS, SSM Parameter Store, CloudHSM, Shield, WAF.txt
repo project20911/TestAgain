@@ -1,0 +1,268 @@
+Encryption in flight (SSL)
+A:
+- Data is encrypted before sending and decrypted after receiving
+- SSL certificates help with encryption (HTTP)
+- Encryption in flight ensured no MITM (man in the middle attach) can happen
+-----------
+Server side encryption at rest
+A:
+- Data is encrypted after being received by the server
+- Data is decrypted before being sent
+- It is stored in an encrypted form thanks to a key (usually a data key)
+- The encryption / decryption keys must be managed somewhere and the server must have access to it
+-----------
+Client side encryption
+A:
+- Data is encrypted by the client and never decrypted by the server
+- Data will be decrypted by a receiving client
+- The server should not be able to decrypt the data 
+- Could leverage Envelope Encryption
+-----------
+AWS KMS (Key Management Service)
+A:
+- Anytime you hear "encryption" for an AWS service, it's most likely KMS
+- Easy way to control access to your data, AWS manages keys for us
+- Fully integrated with IAM for authorization
+- Seamlessly integrated into:
+ - - Amazon EBS: encrypt volumes
+ - - Amazon S3: server side encryption of objects
+ - - Amazon Redshift: encryption of data
+ - - Amazon RDS: encryption of data
+ - - Amazon SSM: Parameter store
+ - - etc...
+- But you can also use the CLI / SDK
+-----------
+KMS - Customer Master Key (CMK) Types
+A:
+- Symmetric (AES-256 keys)
+ - - First offering of KMS, single encryption key that is used to Encrypt and Decryot
+ - - AWS services that are integrated with KMS use Symmetric CMKs
+ - - Necessary for envelope encryption
+ - - You never get access to the Key unencrypted (must call KMS API to use)
+
+- Asymmetric (RSA & ECC key pairs)
+ - - Public (Encrypt) and Private Key (Decrypt) pair
+ - - Used for encrypt/decrypt, or Sign/Verify operations 
+ - - The public key is downloadable, but you access the Private Key unencrypted 
+ - - Use case: encryption outside of AWS by users who can't call the KMS API
+-----------
+AWS KMS (Key Management Service)
+A:
+- Able to fully manage the keys & policies:
+ - - Create 
+ - - Rotation policies
+ - - Disable
+ - - Enable
+
+- Able to audit key usage (using CloudTrail)
+
+- Three types of Customer Master Keys (CMK):
+ - - AWS Managed Service Default CMK: free
+ - - User Keys created in KMS: $1 / month
+ - - User keys imported (must be 256-bit symmetric key): $1 / month
+- + pay for API call to KMS ($0.03 / 1000 calls)
+-----------
+AWS KMS 101
+A:
+- Anytime you need to share sensitive information... use KMS 
+ - - Database passwords 
+ - - Credentials to external service
+ - - Private Key of SSL certificates
+
+- The value in KMS is that the CMK used to encrypt data can never be retrieved by the user, and the CMK can be rotated for extra security
+
+
+- Never ever store your secrets in plaintext, especially in your code!
+
+- Encrypted secrets can be stored in the code / environment variables
+
+- KMS can only help in encrypting up to 4KB of data per call
+
+- If data > 4 KB, use envelope encryption
+
+- To give access to KMS to someone:
+ - - Make sure the Key Policy allows the user
+ - - Make sure the IAM Policy allows the API calls
+-----------
+KMS Key Policies
+A:
+- Control access to KMS keys, "similar" to S3 bucket policies
+
+- Difference: you cannot control access without them
+
+- Default KMS Key Policy:
+ - - Created if you don't provide a specific KMS Key Policy
+ - - Complete access to the key to the root user = entire AWS account
+ - - Gives access to the IAM policies to the KMS key
+
+- Custom KMS Key Policy:
+ - - Define users, roles that can access the KMS key
+ - - Define who can administer the key
+ - - Useful for cross-account access of your KMS key
+-----------
+Copying Snapshots across accounts
+A:
+1. Create a Snapshot, encrypted with your own CMK
+2. Attach a KMS key policy to authorize cross-account access
+3. Share the encrypted snapshot
+4. (in target) Create a copy of the Snapshot, encrypt it with a KMS key in your account
+5. Create a volume from the snapshot
+-----------
+SSM Parameter Store
+A:
+- Secure storage for configuration and secrets
+- Optional Seamless Encryption using KMS
+- Serverless, scalable, durable, easy SDK
+- Version tracking of configurations / secrets
+- Configuration management using path & IAM
+- Notifications with CloudWatch Events
+- Integration with CloudFormation
+-----------
+SSM Parameter Store Hierarchy
+A:
+- /my-department/
+ -- my-app/
+ --- dev/
+ --- db-url
+ --- db-password
+ --- prod/
+ --- db-url
+ --- db-password
+-----------
+Parameters Policies (for advanced parameters)
+A:
+- Allow to assign a TTL to a parameter (expiration date) to force updating or deleting sensitive data such as passwords 
+
+- Can assign multiple policies at a time
+-- Expiration (to delete a parameter)
+-- ExpirationNotification (cw events)
+-- NoChangeNotification (CW Events)
+-----------
+AWS Secrets Manager
+A:
+- Newer service, meant for storing secrets
+- Capability to force rotation of secrets every X days
+- Automate generation of secrets on rotation (uses Lambda)
+- Integration with Amazon RDS (MySQL, PostGreSQL, Aurora)
+- Secrets are encrypted using KMS
+
+- Mostly meant for RDS integration
+-----------
+CloudHSM
+A:
+- KMS => AWS manages the software for encryption
+- CloudHSM => AWS provisions encryption hardware
+- Dedicated Hardware (HSM = Hardware Security Module)
+- You manage your own encryption keys entirely (not AWS)
+- HSM device is tamper resistant, FIPS 140-2 Level 3 compliance
+- CloudHSM clusters are spread across Multi AZ (HA) - must setup
+- Supports both symmetric and asymmetric encryption (SSL / TLS keys)
+- No free tier available
+- Must use the CloudHSM Client Software
+- Redshift supports CloudHSM for database encryption and key management
+- Good option to use with SSE-C encryption
+-----------
+AWS Shield
+A:
+- AWS Shield Standard:
+ - - Free service that is activated for every AWS customer
+ - - Provides protection from attacks such as SYN/UDP Floods, Reflection attacks and other layer 3/layer 4 attacks
+
+- AWS Shield Advanced:
+ - - Optional DDoS mitigation service ($3,000 per month per organization
+ - - Protect against more sophisticated attack on Amazon EC2, Elastic Load Balancing (ELB), Amazon CloudFront, AWS Global Accelerator, and Route 53
+ - - 24/7 Access to AWS DDoS response team (DRP)
+ - - Protect against higher fees during usage spikes due to DDoS
+-----------
+AWS WAF - Web Application Firewall
+A:
+- Protects your web applications from common web exploits (layer 7)
+- Layer 7 is HTTP (vs Layer 4 is TCP)
+- Deploy on Application Load Balancer, API Gateway, CloudFront
+
+- Define WEB ACL (Web Access Control List):
+ - - Rules can include: IP Addresses, HTTP headers, HTTP body, or URI strings
+ - - Protects from common attack - SQL injection and Cross-site Scripting (XSS)
+ - - Size constraints, geo-math (block countries)
+ - - Rate-based rules (to count occurrences of events) - for DDoS protection
+-----------
+AWS Firewall Manager
+A:
+- Manage rules in all accounts of an AWS organization
+
+- Common set of security rules
+- WAF rules (Application Load Balancer, API Gateways, CloudFront)
+- AWS Shield Advanced (ALB, CLB, Elastic IP, CloudFront)
+- Security Groups for EC2 and ENI resources in VPC
+-----------
+AWS Shared Responsibility Model
+A:
+- AWS responsibility - Security of the Cloud
+ - - Protecting infrastructure (hardware, software, facilities, and networking) that runs all of the AWS services
+ - - Managed services like S3, DynamoDB, RDS etc
+
+- Customer responsibility - Security in the Cloud
+ - - For EC2 instance, customer is responsible for management of the guest OS (including security patches and updates), firewall & network configuration, IAM etc
+-----------
+To enable encryption in flight, we need to have
+A:
+Answer: An HTTPS endpoint with a SSL certificate
+
+Note: encryption in flight = HTTPS, and HTTPs cannot be enabled without an SSL certificate
+-----------
+Server side encryption means that the data is sent encrypted to the server first
+A:
+Answer: false
+
+Note: Server side encryptions means the server will encrypt the data for us. We don't need to encrypt it beforehand
+-----------
+In server side encryption, only the encryption happens on the server. Where does the decryption happen?
+A:
+Answer: The Server
+
+
+Note: In server side encryption, the decryption also happens on the server (in AWS, we wouldn't be able to decrypt the data ourselves as we can't have access to the corresponding encryption key)
+-----------
+In client side encryption, the server must know our encryption scheme to accept the data
+A:
+Answer: False
+
+Note: With client side encryption, the server does not need to know any information about the encryption being used, as the server won't perform any encryption or decryption tasks
+-----------
+We need to create User Keys in KMS before using the encryption features for EBS, S3, etc...
+A:
+Answer: false
+
+
+Note: we can use the AWS Managed Service Keys in KMS, therefore we don't need to create our own keys
+-----------
+We'd like our Lambda function to have access to a database password. We should
+A:
+Answer: Have it as an encrypted variable and decrypt it at runtime
+
+
+Note: This is the most secure solution amongst the options
+-----------
+We would like to audit the values of an encryption value over time
+A:
+Answer: We should use SSM Parameter Store
+
+Note: SSM Parameter Store has versioning and audit of values built-in directly
+-----------
+Under the shared responsibility model, what are you responsible for in RDS?
+
+1. Security Group Rules
+2. OS Patching
+3. Database Patching
+4. Underlying hardware security
+A:
+Answer: Security Group Rules
+-----------
+Your user-facing website is a high risk target for DDoS attack and you would like to get 24/7 support in case they happen, as well as AWS bill reimbursement for the incurred costs during the attacks. What service should you use?
+A:
+Answer: AWS Shield Advanced
+-----------
+You need an encryption service that supports asymmetric encryption schemes, and you want to manage the security keys yourself. Which service could you use?
+A:
+Answer: CloudHSM
+-----------

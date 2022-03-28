@@ -1,0 +1,325 @@
+Choosing the Right Database
+A:
+- We have a lot of managed databases on AWS to choose from
+
+- Questions to choose the right database on your architecture:
+- - Read-heavy, write-heavy, or balanced workload? Throughput needs? Will it change, does it need to scale or fluctuate during the day?
+- - How much data to store and for how long? Will it grow? Average object size? How are they accessed?
+- - Data durability? Source of truth for the data?
+- - Latency requirements? Concurrent users?
+- - Data model? How will you query the data? Joins? Structured? Semi-structured?
+- - Strong schema? More flexibility? Reporting? Search? RBDMS / NoSQL?
+- - License costs? Switch to Cloud Native DB such as Aurora?
+-----------
+Database Types (choosing the right DB)
+A:
+- RDBMS (= SQL / OLTP): RDS, Aurora - great for joins
+- NoSQL Database: DynamoDB (~JSON), ElastiCache (key / value pairs), Neptune (graphs) - no joins, no SQL
+- Object Store: S3 (for big objects) / Glacier (for backups / archives)
+- Data Warehouse (=SQL Analytics / BI: Redshift (OLAP), Athena
+- Search: ElastiSearch (JSON) - free text, unstructured searches
+- Graphs: Neptune - Displays relationships between data
+-----------
+RDS Overview
+A:
+- Managed PostgreSQL / MySQL / Oracle / SQL Server
+- Must provision an EC2 instance & EBS volume type and size
+- Support for Read Replicas and Multi AZ
+- Security through IAM, Security Groups, KMS, SSL in transit
+- Backup / Snapshot / Point in time restore feature
+- Managed and Scheduled maintenance
+- Monitoring through CloudWatch
+
+
+- Use case: Store relational datasets ( RDBMS / OLTP ), perform SQL queries, transactional inserts / update / delete is available
+-----------
+RDS for Solutions Architect
+A:
+- Operations: Small downtime when failover happens, when maintenance happens, scaling in read replicas / ec2 instance / restart EBS implies manual intervention, application changes
+
+- Security: AWS responsible for OS security, we are responsible for setting up KMS, security groups, IAM policies, authorizing users in DB, using SSL
+
+- Reliability: Multi AZ feature, failover in case of failures
+
+- Performance: depends on EC2 instance type, EBS volume type, ability to add Read Replicas. Doesn't auto-scale
+
+- Cost: Pay per hour based on provisioned EC2 and EBS
+-----------
+Aurora Overview
+A:
+- Compatible API for PostgreSQL / MySQL
+- Data is held in 6 replicas, across 3 AZ
+- Auto healing capability
+- Multi AZ, Auto Scaling Read Replicas
+- Read Replicas can be Global
+- Aurora database can be Global for DR or latency purposes
+- Auto scaling of storage from 10GB to 64 TB
+- Define EC2 instance type for aurora instances
+- Same security / monitoring / maintenance features as RDS
+- "Aurora Serverless" option
+
+
+- Use case: same as RDS, but with less maintenance / more flexibility / more performance
+-----------
+Aurora for Solutions Architect
+A:
+- Operations: less operations, auto scaling storage
+
+- Security: AWS responsible for OS security, we are responsible for setting up KMS, security groups, IAM policies, authorizing users in DB, using SSL
+
+- Reliability: Multi AZ, highly avaialble, possibly more than RDS, Aurora Serverless option.
+
+- Performance: 5x performance (according to AWS) due to architectural optimizations. Up to 15 Read Replicas ( only 5 for RDS)
+
+- Cost: Pay per hour based on EC2 and storage usage. Possibly lower costs compared to Enterprise-grade databases such as Oracle
+-----------
+ElastiCache Overview
+A:
+- Managed Redis / Memcached (similar offering as RDS, but for caches)
+
+- In-memory data store, sub-millisecond latency
+
+- Must provision an EC2 instance type
+
+- Support for clustering (Redis) and Multi AZ, Read Replicas (sharding)
+
+- Security through IAM, Security Groups, KMS, Redit Auth
+
+- Backup / Snapshot / Point in time restore feature
+
+- Managed and Scheduled maintenance
+
+- Monitoring through Cloudwatch
+
+
+- Use Case: Key/Value store, Frequent reads, less writers, cache results for DB queries, store session data for websites, cannot use SQL
+-----------
+ElastiCache for Solutions Architect
+A:
+- Operations: same as RDS
+
+- Security: AWS responsible for OS security, we are responsible for setting up KMS, security groups, IAM policies, users (Redis Auth), using SSL.
+
+- Reliability: Clustering, Multi AZ
+
+- Performance: Sub-millisecond performance, in memory, read replicas for sharding, very popular cache option
+
+- Cost: Pay per hour based on EC2 and storage usage
+-----------
+DynamoDB Overview
+A:
+- AWS proprietary technology, managed NoSQL database
+- Serverless, provisioned capacity, auto scaling, on demand capacity (Nov 2018)
+- Can replace ElastiCache as a key/value store (storing session data for example)
+- Highly Available, Multi AZ by default, Read and Write are decoupled, DAX for read cache
+- Reads can be eventually consistent or strongly consistent 
+- Security, authentication and authorization is done through IAM
+- DynamoDB Streams to integrate with AWS Lambda
+- Backup / Restore feature, GlobalTable feature
+- Monitoring through CloudWatch
+- Can only query on primary key, sort key, or indexes
+
+
+- Use Case: Serverless applications development (small documents 100s KB), distributed serverless cache, doesn't have SQL query language available, has transactions capability from Nov 2018
+-----------
+DynamoDB for Solutions Architect
+A:
+- Operations: no operations needed, auto scaling capability, serverless
+
+- Security: full security through IAM policies, KMS encryption, SSL in flight
+
+- Reliability: Multi AZ, Backups
+
+- Performance: Single digit millisecond performance, DAX for caching reads, performance doesn't degrade if your application scales
+
+- Cost: Pay per provisions capacity and storage usage ( no need to guess in advanced any capacity - can use auto scaling)
+-----------
+S3 Overview
+A:
+- S3 is a.... key / value store for objects
+
+- Great for big objects, not so great for small objects
+
+- Serverless, scales infinitely, max object size is 5TB
+
+- Eventually consistency for overwrites and deleted
+
+- Tiers: S3 Standard, S3 IA, S3 One Zone IA, Glacier for backups
+
+- Features: Versioning, Encryption, Cross Region Replication, etc...
+
+- Security: IAM, Bucket Policies, ACL
+
+- Encryption: SSE- S3, SSE-KMS, SSE-C, client side encryption, SSL in transit
+
+
+
+- Use Case: Status files, key value store for big files, website hosting
+-----------
+S3 for Solutions Architect
+A:
+- Operations: no operations needed
+
+- Security: IAM, Bucket Policies, ACL, Encryption (Server/Client), SSL
+
+- Reliability: 99.9999999% durability / 99.99% availability, Multi AZ, CRR
+
+- Performance: Scales to thousands of read / writes per second, transfer acceleration / multi-part for big files
+
+- Cost: pay per storage usage, network cost, request number
+-----------
+Athena Overview
+A:
+- Fully Serverless database with SQL capabilities
+- Used to query data in S3
+- Pay per query
+- Output results back to S3
+- Secured through IAM
+
+
+
+- Use Case: one time SQL queries, serverless queries on S3, log analytics
+-----------
+Athena for Solutions Architect
+A:
+- Operations: no operations needed, serverless
+
+- Security: IAM + S3 security
+
+- Reliability: managed service, uses Presto engine, highly avilable
+
+- Performance: queries scale based on data size
+
+- Cost: pay per query / per TB of data scanned, serverless
+-----------
+Redshift Overview
+A:
+- Redshift is based on Postgre SQL, but it's not used for OLTP
+- It's OLAP - Online Analytical Processing (analytics and data wharehousing)
+
+(The above is all you really need to know)
+
+- 10x better performance than other data warehouses, scale to PBs of data
+- Columnar storage of data (instead of row based)
+- Massively Parallel Query Execution (MPP), highly available
+- Pay as you go based on the instances provisioned 
+- Has a SQL interface for performing the queries
+- BI tools such as AWS Quicksight or Tableau integrate with it
+-----------
+Redshift - Snapshots & DR
+A:
+- Snapshots are pont-in-time backups of a cluster, stored internally in S3
+- Snapshots are incremental (only what has changed is saved)
+- You can restore a snapshot into a new cluster
+- Automated: every 8 hours, evert 5GB, or on a schedule. Set retention 
+- Manual: snapshot is retained until you delete it
+
+
+- You can configure Amazon Redshift to automatically copy snapshots ( automated or manual ) of a cluster to another AWS region
+-----------
+Redshift Spectrum
+A:
+- Query data that is already in S3 without loading it
+- Must have a Redshift cluster available to start the query
+- The query is then submitted to thousands of Redshift Spectrum nodes
+-----------
+Redshift for Solutions Architect
+A:
+- Operations: Similar to RDS
+- Security: IAM, VPC, KMS, SSL (similar to RDS)
+- Reliability: Highly available , auto healing features
+- Performance: 10x performance vs other data warehousing, compression
+- Cost: pay per node provisioned, 1/10th of the cost vs other warehouses
+
+
+
+- Remember: Redshift = Analytics / BI / Data Warehouse
+-----------
+Neptune Overview
+A:
+- Fully managed graph database
+
+- When do we use Graphs?
+ - - High relationship data
+ - - Social networking: users friends with Users, replied to comments on post of user and likes other comments
+ - - Knowledge graphs(Wikipedia)
+
+- Highly available across 3 AZ, with up to 15 read replicas
+
+- Point-in-time recovery, continuous backup to Amazon S3
+
+- Support for KMS encryption at rest + HTTPS
+-----------
+Neptune for Solutions Architect
+A:
+- Operations: Similar to RDS
+
+- Security: IAM, VPC, KMS, SSL, (similar to RDS) + IAM Authentication
+
+- Reliability: Multi-AZ, clustering
+
+- Performance: best suited for graphs, clustering to 
+improve performance
+
+- Cost: pay per node provisioned (similar to RDS)
+
+
+- Remember: Neptune = Graphs
+-----------
+ElasticSeach Overview
+A:
+- Example: In DynamoDB, you can only find by primary key or indexes.
+
+- With ElasticSearch, you can search any field, even partial matches
+
+- It's common to use ElasticSearch as a complement to another database
+
+- ElasticSearch also has some usage for Big Data applications
+
+- You can provision a cluster of instances
+
+- Built-in integrations: Amazon Kinesis Data Firehose, AWS IoT, and Amazon CloudWatch Logs for data ingestion
+
+- Security through Cognito & IAM, KMS encryption, SSL & VPC
+-----------
+Which database helps you store data in a relational format, with SQL language compatibility and capability of processing transactions?
+A:
+RDS
+-----------
+Which database do you suggest to have caching capability with a Redis compatible API?
+A:
+Answer: ElastiCache
+
+Note: ElastiCache can create a Redis cache or a Memcached cache
+-----------
+You are looking to perform OLTP, and would like to have the underlying storage with the maximum amount of replication and auto-scaling capability. What do you recommend?
+A:
+Aurora
+-----------
+As a solution architect, you plan on creating a social media website where users can be friends with each other, and like each other's posts. You plan on performing some complicated queries such as "What are the number of likes on the posts that have been posted by the friends of Mike?". What database do you suggest?
+A:
+Neptune
+
+This is AWS' managed graph database
+-----------
+You would like to store big objects of 100 MB into a reliable and durable Key Value store. What do you recommend?
+A:
+S3
+
+S3 is indeed a key value store! (where the key is the full path of the object in the bucket)
+-----------
+You would like to have a database which is efficient at performing analytical queries on large sets of columnar data. You would like to connect that Data Warehouse to a reporting and dashboard tool such as Amazon Quicksight. Which technology do you recommend?
+A:
+Redshift
+-----------
+Your log data is currently stored in S3 and you would like to perform a quick analysis if possible serverless to filter the logs and find a user which may have completed an unauthorized action. Which technology do you recommend?
+A:
+Athena
+-----------
+Your gaming website is currently running on top of DynamoDB. Users have been asking for a search feature to find other gamers by name, with partial matches if possible. Which technology do you recommend to implement that feature?
+A:
+ElasticSearch
+
+
+Anytime you see "search", think ElasticSearch
+-----------

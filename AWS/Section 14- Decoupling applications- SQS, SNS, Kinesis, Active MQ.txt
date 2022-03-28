@@ -1,0 +1,448 @@
+When you start deploying multiple applications, they will inevitably need to communicate with one another. What are the two patterns of application communication?
+A:
+1) Synchronous communications (application to application)
+
+2) Asynchronous / Event based (application to queue to application
+-----------
+What could be 1 potential issue in synchronous communications between applications if there is a sudden spike of traffic? 
+And, what would be a solution?
+A:
+Sudden spikes of traffic may be problematic during sudden spikes of traffic
+
+Example: What if you need to suddenly encode 1000 videos, but usually it's 10?
+
+Solution: In that case, it's better to decouple your applications,
+- Using SQS: queue model
+- Using SNS: pub/sub model
+- Using Kinesis: real-time streaming model
+
+Those solutions can scale independently from the application.
+-----------
+How are SQS messages produced?
+A:
+- SQS messages are produced using the SDK (SendMessage API)
+-----------
+How long is a SQS message persisted (Standard Queue)?
+A:
+- The message(s) is persisted in SQS until a consumer deletes it
+-----------
+What is the message retention for SQS (Standard SQS)?
+A:
+- The message retention is default 4 days, up to 14 days.
+-----------
+What's an example of using SQS?
+A:
+- As an example, you can send orders to be processed. You can send the following,
+- - Order id
+- - Customer id
+- - Any attributes you want
+
+- Then the 'consumer' can consumer these messages at a later time. A consumer can be an EC2 instance, lamba, or general servers/applications
+-----------
+What's the throughput of SQS Standard?
+A:
+The SQS Standard throughput is unlimited.
+-----------
+What's an SQS consumer?
+A:
+A consumer can be a number of EC2 instance(s), servers, or AWS lambda. Anything that has the capability of consuming SQS messages via the API.
+-----------
+How many SQS messaged can be polled at a time?
+A:
+A consumer can receive up to 10 messages at a time.
+-----------
+What's an example of a consumer processing an SQS message?
+A:
+A consumer can process an SQS message by inserting the message into an RDS database, then deleting the message using the DeleteMessage API.
+
+It is advised to delete the processed message so that it does not get processed again by the same or another consumer.
+-----------
+Are the available SQS security features?
+A:
+- Encryption:
+- - In-flight encryption using HTTPS API
+- - At-rest encryption using KMS keys
+- - Client-side encryption if the client wants to perform encryption/decryption itself.
+
+- Access Controls:
+- - IAM policies to regulate access to the SQS API
+
+- SQS Access Policies (similar to S3 bucket policies)
+- - Useful for cross-account access to SQS queues.
+- - Useful for allowing other services (SNS, S3... ) to write to an SQS queue.
+-----------
+Amazon SQS - Message Visibility Timeout
+A:
+- After a message is polled b a consumer it becomes invisible to other consumers.
+- By default, the "message visibility timeout" is 30 seconds
+- That means the message has 30 seconds to be processed
+- After the message visibility timeout is over, the message is "visible" in SQS
+
+
+- If a message is not processed within the visilbity timeout, it will be processed twice.
+- A consumer could call the ChangeMessageVisibility API to get more time
+- If visibility timeout is high (hours), and consumer crashes, re-processing will take time
+- If visibility timeout is too low (seconds), we may get duplicates
+-----------
+Amazon SQS - Dead Letter Queue (DLQ)
+A:
+- If a consumer fails to process a message within the Visibility Timeout..... the message goes back to the queue.
+
+- We can set a threshold of how many times a message can go back to the queue
+
+- After the MaximumReceives threshold is exceeded, the message goes into a dead letter queue (DLQ)
+
+- A dead letter queue is useful for debugging
+
+- Make sure to process the messages in the DLQ before they expire:
+ - - Good to set retention of 14 days in the DLQ
+-----------
+Amazon SQS - Delay Queue
+A:
+- Delay a message (consumers don't see it immediately) up to 15 minutes
+- Default is 0 seconds (message is available right away)
+- Can set a default at queue level
+- Can override the default on send using the DelaySeconds parameter
+-----------
+Amazon SQS - FIFO Queue
+A:
+- FIFO = First In First Out (ordering of messages in the queue)
+- Limited throughput: 300 msg/s without batching, 3000 msg/s with
+- Exactly-once send capability (by removing duplicates)
+- Messages are processed in order by the consumer
+-----------
+Amazon SNS
+A:
+- The "event producer" only sends message to one SNS topic 
+- As many "event receivers" (subscriptions as we want to listen to the SNS topic notifications
+- Each subscriber to the tgopic will get all the messages (not: new feature to filter messages)
+- Up to 10,000,000 subscriptions per topicd
+- 100,000 topics limit
+- Subscribers can by:
+- - SQS
+- - HTTP / HTTPS (with delivery rates - how many times)
+- - Lambda
+- - Emails
+- - SMS Messages
+- - Mobile Notifications
+-----------
+AWS SNS - How to publish
+A:
+- Topic Publish (using the SDK)
+- - Create a topic
+- - Create a subscription (or many)
+- - Public to the topic
+
+- Direct Publish (for mobile apps SDK)
+- - Create a platform application
+- - Create a platform endpoint
+- - Publish to the platform endpoint
+- - Works with Google GCM, Apple APNS, Amazon ADM...
+-----------
+Amazon SNS - Security
+A:
+Encryption:
+- - In-flight encryption using HTTPS API
+- - At-rest encryption using KMS keys
+- - Client-side encryption if the client wants to perform encryption/decryption itself
+
+Access Controls: IAM policies to regulate access to the SNS API
+
+SNS Access Policies (similar to S3 bucket policies): 
+- - Useful for cross-account access to SNS topics
+- - Useful for allowing other services ( S3 ...) to write to an SNS topic
+-----------
+Amazon SNS - Topic Protocols
+A:
+The allowed topic protocols for AWS SNS:
+- - HTTP
+- - HTTPS
+- - Email
+- - Email-JSON
+- - Amazon SQS
+- - AWS Lambda
+-----------
+AWS SNS + SQS: Fan Out
+A:
+- Push once in SNS, receive in all SQS queues that are subscribers
+- Fully decoupled, no data loss
+- SQS allows for: data persistence, delayed processing and retires of work
+- Ability to add more SQS subscribers over time
+- Make sure your SQS queue access policy allows for SNS to write
+- !! SNS CANNOT send messages to SQS FICO queues (AWS Limitation) !!
+-----------
+AWS SNS + SQS: Use Case
+A:
+(Example) Application: S3 Events to multiple queues
+- For the same combination of: event type (e.g object create) and prefix (e.g. images/) you can only have one S3 Event rule
+- If you want to send the same S3 event to many SQS queues, use fan-out
+-----------
+AWS Kinesis Overview
+A:
+- Kinesis is a managed alternative to Apache Kafka
+- Great for application logs, metrics, IoT, clickstreams
+- Great for "real-time" big data
+- Great for streaming processing frameworks (Spark, NiFi, etc....)
+- Data is automatically replicated to 3 AZ
+
+- Kinesis Streams: low latency streaming ingest at scale
+- Kinesis Analytics: perform real-time analytics on streams using SQL
+- Kinsus Firehose: load streams into S3, Redshift, ElasticSearch....
+-----------
+AWS Kinesis Stream Overview
+A:
+- Streams are divided in ordered Shards / Partitions
+- Data retention is 1 day by default, can go u to 7 days
+- Ability to reprocess / replay data
+- Multiple applications can consume the same stream
+- Real-time processing with scale of throughput
+- Once data is inserted in Kinesis, it can't be deleted (immutability)
+-----------
+AWS Kinesis Streams: Shards
+A:
+- One stream is made of many different shards
+- 1MB/s or 1000 message/s at write per shard
+- 2MB/s at read PER SHARD
+- Billing is per shard provisioned, can have as many shards as you want
+- Batching available or per message calls.
+- The number of shards can evolve over time (reshard / merge)
+- Records are ordered per shard !
+-----------
+AWS Kinesis API - Put Records
+A:
+- PutRecord API + Partition key that gets hashed
+- The same key goes to the same partition (helps with ordering for a specific key)
+- Messages sent get a "sequence number"
+- Choose a partition key that is highly distributed (helps prevent "hot partition") 
+- - - user_id if many users
+- - - NOT country_id if 90% of the users are in one country (this will cause an unnecessary amount of data inputted into 1 shard without distribution, which causes a "hot partition")
+
+- Use Batching with PutRecords to reduce costs and increase throughput
+- PrivisionThroughtputExceeded response if received if we go over the limits 
+- Can use CLI, AWS SDK, or producer libraries from various frameworks
+-----------
+AWS Kinesis API - Exceptions
+A:
+ProvisionThroughputExceeded Exceptions:
+- Happens when sending more data ( exceeding MB/s or TPS for any shard)
+- Make sur you don't have a hot shard (such as your partition key is bad and too much data goes to that partition)
+
+Solution: 
+- Retires with backoff
+- Increase shards (scaling)
+- Ensure your partition key is a good one
+-----------
+AWS Kinesis API - Consumers
+A:
+- Can use a normal consumer (CLI, SDK, etc...)
+- Can use Kinesis Client Library (in Java, Node, Python, Ruby, .Net)
+- - KCL uses DynamoDB to checkpoint offsets
+- - KCL uses DynamoDB to track other workers and share to work amongst shards
+-----------
+AWS Kinesis Security
+A:
+- Control access / authorization using IAM policies
+- Encryption in flight using HTTPS endpoint
+- Encryption at rest using KMS
+- Possibility to encrypt / decrypt data client side (harder)
+- VPC Endpoints available for Kinesis to access within VPC
+-----------
+AWS Kinesis Data Firehose
+A:
+- Fully Managed Service, no administration, automatic scaling, serverless
+- Load data into Redshift / Amazon S3 / ElasticSearch / Splunk
+- Near Real Time
+ - - 60 seconds latency minimum for non full batches
+ - - Or minimum 32 MB of data at a time
+- Supports many data formats, conversions, transformations, compression
+
+- Pay for the amount of data going through Firehose
+-----------
+AWS Kinesis Data Streams vs Firehose
+A:
+- Streams 
+ - - Going to write custom code (producer / consumer)
+ - - Real time (~200 ms)
+ - - Must manage scaling (shard splitting / merging)
+ - - Data storage for 1 to 7 days, replay capability, multi consumers
+
+- Firehose
+ - - Fully managed, send to S3, Splunk, Redshift, ElasticSearch
+ - - Serverless data transformations with Lambda
+ - - Near real time (lowest buffer time is 1 minute)
+ - - Automated Scaling
+ - - No data storage
+-----------
+AWS Kinesis Data Analytics
+A:
+- Perform real-time analytics on Kinesis Streams using SQL
+- Kinesis Data Analytics:
+ - - Auto Scaling
+ - - Managed: no servers to provision
+ - - Continuous: real time
+- Pay for actual consumption rate
+- Can create streams out of the real-time queries
+-----------
+Ordering data into AWS Kinesis (example)
+A:
+- Imagine you have 100 trucks (truck_1, truck_2, ... truck_100) on the road sending their GPS positions regularly into AWS.
+- You want to consume the data in order for each truck, so that you ccan track their movement accurately.
+- How should you send that data into Kinesis?
+
+- Answer: send using a "Partition Key" value of the "truck_id"
+- The same key will always go to the same shard
+-----------
+Ordering data into AWS SQS (example)
+A:
+- For SQS standard, there is no ordering.
+- For SQS FIFO, if you don't use a Group ID, messages are consumed in the order they are sent, with only one consumer
+
+- You want to scale the number of consumers, but you want messages to be "grouped" when they are related to each other
+- Then you use a Group ID (similar to Partition Key in Kinesis)
+-----------
+Kinesis vs SQS ordering
+A:
+- Let's assume 100 trucks, 5 kinesis shards, 1 SQS FIFO
+
+- Kinesis Data Streams:
+ - - On average you'll have 20 trucks per shard
+ - - Trucks will have their data ordered within each shard
+ - - The maximum amount of consumers in parallel we can have is 5
+ - - Can receive up to 5 MB/s of data
+
+- SQS FIFO:
+ - - You only have one SQS FIFO queue
+ - - You will have 100 Group ID
+ - - You can have up to 100 Consumers (due to the 100 Group ID)
+ - - You have up to 300 messages per seconds (or 3000 if using batching)
+-----------
+SQS vs SNS vs Kinesis
+A:
+SQS:
+ - - Consumer "pull data"
+ - - Data is deleted after being consumed
+ - - Can have as many workers (consumers) as we want
+ - - No need to provision throughput
+ - - No ordering guarantee (except FIFO queues)
+ - - Individual message delay capability
+
+SNS:
+ - - Push data to many subscribers
+ - - Up to 10,000,000 subscribers 
+ - - Data is not persisted (list if not delivered)
+ - - Pub/sub (publish/subscribe)
+
+Kinesis:
+ - - Consumers "pull data" 
+ - - As many consumers as we want 
+ - - Possibility to replay data
+ - - Meant for real-time big data, analytics and ETL
+ - - Ordering at the shard level
+ - - Data expires after X days
+ - - Must provision throughput
+-----------
+Amazon MQ
+A:
+- SQS, SNS are "cloud-native" services, and they're using proprietary protocols from AWS
+- Traditional applications running from on-premis may use open protocols such as: MQTT, AMQP, STOMP, Openwire, WSS
+- When migrating to the cloud, instead of re-engineering the application to use SQS and SNS, we can use Amazon MQ
+- Amazon MQ = managed Apache ActiveMQ
+
+
+- Amazon MQ doesn't "scale" as much as SQS / SNS
+- Amazon MQ runs on a dedicated machine, can run in HA with failover
+- Amazon MQ has both queue feature (~SQS) and topic features (~SNS)
+-----------
+Amazon MQ: Endpoints / Ports
+A:
+- OpenWire 61617
+ - AMQP 5671
+ - STOMP 61614
+ - MQTT 8883
+ - WSS 61619
+-----------
+You are preparing for the biggest day of sale of the year, where your traffic will increase by 100x. You have already setup SQS standard queue. What should you do?
+A:
+- Do nothing, SQS scaled automatically
+-----------
+You would like messages to be processed by SQS consumers only after 5 minutes of being published to SQS. What should you do?
+A:
+Answer: Increase the DelaySeconds parameters
+
+
+Details: 
+Delay queues let you postpone the delivery of new messages to a queue for a number of seconds. If you create a delay queue, any messages that you send to the queue remain invisible to consumers for the duration of the delay period. The default (minimum) delay for a queue is 0 seconds. The maximum is 15 minutes
+-----------
+Your consumers poll 10 messages at a time and finish processing them in 1 minute. You notice that your messages are processed twice, as other consumers also receive the messages. What should you do?
+A:
+Answer: Increase the VisibilityTimeout
+
+
+Detail:
+Immediately after a message is received, it remains in the queue. To prevent other consumers from processing the message again, Amazon SQS sets a visibility timeout, a period of time during which Amazon SQS prevents other consumers from receiving and processing the message. Increasing the timeout gives more time to the consumer to process that message and will prevent duplicate readings of the message
+-----------
+You'd like your messages to be processed exactly once and in order. Which do you need?
+A:
+Answer: SQS FIFO Queue
+
+
+Detail:
+FIFO (First-In-First-Out) queues are designed to enhance messaging between applications when the order of operations and events is critical, or where duplicates can't be tolerated. FIFO queues also provide exactly-once processing but have a limited number of transactions per second (TPS).
+-----------
+You'd like to send a message to 3 different applications all using SQS. You should
+A:
+Answer: Use SNS + SQS Fan Out pattern
+
+
+
+Detail:
+This is a common pattern as only one message is sent to SNS and then "fan out" to multiple SQS queues
+-----------
+You have a Kinesis stream usually receiving 5MB/s of data and sending out 8 MB/s of data. You have provisioned 6 shards. Some days, your traffic spikes up to 2 times and you get a throughput exception. You should
+A:
+Answer: Add more shards
+
+
+Detail:
+Each shard allows for 1MB/s incoming and 2MB/s outgoing of data
+-----------
+You are sending a clickstream for your users navigating your website, all the way to Kinesis. It seems that the users data is not ordered in Kinesis, and the data for one individual user is spread across many shards. How to fix that problem?
+A:
+Answer: You should use a partition key that represents the identity of the user
+
+
+Detail:
+By providing a partition key we ensure the data is ordered for our users
+-----------
+We'd like to perform real time analytics on streams of data. The most appropriate product will be
+A:
+Answer: Kinesis
+
+
+Detail:
+Kinesis Analytics is the product to use, with Kinesis Streams as the underlying source of data
+-----------
+We'd like for our big data to be loaded near real time to S3 or Redshift. We'd like to convert the data along the way. What should we use?
+A:
+Answer: Kinesis Streams + Kinesis Firehose
+
+
+
+Detail: 
+This is a perfect combo of technology for loading data near real-time in S3 and Redshift
+-----------
+You want to send email notifications to your users. You should use
+A:
+Answer: SNS
+
+
+Detail: SNS has that feature by default
+-----------
+You have many microservices running on-premise and they currently communicate using a message broker that supports the MQTT protocol. You would like to migrate these applications and the message broker to the cloud without changing the application logic. Which technology allows you to get a managed message broker that supports the MQTT protocol?
+A:
+Answer: Amazon MQ
+
+
+
+Detail: Amazon MQ: Supports JMS, NMS, AMQP, STOMP, MQTT, and WebSocket
+-----------

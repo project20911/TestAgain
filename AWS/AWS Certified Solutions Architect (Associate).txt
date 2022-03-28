@@ -1,0 +1,1346 @@
+You will most likely need to run 'chmod 400 [key name].pem' to do what?
+A:Change permissions on the .pem file before you can use it to login via SSH.
+-----------
+You should use EFS (Elastic File System) for...
+A:* Big Data and analytics 
+* Media processing workflows 
+* Web serving and Content management 
+* etc.
+-----------
+You should use AWS defined policies to assign permissions wherever possible (T/F)
+A:True 
+
+Instead of defining permissions for individual IAM users, it's usually more convenient to create groups that relate to job functions (administrators, developers, accounting, etc.) and define relevant permissions there.
+-----------
+You should share credentials with applicatons that run on EC2 instances. (T/F)
+A:False 
+
+You should use roles for applications that run on EC2 instances. Applications that run on an EC2 instance need credentials in order to access other AWS services. To provide credentials in a secure way use IAM roles.
+-----------
+You should log in and do daily work as the root user (T/F)
+A:False It is best practice to log in and do daily work as an IAM user (NOT as the root user) Tags: IAM"
+-----------
+You should let your users configure their own password policy (T/F).
+A:False You should configure a strong password policy for your users. Tags: IAM"
+-----------
+You should delegate by sharing credentials (T/F)
+A:False Delegate by using roles instead of sharing credentials. Tags: IAM"
+-----------
+You should always monitor activity in your AWS account (T/F)
+A:True
+
+You can use logging features in AWS to determine the actions users have taken in your account and the resources that were used. The log files show the time and date of actions the source IP for an action which actions failed due to inadequate permissions and more.
+-----------
+You secure the EBS file system through...
+A:* Controlling the filesystem access using POSIX permissions 
+* VPC for network access control and IAM for API access control 
+* Encrypting data at rest using AWS Key Management Service (KMS)
+-----------
+You must use the DNS server provided by AWS for your VPC (T/F)
+A:False 
+
+AWS provides a DNS server for your VPC so each instance has a hostname. However, you can run your own DNS servers by changing the DHCP option set configuration within the VPC.
+-----------
+You get the best performance leveraging EFS when...
+A:using an AMI with Linux kernel 4.0 or newer.
+-----------
+You cannot delete a route table if....
+A:the route table has 'dependencies' (associated subnets).
+-----------
+You can use your own encryption keys to encrypt S3 objects (T/F)
+A:True 
+
+This is considered client side encryption where you encrypt the data BEFORE it is uploaded to S3
+-----------
+You can use __ to optimize cost vs. needed object availability/durability (s3)
+A:storage classes
+-----------
+You can use __ for bulk static object storage.
+A:s3
+-----------
+You can see the Access Key ID and the Secret Access Key in the AWS console (T/F)
+A:False 
+
+You can only see the Access Key ID in the console. Never the Secret Key ID
+-----------
+You can restrict access to s3 buckets by using ___
+A:s3 bucket policies/permissions
+-----------
+You can provision/terminate an on-demand instance at anytime (T/F)
+A:True
+-----------
+You can only have up to 5 IGWs attached to a VPC at a given time (T/F)
+A:False 
+
+You can only have one IGP attached to a VPC at a time.
+-----------
+You can only have one active route table in a VPC (T/F)
+A:False 
+
+Unlike an IGW you can have multiple active route tables in a VPC.
+-----------
+You can only assign a role to an EC2 instance during the instance's creation process (T/F)
+A:False 
+
+Until recently, you could only assign a role to an EC2 instance during the creation process. 
+
+However, you can now assign/change a role that is assigned to an EC2 instance after the creation process via the CLI or EC2 management console.
+-----------
+You can log into linux using a username and password (T/F)
+A:False 
+
+Linux instances have no password. You use a key pair to log in (using SSH).
+-----------
+You can download the private key associated with an EC2 instance from the AWS console any time (T/F)
+A:False 
+
+The private key can be downloaded and stored (in the form of a .pem file) 
+
+HOWEVER, it is only available once (when you create the key pair).
+-----------
+You can create your own AMIs (T/F)
+A:True
+
+You can choose from a list of free AWS/community provided AMIs, or choose a paid AMI from the AWS marketplace.
+-----------
+You can create custom AIM permission policies by (2):
+A:* Using the policy generator 
+* Writing from scratch
+-----------
+You can choose your own custom instance type configuration (T/F)
+A:False 
+
+There is a collection of preconfigured instance types that are grouped into families that you can choose from.
+-----------
+You can attach a key pair to an EC2 instance after the creation process (T/F)
+A:False 
+
+DURING the creation process of an EC2 instance you are required to either create a new key pair OR use an existing key pair (which will be associated with the instance).
+-----------
+You can always retrieve your API keys from the AWS console (T/F)
+A:False 
+
+API Keys are only available ONE time" when a new user is created OR when you reissue a new set of keys. 
+
+Save them!
+-----------
+You are responsible for the maintenance of the underlying server and the Xen hypervisor for your EC2 resources (T/F)
+A:False 
+
+Amazon handles the maintenance of physical hardware and the hypervisor.
+-----------
+Within a VPC you can configure routes between subnets via ___.
+A:Route tables
+-----------
+With spot pricing you are charged by the hour (with conditions) (T/F)
+A:True
+-----------
+With spot instances if you terminate an instance with a partial hour of usage you are responsible for paying for that hour (T/F)
+A:True
+-----------
+With spot instances if AWS terminates your instance in a partial hour of usage, you do not have to pay for that partial hour (T/F)
+A:True
+-----------
+With reserved instance purchases you can pay...
+A:*Upfront Partial 
+* Upfront
+* No Upfront
+-----------
+With on-demand instances you are only charged when the instance is running (T/F)
+A:True
+-----------
+With EFS you pay for the amount of storage that's currently provisioned (slightly above what you're using) (T/F)
+A:False 
+
+You only pay for the amount of storage you are using.
+-----------
+With EFS the storage capacity will increase and decrease as you add or remove files (T/F)
+A:True
+-----------
+With EC2
+A:" we can bootstrap the instance (during the creation process) with ____. custom commands (such as installing software packages" running updates and configuring other various settings). Tags: EC2
+-----------
+With a classic ELB
+A:" you must set granular routing rules (T/F) False There are no granular routing rules. All instances get routed to evenly and no special routing request can be made based on specific content requests from the user. Tags: ELB"
+-----------
+"Where are the public key and private key of an EC2 key pair stored?
+A:AWS stores the public on the EC2 instance and you are responsible for storing the private key. Tags: EC2"
+-----------
+When you have an active bid an instance is provisioned for you when...
+A:the spot price is equal to or less than your bid price.
+-----------
+When you create a VPC you must select an Availability Zone (T/F)
+A:False 
+
+When you create a VPC, it spans all of the AZs in the region.
+-----------
+When used within a VPC
+A:" an ELB can act as ___. an internal load balancer (to load balance to internal EC2 instances on private subnets (as often done with multi-tier applications)). Tags: ELB"
+-----------
+"When to use STS:
+A:Identity Federation: Enterprise identity federation (authenticate through your company's network). - (STS supports Security Assertion Markup Language (SAML) which allows for the use of MS AD (or your own solutions). Roles for Cross-Account Access Used for organizations that have more than one AWS account. Roles for Amazon EC2 (and other AWS services) - Grant access to an application running on an EC2 instance to access other AWS services without having to imbed credentials. Tags: IAM"
+-----------
+"When should you use Lambda over EC2?
+A:When you want to run code in response to events. For example: * Changes to S3 buckets * Updates to a DynamoDB table * Custom events generated by your applications or devices. Tags: Lambda"
+-----------
+When requested through an STS API call
+A:" credentials are returned with what three components? Security TokenAccess Key IDSecret Access Key Tags: IAM"
+-----------
+When enabled
+A:" ___ will provide you with a unique endpoint (URL) that you can point to any properly formatted file stored in an S3 bucket. static web hosting Tags: S3"
+-----------
+"When does volume initialization occur?
+A:Initializing occurs the first time a storage block on the volume is read and the performance impact can be up to 50%. You can avoid this impact in production by manually reading all the blocks. Tags: EC2"
+-----------
+When creating an EC2 instance
+A:" you must manually assign a public IP address (T/F) False YOu have the option to enable OR AUTO-ASSIGN a public IP address. Tags: EC2"
+-----------
+"When can an IGW not be detached from a VPC?
+A:When there are active AWS resources in the VPC (such as an EC2 instance or RDS database). Tags: VPC"
+-----------
+When a new AWS root account is created
+A:" it is 'best practice' to complete the tasks listed in IAM under 'security status'. (T/F) True Tasks include: Delete your root access keysActivate MFA on root accountCreate indifidual IAM usersUse groups to assign permissionsApply an IAM password policy Tags: IAM"
+-----------
+"What type(s) of interface will an instance launched into the default VPC have?
+A:Each instance launched in the default VPC (by default) has a private and public IP address (defined on the subnet settings). Tags: VPC"
+-----------
+What type of API call returns a security token
+A:an access key ID " and a secret access key? An IAM Security Token Service (STS) API call Tags: IAM"
+-----------
+What storage class do the following characteristics describe? * Designed for objects that you do not frequently access
+A:" but must be immediately available when you do need to access them * 99.99999999999% object durability * 99.90% object availability * Less expensive than RRS storage Infrequent Access (S3 - IA) Tags: S3"
+-----------
+What storage class do the following characteristics describe? * Designed for non-critical
+A:" reproducible objects * 99.99% object durability * 99.99% object availability * Less expensive than standard storage class Reduced Redundancy Storage (RRS) Tags: S3"
+-----------
+"What storage class do the following characteristics describe? * Designed for long-term archival storage (not to be used for backups) * May take several hours for objects stored to be retrieved * 99.9999999999% object durability * Cheapest S3 storage class (very low cost)
+A:Glacier Tags: S3"
+-----------
+"What should you use to assign IAM permission policies to more than one user at a time?
+A:IAM groups Tags: IAM"
+-----------
+"What should you enable for privileged users?
+A:MFA For extra security" enable multi-factor authentication (MFA) for privileged IAM users (users who are allowed access to sensitive resources or APIs). Tags: IAM
+-----------
+"What permissions are assigned to a newly created user by default?
+A:None When first created" by default an IAM User has a non-explicit 'deny' for all AWS services and does NOT have access to use them until a policy granting allow access has been applied to the user or a group the user belongs to. Tags: IAM
+-----------
+"What languages does Lambda currently support?
+A:* Node.js * Java * C# * Python Tags: Lambda"
+-----------
+"What is the purpose of the default VPC?
+A:To allow the user easy access to a VPC without having to configure it from scratch. Tags: VPC"
+-----------
+"What is the possible volume sizing for a Provisioned IOPS SSD?
+A:4 GiB to 16 TiB Tags: EC2"
+-----------
+"What is the limit on Security Groups per VPC?
+A:500 Security Groups per VPC Tags: VPC"
+-----------
+"What is the last rule in every ACL?
+A:A 'catch all' deny rule. This means that unless a protocol/port is explicitly allowed" it will be denied. Tags: VPC
+-----------
+"What is the difference between a NAT Gateway and a NAT instance?
+A:They perform the same function but one is a service managed by AWS (NAT Gateway) and the other is executed by configuring an EC2 instance to do the same job. Tags: Advanced Networking"
+-----------
+"What is the default VPC limit?
+A:5 VPCs per region Tags: VPC"
+-----------
+"What is the default limit on IGWs per region?
+A:5 IGWs per region. This is equal to your VPC limit because you can only have one IGW attached to a VPC at a time. Tags: VPC"
+-----------
+"What is the default limit on EIPs?
+A:5 EIPs per region Tags: EC2"
+-----------
+"What is suggested when launching instances into a placement group?
+A:* Launch all the required instances within a placement group in a single request. * Use the same instance tyep for all instances within the placement group. Tags: EC2"
+-----------
+"What is required when resources inside a VPC need to connect to resources via the open internet?
+A:An Internet Gateway Tags: VPC"
+-----------
+"What is required to maximize placement groups performance?
+A:Enhanced networking on the EC2 instances. Tags: EC2"
+-----------
+"What is considered the 'critical strong point' of the network?
+A:A bastion host is considered the 'critical strong point' of the network as all traffic must pass through it first. Tags: Advanced Networking"
+-----------
+"What is an IAM role?
+A:A role is something that another entity can 'assume'" and in doing so acquires the specific permissions defined in the role. Tags: IAM
+-----------
+"What is an IAM role?
+A:A role is an entity that has its own set of permissions" but that isn't a user or a group. Roles also don't have their own permanent set of credentials the way IAM users do. In the case of EC2 IAM dynamically provides temporary credentials to the EC2 instance and these credentials are automatically rotated for you. Tags: IAM
+-----------
+"What does virtualization refer to in AWS EC2?
+A:Using a 'portion' of a server's computing power and storage to set up and run an operating system. Tags: EC2"
+-----------
+"What does the following policy do?: { ""Version"": ""2012-10-17"", ""Statement"": [ { ""Effect"": ""Deny"", ""Action"": ""*"", ""Resource"": ""*"" } ] }
+A:Custome 'deny_all' policy Tags: IAM"
+-----------
+"What does the following policy do?: { ""Version"": ""2012-10-17"", ""Statement"": [ { ""Effect"": ""Allow"", ""Action"": ""*"", ""Resource"": ""*"" } ] }
+A:Grants admin access (allow all) Tags: IAM"
+-----------
+"What could you use for file shares and backup/archiving for hybrid networks?
+A:s3 (via AWS storage gateway) Tags: S3"
+-----------
+"What component provides NAT translation (public IP to private IP) for EC2 instances that have a public IP address(es) assigned?
+A:Internet Gateway Tags: VPC"
+-----------
+"What command displays bootstrapping commands?
+A:curl http:/168.254.169.254/latest/user-data/ Tags: EC2"
+-----------
+What command displays AMI
+A:instance type " etc? curl http:/168.254.169.254/latest/meta-data/ Tags: EC2"
+-----------
+"What can you use to mask the failure of an instance or software?
+A:An EIP by rapidly remapping the address to another instance in your account (i.e. detaching the EIP from one instance and attachign it to another). Tags: EC2"
+-----------
+"What can be used in conjuction with Object Versioning to create a great archiving and backup solution in S3?
+A:S3 Lifecycle Policies paste-b63df1b8bebec119490d0066bf6015980a033155.jpg paste-be173c4bde7d4743095acec855c04a778a64e16b.jpg Tags: S3"
+-----------
+"What are two best practices around credential management/hygeine?
+A:Rotate Credentials Regularly Change your own passwords and access keys regularly" and make sure that all IAM users in your account do as well. Remove Unnecessary Credentials Remove IAM user credentials (that is passwords and access keys) that are not needed. Tags: IAM
+-----------
+"What are the three types of AMIs?
+A:* Community AMIs - Free to use - Generally with these AMIs you're just selecting the OS that you want. * AWS Marketplace AMIs - Pay to use - Generally comes packaged with licensed software. * Custom AMIs - AMIs that you create yourself Tags: EC2"
+-----------
+"What are the three EBS types?
+A:* General Purpose SSD * Provisioned IOPS SSD * Magnetic Tags: EC2"
+-----------
+"What are the possible sizes of a General Purpose SSD?
+A:1 GiB to 16TiB Tags: EC2"
+-----------
+"What are the 2 AMI virtualization types?
+A:* HVM AMIs (Hardware Virtual Machine) * PV AMIs (Paravirtual AMIs) Tags: EC2"
+-----------
+"What 4 steps must you take to enable access to or from the internet for instances in a VPC subnet?
+A:Attach an IGW to your VPCEnsure the subnet's route table points to the IGWEnsure that the instances in your subnet have a public IP or an EIPEnsure that your NACL and Security Group rules allow the relevant traffic to and from your instance Tags: VPC"
+-----------
+"What 'entities' can assume an IAM role?
+A:AWS resources (such as an EC2 instance) or a non-AWS account holder who may need temporary access to an AWS resource (through a service like Active Directory) Tags: IAM"
+-----------
+What storage class do the following characteristics describe?: * Designed for general
+A:" all-purpose storage * Default storage option * 99.99999999999% object durability (11 9s) * 99.99% object availability * Most expensive storage class Standard Tags: S3"
+-----------
+"We can use ___ as a 'portal' to access EC2 instances that are located in a private subnet.
+A:bastion host Tags: Advanced Networking"
+-----------
+"VPCs allow you to extend your on-premise network into the cloud with ____
+A:VPN/VPG and an IPsec VPN tunnel Tags: VPC"
+-----------
+"VPC gives you the ability to define custom CIDR (IP addres range) inside each subnet. (T/F)
+A:True Tags: VPC"
+-----------
+"Volumes created from an EBS snapshot must be ____.
+A:initialized. Initializing occurs the first time a storage block on the volume is read and the performance impact can be up to 50%. You can avoid this impact in production by manually reading all the blocks. Tags: EC2"
+-----------
+"Virtualization type where the Amazon EC2 host system emulates some or all of the underlying hardware that is presented to the guest.
+A:HVM AMIs Tags: EC2"
+-----------
+Virtualization type where guests can run on host hardware that does not have explicit support for virtualization
+A:" but they cannot take advantage of special hardware extensions such as enhanced networking or GPU processing. PV AMIs (Paravirtual) Tags: EC2"
+-----------
+"Virtualization for EC2 is run using what hypervisor?
+A:Xen Tags: EC2"
+-----------
+"Versioning can only be set at the ___ level.
+A:bucket It applies to ALL objects in the bucket. Tags: S3"
+-----------
+"Versioning can be used with ___ to create a great archiving and backup solution in S3.
+A:lifecycle policies. Tags: S3"
+-----------
+"Versioning and lifecycle policies can both be enaled on a bucket at the same time (T/F)
+A:True Tags: S3"
+-----------
+"User credentials should be 'passed' to an EC2 instance when needed (T/F).
+A:False User credentials should NEVER be passed to an EC2 instances. (Use roles instead). Tags: EC2 IAM"
+-----------
+"Unable to add instances from a specific subnet to the ELB.
+A:Most likely the subnet that the instance lives in has not been added to the ELBs configuration. Tags: ELB Troubleshooting"
+-----------
+"Traffic is not making it to the instances even though security group rules are correct.
+A:Check the NACLs to ensure proper ports from proper sources are open. Check IGW and route table settings. Tags: Troubleshooting VPC"
+-----------
+"To log into an EC2 instance you must...
+A:create and authenticate with a key pair. Tags: EC2"
+-----------
+"This virtualization type provides the ability to run an operating system directly on top of a virtual machine without any modification (as if it were running on bare-metal hardware).
+A:HVM AMIs (Hardware Virtual Machine) Tags: EC2"
+-----------
+"This service automates the process of distributing incomming traffic evenly to all associated EC2 instances.
+A:Elastic Load Balancer (ELB) Tags: ELB"
+-----------
+"This EBS type is well suited for workloads that are not performance sensitive.
+A:Magnetic Tags: EC2"
+-----------
+"This EBS type is 'burstable'
+A:General Purpose SSD Tags: EC2"
+-----------
+These types of volumes are considered ephemeral data
+A:" meaning the data on the volumes only exists for the duration of the life of the instance. Instance-store volumes Tags: EC2"
+-----------
+"There are limits on the amount of instances you can have running in a region at any particular time (T/F)
+A:True Tags: EC2"
+-----------
+"The three types of IP addresses in EC2 are...
+A:* Private IP Address * Public IP Address * Elastic IP Address Tags: EC2"
+-----------
+"The STS API Calls are (5)...
+A:AssumeRole: Cross-account delegation and federation through a custom identity broker. AssumeRoleWithWebIdentity: Federation through an web-based identity provider. AssumeRoleWithSAML: Federation through an Enterprise identity provider compatible with SAML 2.0. GetFederationToken: Federation through a custom identity broker. GetSessionToken: Temporary credentials for users in untrusted environments. Tags: IAM"
+-----------
+"The private IP address is used for ___ communication between ___.
+A:internal (inside the VPC)" instances Tags: EC2
+-----------
+"The permissions in a bucket policy are applied to specified objects in the bucket (T/F).
+A:False Permissions are applied to ALL objects in a bucket. Tags: S3"
+-----------
+"The last rule written in an NACL will take precedence (T/F)
+A:False Rules are evaluated in order" starting with the lowest rule number. For example: If traffic is denied at a lower rule number and allowed at a higher rule number the allow rule will be ignored and the traffic will be denied. Tags: VPC
+-----------
+"The first thing you should do to your default VPC is attach an IGW (T/F)
+A:False Your default VPC already has an IGW attached. Tags: VPC"
+-----------
+The first rule found in a NACL that applies to the traffic type is immediately applied
+A:" regardless of any rules that come after it (have a higher #) (T/F) True Tags: VPC"
+-----------
+"The ELB is configured to listen on port 80 but traffic is not making it to the instances that belong to the ELB.
+A:You may have mistaken the 'listeners' rules for the SG rules. Listeners are not the same as SGs and port 80 still needs to be open on the SG that the ELB is using. Tags: ELB Troubleshooting"
+-----------
+"The default VPC has the same setup as a non-default VPC (T/F)
+A:False The default VPC has a different setup than a non-default VPC. Tags: VPC"
+-----------
+"The default VPC already has subnets created and associated with a route table (T/F)
+A:True Tags: VPC"
+-----------
+"The default VPC already has a 'main' route table (T/F)
+A:True Tags: VPC"
+-----------
+"The default limit on customer gateways per region is 50 (T/F)
+A:True Tags: VPC"
+-----------
+"The allow/deny rules in a Security Group are different from those in NACLs in what 3 main ways?
+A:Security groups support only allow rules (vs. NACLs which support allow and deny rules).Security Group rules are stateful so return traffic requests are allowed without explicit inbound rules set.All rules are evaluated before deciding to allow traffic (vs. NACLs where rules are evaluated in order by rule #). Tags: VPC"
+-----------
+"The ___ can grant access to the resource (buckets/objects) through ____ OR ____.
+A:resource owner" s3 resource based policies access can be granted through a traditional IAM user policy. Tags: S3
+-----------
+"The 'Principal of Least Privilege' states that
+A:you should grant a user only the permissions required to complete a task. Determine what users need to do then craft a policy that lets them complete only that task. Start with a minimum set of permissions and then grant additional permissions as necessary. Tags: IAM"
+-----------
+"The 'default' VPC in an account is created with no NACLs (T/F)
+A:False Your 'default' VPC already has a NACL and it is associated with the default subnets. Tags: VPC"
+-----------
+"Taking a snapshot has no performance ramifications for the volume being backed up (T/F)
+A:False When a snapshot is being taken against an EBS volume" it can degrade performance. Because of this snapshots should occur during non-production or non-peak load hours. Tags: EBS EC2
+-----------
+"SWF (definition)
+A:SWF (definition)1) A web service that makes it easy to coordinate work across distributed application component2) Enables application for a range of use cases" including media processing web applications backends business process workflows and analytics pipelines to be designed as a Tags:
+-----------
+"Suspending versioning does what?
+A:Only prevents new versions from being created. All objects with existing versions will maintain their older versions. Tags: S3"
+-----------
+"Supported formats for S3 static web hosting include...
+A:* HTML * CSS * JavaScript Tags: S3"
+-----------
+"Successfull site-to-site VPN connection but unable to access extended resources.
+A:Need to add on-premise routes to the VPG route table. Tags: Troubleshooting VPC"
+-----------
+"Subnets span all of the AZs in the region (T/F)
+A:False Subnets must reside entirely within one AZ and cannot span zones. Tags: VPC"
+-----------
+"Subnets must be associated with a route table (T/F)
+A:True Tags: VPC"
+-----------
+"STS credentials are for long-term use (T/F)
+A:False STS credentials are for short-term use" and can be active for a few minutes to several hours. Tags: IAM
+-----------
+"Spot pricing is a way for you to bid on an instance type and only pay for (and use) that instance when the spot price is equal to or below your bid price (T/F)
+A:True Tags: EC2"
+-----------
+"Spot prices fluctutate based on supply and demand in the spot marketplace (T/F)
+A:True Tags: EC2"
+-----------
+"Spot instances should be used for...
+A:non-production applications Tags: EC2"
+-----------
+"Spot instances provide a substantial discount (T/F)
+A:True Tags: EC2"
+-----------
+"Snapshots reduce cost by...
+A:only storing the changes since the most recent snapshot (you only have to pay for storage for the 'incremental changes' between snapshots). Tags: EBS EC2"
+-----------
+"Snapshots can be used to...
+A:create fully restored EBS volumes. Tags: EBS EC2"
+-----------
+"Snapshots are incremental in nature (T/F)
+A:True Tags: EBS EC2"
+-----------
+"Serverless means...
+A:you can run code without provisioning or managing servers. Tags: Lambda"
+-----------
+"Security groups are very similar to NACLs in that they_____.
+A:allow/deny traffic Tags: VPC"
+-----------
+"Security groups are technically on the ___ level.
+A:VPC Although generally referred to as being on the instance level" Security Groups are technicall on the VPC level. Tags: VPC
+-----------
+"Security groups are security for the ____.
+A:instance level (as opposed to the subnet level with NACLs). Tags: VPC"
+-----------
+"Security Groups
+A:""Security Groups1) Operates on the instance layer2) Supports """"allow"""" rules only3) Is """"stateful""""" so return traffic request are allowed regardless of rules4) Evaluates ALL rules before deciding to allow traffic Tags: VPC"
+-----------
+"Security Group best practice is to allow a broad range of traffic for flexiblity (T/F)
+A:Best practice is to allow ONLY traffic that is required. Tags: VPC"
+-----------
+"S3 versioning can be used to...
+A:manage/store all old/new/deleted versions of an object. Tags: S3"
+-----------
+"S3 SSE uses ___ encryption.
+A:AES-256 Tags: S3"
+-----------
+"s3 provides Object Versioning (T/F)
+A:True Tags: S3"
+-----------
+"S3 objects can be made publicly available via a ___.
+A:URL Tags: S3"
+-----------
+"s3 objects are scoped to ___ and synced across ___ for extremely high availability and durability.
+A:an AWS region" all AZs Tags: S3
+-----------
+"S3 objects are organized into ___ called ___.
+A:sub namespaces" folders Tags: S3
+-----------
+"S3 objects are ___ which contain ___ that includes ___ .
+A:static files that contain metadata information. * Set of name-key pairs * Contain inforation specified by the user" and AWS information such as storage type. Tags: S3
+-----------
+"S3 event notifications can be sent to the following AWS services:
+A:* SNS * Lambda * SQS Queue Tags: S3"
+-----------
+"S3 can provide SSE (server side encryption) (T/F)
+A:True S3 can encrypt the object before saving it and decrypt it when it is downloaded. Tags: S3"
+-----------
+"S3 can provide ___ endpoints for the API.
+A:SSL terminated Tags: S3"
+-----------
+"S3 Bucket Policies Elements: Actions
+A:S3 Bucket Policies Elements: Actions1) Identity resources operations that you allow or deny*NOTE: i.e. list objects/upload objects Tags: EC2"
+-----------
+"s3 access control lists do what?
+A:Grant access to the s3 bucket. For Example: * Grant access to users in other AWS accounts or to the public. Tags: S3"
+-----------
+"S3 (definition)
+A:S3 (definition)1) Provides developers and I.T. teams with secure" durable highly-scalable object storage2) Easy to use web interface to store and retrieve any amount of data from anywhere on the web3) Is a simple Key-value store Tags: EC2
+-----------
+"Roles can have API credentials associated with them (T/F)
+A:False Roles do not have API credentials Tags: IAM"
+-----------
+"Resource based policies for s3 are...
+A:Bucket policies * policies that are ONLY attached to the s3 bucket (not an IAM user). * The permissions in the policy are applied to all objects in the bucket. * The policy specifies what actions are allowed or denied for a particular user of that bucket such as: - Granting access to an anonymous User - Who (a 'principal') can execute certain actions like PUT or DELETE - Restricting access based off IP address (generally used for CDN management) s3 Access Control Lists * Grant access to users in other AWS accounts or to the public. * Both buckets and objects have ACLs * Object ACLs allow us to share an s3 object with the public via a URL link. Tags: S3"
+-----------
+"Reserved instance purchasing allows you to purchas an instance for a set time period of 1 or 3 years (T/F)
+A:True Tags: EC2"
+-----------
+"Reserved instance purchasing allows for a significant price discount over using on-demand (T/F)
+A:True Tags: EC2"
+-----------
+"Public and Private subnets Scalable architectureAbility to extend corporate/on-premise network to the cloud as if it were part of your network (VPN) are all features of...
+A:AWS VPCs Tags: VPC"
+-----------
+"Provisioned IOPS SSDs can provision up to ____ IOPS per volume.
+A:20" 000 Tags: EC2
+-----------
+"Power User Access grants...
+A:Admin access with the exception of user/group mangement. Tags: IAM"
+-----------
+"Policies can be directly attached to AWS resources (such as an EC2 instance) (T/F)
+A:False Policies cannot be directly attached to AWS resources. Tags: IAM"
+-----------
+"Placing instances in a private subnet creates a higher level of security but creates what issue?
+A:The limitation of the instances not being able to download software and software updates. Tags: Advanced Networking"
+-----------
+"Placement groups can span multiple AZs (T/F)
+A:False Tags: EC2"
+-----------
+"Placement groups can be 'connected' (T/F)
+A:True Tags: EC2"
+-----------
+"Placement group names must be globally unique (T/F)
+A:False Placement group names must be unique within your own AWS account. Tags: EC2"
+-----------
+"Operations that are greater than ___KB are separated into individual ___KB chunks.
+A:256 For example" a 512KB operation would count as 2 IOPS. Tags: EC2
+-----------
+"Only one IAM policy can be applied to a user at a time (T/F)
+A:False Users can have group and regular user policies applied to them. A user can have multiple IAM policies applied to them at any given time. Tags: IAM"
+-----------
+"Only buckets have ACLs in s3 (T/F)
+A:Both buckets AND objects have ACLs. Tags: S3"
+-----------
+"Only ___ buckets can be created in an AWS account at a time.
+A:100 Tags: S3"
+-----------
+"One way to review IAM permissions is by using...
+A:Access levels. When you review a policy" you can view the policy summary that includes a summary of the access level for each service within that policy. AWS categorizes each service action into one of four access levelsbased on what each action does: List Read Write or Permissions management. You can use these access levels to determine which actions to include in your policies. Tags: IAM
+-----------
+Once you buy a reserved instance
+A:" you own it for the selected time period and are responsible for the entire price - regardless of how often you use it (T/F) True Tags: EC2"
+-----------
+Once versioning is enabled
+A:" you can disable/re-enable as needed (realizing that you will have gaps in versions) (T/F) False Once versioning is enabled" you can only 'suspend' versioning. It cannot be fully disabled. Tags: S3
+-----------
+Once expired
+A:" STS credentials can no longer be used to access your AWS resources (T/F) True Tags: IAM"
+-----------
+"On-demand purchasing allows you to...
+A:choose any instance type you like and provision/terminate it at any time (on-demand) Tags: EC2"
+-----------
+"On-demand is the most flexible purchasing option (T/F)
+A:True Tags: EC2"
+-----------
+"On-demand is the most expensive purchasing option (T/F)
+A:True Tags: EC2"
+-----------
+"Objects can range in size from __ to __.
+A:0 bytes" 5 TB Tags: S3
+-----------
+"Object can have multiple versions if __ is enabled.
+A:object versioning Tags: S3"
+-----------
+"Object ACLs an be used to...
+A:share an s3 object with the public via a URL. Tags: S3"
+-----------
+Non AWS users can be given temporary access to AWS accounts and resources through something like AD or SSO (i.e. Facebook
+A:" Google) once the identity provder... Assumes and 'Identity Provider Access' role. Tags: IAM"
+-----------
+"New EC2 instance are not automatically being assigned a public IP address.
+A:Modify the Auto-assign public IP setting on the subnet. Tags: Troubleshooting VPC"
+-----------
+"Network ACLs support what types of rules?
+A:allow and deny rules for traffic traveling into or out of a subnet. Tags: VPC"
+-----------
+"Network ACLs operate at the ___ level.
+A:Network/subnet Tags: VPC"
+-----------
+"Network ACLs only allow deny rules (T/F)
+A:False NACLs support allow and deny rules Tags: VPC"
+-----------
+"Network ACLs are stateful (T/F)
+A:False NACLs are stateless so return traffic must be allowed by an outbound rule. Tags: VPC"
+-----------
+"Network ACLs are required for your VPC (T/F)
+A:False NACLs are an optional layer of security for your VPC that acts as a firewall for controlling traffic in and out of one or more subnets. Tags: VPC"
+-----------
+"NAT gateway is configured but instances inside a private subnet still cannot download packages.
+A:Need to add 0.0.0.0/0 route to NAT gateway route table for private subnets. Tags: Troubleshooting VPC"
+-----------
+"NACL rules are evaluated form highest to lowest based on rule # (T/F)
+A:False NACL rules are evaluated from lowest to highest based on rule # Tags: VPC"
+-----------
+"More than one policy can be attached to a user or group at the same time (T/F)
+A:True Tags: IAM"
+-----------
+"MFA can be configured on a per user basis for login and resource access/actions (T/F)
+A:True Tags: IAM"
+-----------
+"MFA can be configured on a per group basis for login and resource access/actions (T/F)
+A:False MFA can be configured on a per user basis for login and resource access/actions. Tags: IAM"
+-----------
+"Magnetic EBS volumes can range from ___ to ___ in size.
+A:1 GiB" 1 TiB Tags: EC2
+-----------
+"Load balancing is not occurring between instances in multiple AZs.
+A:Make sure 'enable cross zone load balancing' has been selected. Tags: ELB Troubleshooting"
+-----------
+"Lifecycle policies can be applied to ___.
+A:specific versions of an object. Tags: S3"
+-----------
+"Layered Security:
+A:Instance level Security Groups (firewall on the instance level) Subnet level network ACLs (firewall on the subnet level) Tags: VPC"
+-----------
+"Lambda scales the compute power automatically with your code (T/F)
+A:True Tags: Lambda"
+-----------
+"It is possible to receive an 'insufficient capacity error' about a placement group if...
+A:more instances are added to the group at a later time OR a placement group instance is stopped and started again. This can be resolved by stopping all of the instances in the member group and attempting to start them again. Tags: EC2"
+-----------
+"It is possible to merge placement groups (T/F)
+A:False Tags: EC2"
+-----------
+"It is important to understand if your application requires more (or less) I/O when selecting an EBS volume (T/F)
+A:True Tags: EC2"
+-----------
+"It is best practice to store API keys on an EC2 instance as needed. (T/F)
+A:False You should NEVER create or store API keys on an EC2 instance. Tags: IAM"
+-----------
+"It is best practice to rotate STS credentials often (T/F)
+A:False Since the credentials are temporary" you don't have to rotate or revoke them. You decide how long they are active for. Tags: IAM
+-----------
+"It is best practice to modify the local route as needed (T/F)
+A:False You cannot modify the local route. Tags: VPC"
+-----------
+"It is best practice to log in and do daily work as an IAM user (T/F)
+A:True Do NOT do daily work as the root user Tags: IAM"
+-----------
+"Issue: EC2 instance unable to download package updates.
+A:The instance may not have a public/EIP address. The instance may not belong to a public subnet. The instance is in a private subnet with no NAT gateway. Tags: EC2 Troubleshooting"
+-----------
+"Issue: Connectivity issues to an EC2 instance.
+A:Correct ports/protocols on the Security Group man not be open. Tags: EC2 Troubleshooting"
+-----------
+"Issue: Cannot launch additional instances.
+A:You have probably reached the EC2 limit and need to contact AWS to increase the limit. Tags: EC2 Troubleshooting"
+-----------
+"Issue: Cannot attach an EBS volume to an EC2 instance.
+A:*EBS volumes must live in the same AZ as the EC2 instance they are to be attached to. - To remedy this" create a snapshot from the volume and launch a new volume from the snapshot in the correct AZ Tags: EC2 Troubleshooting
+-----------
+"Issue: AMI unavailable in a given region
+A:AMI's ar eonly available in the regions where they are created. An AMI can be copied to another region but will receive a new AMI id. Tags: EC2 Troubleshooting"
+-----------
+"Issue: 'Capacity error' when attempting to launch an instance in a placement group.
+A:Start and stop all instances in the placement group. Tags: EC2 Troubleshooting"
+-----------
+"IOPS are...
+A:Input/output Operations Per Second Tags: EC2"
+-----------
+"Internet gateways are not scalable (T/F)
+A:False An IGW is horizontally scaled" redundant and highly available. Tags: VPC
+-----------
+"Instances originally launched outside of a placement group can later be moved into an existing placement group (T/F)
+A:False Instances not originally launched/created into a placement group can not be moved in the a placement group later. Tags: EC2"
+-----------
+"Instances must have ___ in order to take advantage of placement groups.
+A:the proper instance type (one with 10 gigabit network speeds). Tags: EC2"
+-----------
+"Instances launched into a ____ cannot communicate with the internet.
+A:private subnet * This creates a higher level of security" but it creates a limitation of an instance not being to download software and/or updates. *This issue is solved by routing traffic through a NAT instance. Tags: VPC
+-----------
+"Instances in a placement group have a...
+A:low-latency" 10 Gbps network connection between them. Tags: EC2
+-----------
+"Instances can be made up of different instance types and sizes
+A:True Tags: EC2"
+-----------
+"Instances are healthy but not registering as healthy with the ELB.
+A:Check config for the 'health check' to make sure ping protocol" ping port and ping path are correct. Tags: ELB Troubleshooting
+-----------
+"Instance types describe the 'hardware' components that an EC2 instance will run on. What are these components?
+A:* Compute power (processor/CPU) * Memory (ram) * Storage Options/optimization (hard drive) * Network performance (bandwidth) Tags: EC2"
+-----------
+"Infrequent snapshots are recommended to keep costs down (T/F)
+A:False Frequent snapshots of your data increases data durability and are highly recommended. Tags: EBS EC2"
+-----------
+In the EC2 Shared Responsibility Model
+A:" the customer is responsible for: Managing the software level security on instances including: * Security Groups * Firewalls (IP tables" Firewalld etc.) * EBS encryption provided by AWS (snapshots can also use EBS encryption. - AWS EBS encryption utilizes AWS Key Management Service. - Additional encryption methods include encrypting the entire file system using an encrypted file system. * Applying an SSL certificate to the ELB (Elastic Load Balancer) Tags: EC2
+-----------
+In the default VPC
+A:" access to the public internet is not configured (T/F) False In the default VPC" all subnets have a route to the internet via rout table and an attached IGW. Tags: VPC
+-----------
+In the AWS shared responsibility model
+A:" AWS is responsible for... Managing the hypervisor and physical layer of security for EC2: * DDOS protection * Port scanning protection (not allowed in your own env without permission from AWS) * Ingress network filtering. Tags: EC2"
+-----------
+In an EC2 Placement Group
+A:" AWS attempts to distribute the instances as much as possible to ensure HA and redundancy (T/F) False AWS attempts to place all the instances as close as physically possible in the data center to reduce latency. Tags: EC2"
+-----------
+"In ___ you can manage __ via lifecycle policies.
+A:s3" objects Tags: S3
+-----------
+If volumes with provisioned IOPS still don't produce the performance you need/expect
+A:" you can use a(/an) ___. EBS optimized instance type which prioritizes EBS traffic. Tags: EC2"
+-----------
+If using EC2 instance-store volumes
+A:when an instance is stopped or shutdown " the data remains intact until the instance is restarted (T/F) False Once the instance is stopped or shutdown" the data is erased. However the instance can be rebooted and still maintain its ephemeral data. Tags: EC2
+-----------
+If the 'original' snapshot is deleted
+A:" the subsequent snapshots are no longer useable (T/F) False If the 'original' is deleted" all data is still available in all other snapshots. Tags: EBS EC2
+-----------
+If an instance in a placement group is stopped
+A:" it will need to be re-added to the group once it is started again (T/F) False If an instance in a placement group is stopped" once it is started again it will continue to be a memeber of the placement group. Tags: EC2
+-----------
+"IAM users in a group share a common set of credentials (T/F)
+A:False IAM users receive unique access credentials so they do not (and should not) share with others. Tags: IAM"
+-----------
+"IAM Secure Token Service (STS) allows you to create persistent security credentials that grant trusted users access to your AWS resources (T/F)
+A:False IAM Secure Token Service (STS) allows you to create temporary security credentials that grant trusted users access to your AWS resources (T/F) Tags: IAM"
+-----------
+"IAM provides pre-built templates to assign to users and groups. Examples include:
+A:Administrator Access: Full access to ALL AWS resources Power User Access: Admin access except it does not allow user/group management Read Only Access: Only view AWS resources (i.e. user can view what is in an S3 bucket). Tags: IAM"
+-----------
+IAM provides access and access permissions to AWS resources (such as EC2
+A:S3 " and DynamoDB) (T/F) True Tags: IAM"
+-----------
+"IAM is where you manage your AWS (7 items)...
+A:UsersGroupsRolesIAM Access PoliciesAPI KeysPassword PoliciesMFA Requirements Tags: IAM"
+-----------
+IAM is specific to a region
+A:" and creating a user will apply to only that region (T/F) False IAM is global to all AWS regions Tags: IAM"
+-----------
+"IAM is global to all AWS regions and creating a user account will apply to all the regions (T/F)
+A:True Tags: IAM"
+-----------
+"IAM Best Practices (14)
+A:Lock Away Your AWS Account Root User Access KeysCreate Individual IAM UsersUse AWS Defined Policies to Assign Permissions Whenever PossibleUse Groups to Assign Permissions to IAM UsersGrant Least PrivilegeUse Access Levels to Review IAM PermissionsConfigure a Strong Password Policy for Your UsersEnable MFA for Privileged UsersUse Roles for Applications That Run on Amazon EC2 InstancesDelegate by Using Roles Instead of by Sharing CredentialsRotate Credentials RegularlyRemove Unnecessary CredentialsUse Policy Conditions for Extra SecurityMonitor Activity in Your AWS Account Tags: IAM"
+-----------
+"IAM API Access Keys are required to make programmatic calls to AWS from (4)....
+A:AWS Command Line Interface (CLI)Tools for Windows PowerShellAWS SDKsDirect HTTP calls using APIs for individual AWS services Tags: IAM"
+-----------
+"How should you delegate?
+A:Delegate by using roles instead of sharing credentials. Tags: IAM"
+-----------
+"How many VPN connections can you have per region per the default limit?
+A:50 VPN connections per region Tags: VPC"
+-----------
+"How many Security Groups per network interface?
+A:5 Security Groups per network interface (security groups although generally referred to as being on the instance level are technicall on the VPC level) Tags: VPC"
+-----------
+"How many rules can a Security Group have?
+A:50 rules per Security Group Tags: VPC"
+-----------
+"How many route tables can you have per region by default?
+A:200 route tables per region (50 entries per rout table) Tags: VPC"
+-----------
+"How many IGWs can be attached to a VPC at a time?
+A:1 Tags: VPC"
+-----------
+"How many entries can you have per route table?
+A:50 entries per route table Tags: VPC"
+-----------
+"How is a new set of keys issued?
+A:The current set must be deactivated and a new one must be generated. Tags: EC2" IAM
+-----------
+"How do you pay for lambda?
+A:You pay for the compute time that you use (in miliseconds). Tags: Lambda"
+-----------
+"How do you log into a Windows EC2 instance?
+A:Use a key pair to obtain the admin password and then log in using RDP (remote desktop protocol). Tags: EC2"
+-----------
+"How can you grant access to AWS resources without having to create an IAM identity for them?
+A:Roles and identity federation (leveraging STS) Tags: IAM"
+-----------
+"How can you avoid an initialization perfomance impact in production environments?
+A:You can avoid this impact in production by manually reading all the blocks. Tags: EC2"
+-----------
+"Historically ___ guests had better performance than ___ guests in many cases.
+A:Paravirtual (PV)" HVM Because of enhancements in HVM virtualization and the availability of PV drivers for HVM AMIs this is no longer true. Tags: EC2
+-----------
+"Guests in this type of virtualization can take advantage of hardware extensions that provide fast access to the underlying hardware on the host system.
+A:HVM AMIs Tags: EC2"
+-----------
+"Glacier now has three levels of data retrieval (pricing varies) which are...
+A:* Expedited: 1 - 5 minutes * Standard: 3 - 5 hours * Bulk: 5 - 12 hours Tags: S3"
+-----------
+"Glacier in combination with lifecycle policies makes a great backup solution (T/F)
+A:False Glacier should NOT be used as a backup solution. Tags: S3"
+-----------
+"Glacier 'check in' and 'check out' jobs can take...
+A:several hours Tags: S3"
+-----------
+Given that policies cannot be directly attached to AWS services
+A:" what could you use? IAM roles For example: If you are using an EC2 instance and it needs to access an s3 bucket: The instance should assume a role from IAM with the proper permissions (S3 read-only)The instance can then perform actions based on the role it assumes (read from s3)You 'can' but should never pass or store credentials in or to an EC2 instance (use roles instead) Tags: IAM"
+-----------
+"front
+A:back Tags:"
+-----------
+For extra security related to policies
+A:" you should... Use Policy ConditionsTo the extent that it's practical" define the conditions under which your IAM policies allow access to a resource. For example you can write conditions to specify a range of allowable IP addresses that a request must come from. You can also specify that a request is allowed only within a specified date range or time range. You can also set conditions that require the use of SSL or MFA (multi-factor authentication). For example you can require that a user has authenticated with an MFA device in order to be allowed to terminate an Amazon EC2 instance. Tags: IAM
+-----------
+For architecture to be considered highly available and fault tolerant
+A:" it MUST have... an ELB serving traffic to an ASG with a MIN of two instances located in separate AZs. Tags: Auto Scaling"
+-----------
+For all users
+A:" permisisons to access to all AWS services are granted by default (T/F). False Access must be granted to AWS services for all users (besides the root user) through IAM policies. Tags: IAM"
+-----------
+For all users (besides the root user)
+A:" permisisons must be given that grant access to AWS services (T/F). True Access is given through IAM policies Tags: IAM"
+-----------
+For additional security
+A:" objects can be ___. encrypted Tags: S3"
+-----------
+"Federation
+A:Federation1) Grant temporary access to users on a corporate network without having to create IAM credentials for each user 2) Single sign-on would be allowing federated users to login to the AWS console without having IAM users defined*NOTE: For mobile use: Use facebook/amazon/google to Tags: IAM"
+-----------
+"Failure to create a VPC peering connection between two VPCs in different regions.
+A:Peering connections can only be created between two VPCs in the same region. Tags: Troubleshooting VPC"
+-----------
+"Error when attempting to attach multiple VPGs or IGWs to a VPC.
+A:Only one IGW and one Virtual Private Gateway can be attached to a VPC at any given time. Tags: Troubleshooting VPC"
+-----------
+"Encrypted key-pairs are used to...
+A:Manage login authentication Tags: EC2"
+-----------
+"Elasticache (definition)
+A:Elasticache (definition)1) Service that makes it easy to deploy" operate and scale and in-memory cache in the cloud2) Improves performance of web applications3) Supports two open source in-memory caching engines (Memcached & Redis) Tags: EC2
+-----------
+"Elastic load balancing should be paired with ___ to enhance high availablity and fault tolerance AND allow for automated scalability and elasticity.
+A:auto scaling Tags: ELB"
+-----------
+"EFS supports the ___ when mounting.
+A:Network File System version 4.0 and 4.1 (NFSv4) protocols. Tags: EC2 EFS"
+-----------
+"EFS requires the customer to manage the filesystem (T/F)
+A:False EFS is fully-managed (no maintenence required) Tags: EC2 EFS"
+-----------
+"EFS file systems can be mounted to on-premises servers (T/F)
+A:True (when connected to your VPC via AWS Direct Connect). This allows you to migrate data from on-prem servers to EFS and/or use it as a backup solution. Tags: EC2 EFS"
+-----------
+"EFS can scale to ___ in size.
+A:petabytes (while maintaining low-latency and high levels of throughput). Tags: EC2 EFS"
+-----------
+"EC2 will automatically stop serving traffic when...
+A:an instance becomes unhealthy (via health checks). Tags: ELB"
+-----------
+"EC2 Provides...
+A:Scalable virtual servers in the cloud Tags: EC2"
+-----------
+"EC2 Placement Groups are used for...
+A:applications that require an extremely low latency network between them. Tags: EC2"
+-----------
+"EC2 Instances can run different operating systems but most commonly run a flavor of Linux or Windows
+A:True Tags: EC2"
+-----------
+"EC2 Instances are primarily composed of what 4 components?
+A:AMI - OS and other settingsInstance Type - The hardware (compute" ram network badwidth etc.)Network Interface - (public private or elastic IP addresses)Storage - The instance's hard drive (2 options)- EBS (network persistent storage)- Ephemeral instance storage Tags: EC2
+-----------
+"EC2 instances are designed to mimic on-prem servers but with the ability to...
+A:be comissioned and decomissioned on-demand for easy elasticity and scalability Tags: EC2"
+-----------
+"EBS volumes measure input/output operations in ____.
+A:IOPS Tags: EC2"
+-----------
+"EBS volumes can be backed up into a ____.
+A:snapshot (which can later be restored into a new EBS volume). Tags: EC2"
+-----------
+"EBS volumes are ephemeral (T/F)
+A:False EBS volumes are persistent" meaning that they can live beyond the life of the EC2 instance they are attached to. Tags: EC2
+-----------
+"EBS backed volumes are ____ storage.
+A:network attached This means they can be attached/detached to or from various EC2 instances. Tags: EC2"
+-----------
+"Each storage class has varying attributes like:
+A:* Storage cost * Object availability * Object durability * Frequency of access Tags: S3"
+-----------
+Each s3 object must be assigned a __ which determines the object's availablity
+A:durability " and cost. storage type Tags: S3"
+-----------
+"Each s3 bucket must have a name that is...
+A:unique across ALL of AWS. Tags: S3"
+-----------
+Each instanced must be placed into an existing VPC
+A:availibility zone " and subnet (T/F) True Tags: EC2"
+-----------
+"Each EC2 key pair consists of...
+A:A public key and a private key Tags: EC2"
+-----------
+"Definition: A static IPv4 address designed for dynamic cloud computing.
+A:EIP (Elastic IP) Tags: EC2"
+-----------
+"Current storage class types include:
+A:* Standard * Reduced Redundancy Storage (RRS) * Infrequent Access (S3-IA) * Glacier Tags: S3"
+-----------
+"curl http:/168.254.169.254/latest/user-data/ displays what?
+A:bootstrapping commands (user-data) Tags: EC2"
+-----------
+"curl http:/168.254.169.254/latest/meta-data/ displays what?
+A:AMI" instance type etc. Tags: EC2
+-----------
+"Content-based rules (setup on the listener) can be configured using:
+A:* Host based rules (route traffic based on the host field of the HTTP header) * Path-based rules (route traffic based on the URL path of the HTTP header) This allows you to structure your applications as smaller services and even monitor/auto-scale based on traffic to specific 'target groups' Tags: ELB"
+-----------
+"Common S3 event notification triggers include:
+A:* RRSObjectLost (used for automating the recreation of RRS objects) * ObjectCreated (for all of the following APIs called) - PUT - POST - COPY - CompleteMultiPartUpload Tags: S3"
+-----------
+"Classic load balancing is best used when...
+A:all instances (that are being served traffic) contain the same data. Tags: ELB"
+-----------
+"Centralized Logging (3rd party)
+A:""Centralized Logging (3rd party)1) Rsylog (native to linux)2) Splunk3) Kiwi-made available to S3 for """"download"""" via cronjobs Tags: EC2"""
+-----------
+"Cannot SSH/communicate with resources inside of a private subnet.
+A:Not connecting via VPN or Basion host. Tags: Troubleshooting VPC"
+-----------
+By default
+A:" subnets within a VPC are unable to communicate with each other (T/F) False By default" all subnets' traffic is allowed to each other available subnet within your VPC via the local route. Tags: VPC
+-----------
+By default
+A:" S3 versioning is ___ on all buckets/objects. disabled Tags: S3"
+-----------
+By default
+A:" lifecycle policies are enabled on a bucket/object (T/F) False Tags: S3"
+-----------
+By default
+A:" EC2 instances are created with no IP addresses (T/F) False By default" EC2 instances are created with a PRIVATE IP address. Tags: EC2
+-----------
+By default
+A:" any new IAM user you create in an AWS account is created with NO access to any AWS services. (T/F) True This is a non-explicit deny rule set on all new IAM users. Tags: IAM"
+-----------
+By default
+A:" any new IAM user you create in an AWS account is created with access to all AWS services. (T/F) False There is a non-explicit deny rule set on all new IAM users. Tags: IAM"
+-----------
+By default
+A:" an explicit deny always overrides an explicit allow from attached IAM policies (T/F) True Tags: IAM"
+-----------
+By default
+A:" an explicit deny always overrides an explicit allow (T/F) True This allows for the use of a 'deny all' policy to quickly restrict ALL access that a user may have through multiple attached policies. Tags: IAM"
+-----------
+By default
+A:" an explicit allow always overrides an explicit deny from attached IAM policies (T/F) False By default" an explicit deny always overrides an explicit allow from attached IAM policies Tags: IAM
+-----------
+By default
+A:" all subnets' traffic is allowed to each other available subnet within the VPC via the _____. local target in the route table. Tags: VPC"
+-----------
+By default
+A:" all objects are public (T/F) False By default" all s3 objects are private. Tags: S3
+-----------
+"Bucket policies specify...
+A:what actions are allowed or denied for a particular user of that bucket. For example: * Granting access to an anonymous user. * Who (a 'principal') can execute certain actions like PUT or DELETE. * Restricting access based of IP address (generally used for CDN management) Tags: S3"
+-----------
+"Bucket policies are attached to an IAM user (T/F).
+A:Bucket policies are attached ONLY to the s3 bucket (not an IAM user). Tags: S3"
+-----------
+"Bucket ownership can be transferred as needed after creation (T/F)
+A:False Bucket ownership cannot be transferred once a bucket is created. Tags: S3"
+-----------
+"Best practice is to use the default route table and add rules as needed (T/F)
+A:False Best practice is to leave the default route table and create a new route table when new routes are needed for specific subnets. Tags: VPC"
+-----------
+"Best practice for NACLs is to increment rules by 5 so that if you have to place a rule in a certain order it does not create an issue (T/F)
+A:False Best practice is to increment by 10 so that if you have to place a rule in a certain order it does not create an issue. Tags: VPC"
+-----------
+"AWS will regenerate the same set of access keys if you need to download them again (T/F)
+A:False AWS will NOT generate the same set of access keys. If you lose your keys" a new set will need to be generated. Tags: EC2
+-----------
+"AWS measures IOPS in ____ chunks (or smaller).
+A:256KB Tags: EC2"
+-----------
+"AWS Config
+A:Provides detailed historical information about the configuration of your AWS resources" including your IAM users groups roles and policies. For example you can use AWS Config to determine the permissions that belonged to a user or group at a specific time. For more information see the AWS Config Developer Guide. Tags: EC2
+-----------
+"AWS CloudTrail
+A:Logs AWS API calls and related events made by or on behalf of an AWS account. For more information" see the AWS CloudTrail User Guide. Tags: EC2
+-----------
+"Autoscaling has which two main components?
+A:* Launch Configuration (The EC2 'template' used when the auto scaling group needs to provision an additional instance (i.e. AMI" instance type user-data storage security groups etc.)) * Auto Scaling Group (all of the rules and settings that govern if/when an EC2 instance is automatically provisioned or terminated. (# min/max instances VPCs and AZs scaling policies SNS notifications if an instance should receive traffic)). Tags: Auto Scaling
+-----------
+"Autoscaling does not occur even though scaling policies are configured correctly.
+A:Max number of instances set in the autoscaling group may have been reached. Tags: Autoscaling Troubleshooting"
+-----------
+"Automated (bootstrapping) custom launch commands can be passed into the instance during launch via...
+A:'user-data' scripts Tags: EC2"
+-----------
+"Auto-assigning of IPs is based on the setting for the ____ that you are provisioning the instance in.
+A:subnet Tags: EC2"
+-----------
+"Auto scaling will increase or decrease the amount of instances based on ___
+A:chosen Cloudwatch metrics. Tags: Auto Scaling"
+-----------
+"Attaching an EIP to an instance will replace it's ___ for as long as it is attached.
+A:default public IP (if auto-assigned) Tags: EC2"
+-----------
+As AWS' main storage service
+A:S3 can serve many purposes when designing highly available fault tolerat " and secure application architecture. Including: * Bulk (basically unlimited) static object storage * Various storage classes to optimize cost vs. needed object availability/durability * Object versioning * Access restrictions via s3 bucket policies/permissions * Hosting static files & websites * Origin for CloudFront CDN * File shares and backup/archiving for hybrid networks (via AWS Storage Gateway) Tags: S3"
+-----------
+As an architect
+A:" it is important to use the proper ___ to handle your application's workload. instance type Tags: EC2"
+-----------
+Applications running on an EC2 instance using EFS will always have the storage they need
+A:" without having to provision and attach larger storage devices (T/F) True Tags: EC2 EFS"
+-----------
+API credentials can be assoicated with a User
+A:a Group " or a Role (T/F) False In order for API credentials to work" they must be associated with a USER Tags: IAM
+-----------
+"API call for temporary credentials for users in untrusted environments.
+A:GetSessionToken Tags: IAM"
+-----------
+"API call for federation through a custom identity broker.
+A:GetFederationToken Tags: IAM"
+-----------
+"API call for Cross-account delegation and federation through a custom identity broker.
+A:AssumeRole Tags: IAM"
+-----------
+"An S3 object can automatically switch to a different storage class or be deleted via ___.
+A:lifecycle policies Tags: S3"
+-----------
+"An NACL allows or denies traffic from entering a ____.
+A:Subnet. Once inside the subnet" other AWS resources (i.e. EC2) may have an additional layer of security (Security Groups). Tags: VPC
+-----------
+"An instance-store volume can be rebooted and still maintain its ephemeral data (T/F)
+A:True Tags: EC2"
+-----------
+"An IGW imposes some availability risks risks and bandwith constraints on your network traffic (T/F)
+A:False An IGW imposes no availability risks or bandwidth constraints on your network traffic. Tags: VPC"
+-----------
+"An IAM Policy is a document that formally states...
+A:one or more permissions. Tags: IAM"
+-----------
+"An ELB has ___ that allows for direct access from the open internet.
+A:its own DNS record set Tags: ELB"
+-----------
+"An ELB can only load balance traffic within a single AZ (T/F)
+A:False An ELB can load balance traffic to multiple EC2 instances located across multiple AZs. Tags: ELB"
+-----------
+"An ELB can help reduce compute power on an EC2 instance by...
+A:allowing for an SSL certificate to be applied directly to the ELB. Tags: ELB"
+-----------
+"An EIP is a public IPv4 address (T/F)
+A:True Tags: EC2"
+-----------
+"An EFS file system can only be accessed by 1 EC2 instance at a time (T/F)
+A:False The EFS can be accessed by one or more EC2 instances at the same time. *Provides shared file access across all your EC2 instances. * Good for applications that span multiple EC2 instances (allows them to access the same data). Tags: EC2 EFS"
+-----------
+"An EC2 virtual server is known as an...
+A:Instance Tags: EC2"
+-----------
+"An EC2 placement group is...
+A:a cluster of instances within the same AZ. Tags: EC2"
+-----------
+"An EC2 instance can have multiple roles attached to it at a time (T/F)
+A:False An EC2 instance can only have ONE role attached at time. Tags: EC2"
+-----------
+"An EBS volume can be attached to multiple EC2 instances at once (T/F)
+A:False An EBS volume can only be attached to ONE EC2 instance at a time. Tags: EC2"
+-----------
+"An auto scaled instance continues to start and stop (create/terminate) in short intervals.
+A:Scale up and scale up thresholds may be too close to eachother. Either raise the scale-up or lower the scale-down threshold. Tags: Autoscaling Troubleshooting"
+-----------
+"An application ELB also supports:
+A:* ECS Containers * HTTPS * HTTP/2 * WebSockets * Access Logs * Sticky Sessions * AWS WAF (Web Application Firewall) Tags: ELB"
+-----------
+"An AMI Includes:
+A:* An operating system * Software Packages * Other required settings (root storage type and virtualization type). Tags: EC2"
+-----------
+An _____ is a set of rules that automate the migration of an object's storage class to a different storage class (or deletion)
+A:" based on specific time intervals. S3 object lifecycle policy Tags: S3"
+-----------
+AMIs are used with ___ to quickly launch new servers on demand
+A:" and to quickly recover from disaster. Autoscaling Tags: EC2"
+-----------
+"Amazon Simple Storage Service (Amazon S3)
+A:Logs access requests to your Amazon S3 buckets. For more information" see Server Access Logging in the Amazon Simple Storage Service Developer Guide. Tags: EC2
+-----------
+"Amazon S3 provides file grouping (folders) by using ____ for objects.
+A:key-name prefixes Tags: S3"
+-----------
+"Amazon S3 has a __ file structure.
+A:flat There is no heirarchy like you would see in a typical file system. Tags: S3"
+-----------
+"Amazon Glacier is not an archival storage type (T/F)
+A:True Tags: S3"
+-----------
+"Amazon CloudWatch
+A:Monitors your AWS Cloud resources and the applications you run on AWS. You can set alarms in CloudWatch based on metrics that you define. For more information" see the Amazon CloudWatch User Guide. Tags: EC2
+-----------
+"Amazon CloudFront
+A:Amazon CloudFront â€" Logs user requests that CloudFront receives. For more information" see Access Logs in the Amazon CloudFront Developer Guide. Tags: EC2
+-----------
+"All regions use ___ for PUTS overwriting existing objects and DELETES of objects.
+A:eventual consistency. Tags: S3"
+-----------
+"ALL regions now support ___ consistency for PUTS of new objects into s3.
+A:read-after-write Objects can be immediately available after 'putting' an object in s3. Tags: S3"
+-----------
+"All buckets are ___ by default.
+A:private Only the resource owner has access Tags: S3"
+-----------
+After creating a VPC
+A:" you can add one or more ___ in each AZ. subnets Tags: VPC"
+-----------
+"Access logs on web servers show IP address of the ELB and not the source traffic.
+A:Enable access logs to Amazon s3 (found under 'attributes') Tags: ELB Troubleshooting"
+-----------
+"A VPC spans multiple AWS regions (T/F)
+A:False A VPC is housed within a single chosen AWS region. Tags: VPC"
+-----------
+"A VPC resides within a single chosen Availibility Zone (T/F)
+A:False A VPC spans multiple AZs within a region. This allows you to provision redundant resources in separate AZs while having them accessible on the same network (foundation of high availibility and fault tolerant architecture) Tags: VPC"
+-----------
+"A VPC is designed to resemble:
+A:Private on-premise data centers Private corporate networks Tags: VPC"
+-----------
+"A VPC closely resembles ___
+A:a traditional network that you'd operate in your own datacenter" with the benefits of using the scalable infrastructure of AWS. Tags: VPC
+-----------
+"A subnet can be associated with multiple NACLs at a time (T/F)
+A:False A subnet can only be associated with one NACL at a time. Tags: VPC"
+-----------
+"A security group must be assigned to an instance during the creation process (T/F)
+A:True Tags: VPC"
+-----------
+"A route table's rules are comprised of what two main components?
+A:Destination: The CIDR block range of the target (where the data is routed to).Target: A name identifier of where the data is being routed to. Tags: VPC"
+-----------
+"A public subnet does not have a route to the internet (T/F)
+A:False A public subnet has a route to the internet. Tags: VPC"
+-----------
+"A provisioned instance automatically terminates when...
+A:the spot price is greater than your bid price. Tags: EC2"
+-----------
+"A private subnet has a route to the internet (T/F)
+A:False A private subnet does not have a route to the internet. It is associated with a route table that does NOT have an IGW attached. Tags: VPC"
+-----------
+"A NAT instance is identical to a NAT gateway in its purpose (T/F)
+A:True Tags: Advanced Networking"
+-----------
+"A NAT Gateway will only allow incoming traffic through if...
+A:a request for it originated from an instance in the private subnet. Tags: Advanced Networking"
+-----------
+"A NAT Gateway prevents...
+A:any hosts located outside of the VPC from initiating a connection with instances that are associated with it. Tags: Advanced Networking"
+-----------
+"A NAT Gateway MUST be part of the private subnet's route table (T/F)
+A:True Tags: Advanced Networking"
+-----------
+"A NAT Gateway MUST be created in a private subnet (T/F)
+A:False A NAT Gateway MUST be created in a public subnet and it must be part of the private subnet's route table. Tags: Advanced Networking"
+-----------
+"A NAT gateway is needed because...
+A:instances launched into private subnets can't communicate with the open internet. Tags: Advanced Networking"
+-----------
+"A bastion host should have increased and extremely tight security (T/F)
+A:True Usually with extra 3rd party security and monitoring software installed. Tags: Advanced Networking"
+-----------
+"A bastion host lives in a private subnet (T/F)
+A:False A basstion host lives in a public subnet. Tags: Advanced Networking"
+-----------
+"A bastion host can be used as an access point to...
+A:SSH into an internal network (to access private resources) without a VPN. Tags: Advanced Networking"
+-----------
+"A ___ represents the 'classification' assigned to each Object in S3.
+A:storage class Tags: S3"
+-----------
+"A ___ is designed to provide EC2 instances that live in a private subnet with a route to the internet.
+A:NAT Gateway So that they can download software packages and updates. Tags: Advanced Networking"
+-----------
+"A ___ is designed for simple balancing of traffic to multiple EC2 instances.
+A:classic ELB Tags: ELB"
+-----------
+"A ___ is an EC2 instance that lives in a public subnet and is used as a 'gateway' for traffic that is destined for instances that live in private subnets.
+A:bastion host Tags: Advanced Networking"
+-----------
+"A ___ contains a set of rules that are used to determine where network traffic is directed.
+A:route table This set of rules are called routes Tags: VPC"
+-----------
+"A ___ address is required if you want the instance to have direct communication with resources across the open internet.
+A:public i.e. if you want to directly SSH into the instance or have it directly serve web traffic. Tags: EC2"
+-----------
+"_____ is the basis for IAM roles and identity federation.
+A:IAM Security Token Service (STS) Tags: IAM"
+-----------
+"_____ can be configured to provide a route to the internet for resources launched inside of a VPC.
+A:An Internet Gateway Tags: VPC"
+-----------
+"____ is the process of creating a 'virtual' version of something rather than the actual version of that thing.
+A:Virtualization Tags: EC2"
+-----------
+"____ is a VPC component that allows communication between instances in your VPC and the internet.
+A:Internet gateway Tags: VPC"
+-----------
+"____ is a preconfigured package (template) required to launch an EC2 instance.
+A:An AMI AMIs include: * An operating system * Software Packages * Other required settings (root storage type & virtualization type) Tags: EC2"
+-----------
+"____ gives you the ability to create a layered network of resoures.
+A:AWS VPC Tags: VPC"
+-----------
+"___ refers to a self-starting process or a set of commands without external input.
+A:Bootstrapping Tags: EC2"
+-----------
+___ provides an option for low-cost
+A:" highly reliable web hosting service for static websites (content that does not change frequently). Amazon S3 Tags: S3"
+-----------
+"___ is the VPC that comes preconfigured in your AWS account when it is first created.
+A:the default VPC Tags: VPC"
+-----------
+"___ is a step/section during the EC2 instance creation process where you can include your own custom commands via a script (i.e. a bash script).
+A:User-data Tags: EC2"
+-----------
+"___ is a service (and method) provided by AWS that automates the process of increasing or decreasing the number of provisioned on-demand instances available for your application.
+A:Auto scaling Tags: Auto Scaling"
+-----------
+"___ is a mothod of allowing a web application located in one domain to access and use resources in another domain.
+A:Cross-origin Resource Sharing (CORS) Tags: S3"
+-----------
+"___ greatly influences the I/O performance (IOPS) your device will receive.
+A:The type of EBS volume Types are: * General purpose SSD * Provisioned IOPS SSD * Magnetic Tags: EC2"
+-----------
+"___ can map human-readable domain names to static web hosting buckets (which are ideal for DNS failover solutions)
+A:Route 53 Tags: S3"
+-----------
+"___ are virtual devices whose underlying hardware is physically attached to the host computer that is running the instance.
+A:Instance-store volumes Tags: EC2"
+-----------
+"___ are two cryptographically secure keys that are used by AWS to authenticate a client when logging into ___
+A:EC2 Key Pairs" an EC2 instance Tags: EC2
+-----------
+"___ are the ain storage container of s3.
+A:Buckets They contain a grouping of information and have sub name spaces. Tags: S3"
+-----------
+"___ are great for automating the management of object storage to be more cost efficient.
+A:S3 Lifecycle Policies Tags: S3"
+-----------
+"___ are designed for complex balancing of traffic to multiple EC2 instances using ___.
+A:Application ELBs" content-based rules Tags: ELB
+-----------
+"___ are customizable to meet your company's data retention policies.
+A:S3 Lifecycle Policies Tags: S3"
+-----------
+"___ are a means of grouping objects.
+A:S3 folders Tags: S3"
+-----------
+"___ allows web applications running JavaScript or HTML5 to access resources in an S3 bucket without using a proxy server.
+A:Cross-origin Resource Sharing (CORS) Tags: S3"
+-----------
+"___ allow you to set up automated communication between S3 and other AWS services when a selected event occurs in an S3 bucket.
+A:S3 events notifications Tags: S3"
+-----------
+"__ is very inexpensive and a cost effective archival storage solution.
+A:Glacier Tags: S3"
+-----------
+"__ is the origin for CloudFront CDN
+A:s3 Tags: S3"
+-----------
+"__ is a storage option for EC2 that allows for a scalable storage option.
+A:EFS (Elastic File System) Tags: EC2 EFS"
+-----------
+"__ is a common method used for distributing incoming traffic among servers.
+A:Load balancing Tags: ELB"
+-----------
+"__ is a 'serverless' computing platform.
+A:Lambda Tags: Lambda"
+-----------
+"__ integrates with Amazon S3 lifecycle policies for easy archiving.
+A:Glacier Tags: S3"
+-----------
+"__ can be used to host static websites.
+A:s3 Tags: S3"
+-----------
+"__ are point-in-time backups of EBS volumes that are stored in __
+A:Snapshots" S3 Tags: EBS EC2
+-----------
+"3 Types of EC2 Purchasing Options
+A:On- Demand Reserved Spot Tags: EC2"
+-----------
+* Used for mission critical applications that require sustained IOPS performance. * Large database workloads. * Volume size of 4 GiB to 14 TiB. * Performs at a provisioned level and can provision up to 20
+A:"000 IOPS per volume are all characteristics of what EBS type? Provisioned IOPS SSD Tags: EC2"
+-----------
+"* Use for dev/test environments and smaller DB instances. * Performance of 3 IOPS/GiB of storage size (burstable with baseline performance). * Volume size of 1GiB to 16TiB * Considerations when using T2 instances with SSD root volumes (burstable vs. baseline performance) are all characteristics of what EBS type?
+A:General Purpose SSD Tags: EC2"
+-----------
+"* Low storage cost * Used for workloads where performance is not important or data is infrequently accessed * Volume size of 1 GiB to 1 TiB are all characteristics of what EBS type?
+A:Magnetic Tags: EC2"
+-----------
+"(EC2) 'Tags' can be used to...
+A:Help name and organize provisioned instances Tags: EC2"
+-----------
+"'Lock away your AWS Account Root User Access Keys' is a best practice for what AWS service?
+A:IAM Tags: IAM"
+-----------
+"'Create Individual IAM Users' is a best practice for...
+A:IAM Tags: IAM"
+-----------
+"paste-512b88e741fdd1a00e235c98837458b908ed6d9f.jpg is an example of what?
+A:User-data input A bash script that will automate the process of updating the yum package installer" install the Apache web server and start the Apache service. Tags: EC2
+-----------
+"API call for federation through an web-based identity provider.
+A:AssumeRoleWithWebIdentity Tags: IAM"
+-----------
+"API call for federation through an Enterprise identity provider compatible with SAML 2.0.
+A:AssumeRoleWithSAML Tags: IAM"
+-----------

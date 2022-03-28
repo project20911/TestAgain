@@ -1,0 +1,338 @@
+What is MFA for AWS S3?
+A:
+S3 uses MFA (multi factor authentication), which forces users to generate a code on a device (usually mobile phone or hardware) before doing important operations on S3.
+-----------
+What is one requirement before you can use MFA-Delete on AWS S3?
+A:
+You must enable Versioning on the S3 bucket
+-----------
+What type of actions would trigger an MFA response for AWS S3?
+A:
+You will need MFA to,
+- Permanently delete an object version
+- Suspend versioning on the bucket
+-----------
+What type of actions would NOT trigger an MFA response?
+A:
+You won't need MFA for,
+- Enabling versioning
+- Listing deleted versions
+-----------
+Which account/user has the ability to enable/disable MFA-Delete for AWS S3?
+A:
+Only the bucket owner (root account) can enable/disable MFA-Delete
+-----------
+Where can you enable/disable MFA-Delete? (GUI/UX or CLI?)
+A:
+MFA-Delete currently can only be enabled using the CLI
+(needs root acct/creds)
+-----------
+With MFA-Delete enabled in AWS S3, will you be able to delete files via S3 GUI?
+A:
+No, if you attempt to delete files via the GUI nothing will happen and files won't be deleted.
+
+However, you will need to delete files via AWS CLI using the current MFA key.
+-----------
+With MFA-Delete enabled in AWS S3, would you be able to disable versioning via the AWS GUI?
+A:
+No, you will see an error when attempting to disable AWS S3 bucket versioning via the GUI.
+
+Reason: Versioning is required for MFA-Delete to be enabled.
+-----------
+Is it good practice to set logging bucket to be the same bucket that is being monitored in AWS S3?
+A:
+It is not good practice, do NOT set your logging bucket to be the monitored bucket.
+
+Reason: This will create a logging loop, and your bucket size will grow in size exponentially.
+-----------
+What is AWS S3 CRR and SRR?
+A:
+CRR stands for Cross Region Replication
+SRR stands for Same Region Replication
+-----------
+Can S3 buckets be in different accounts for replication?
+A:
+Yes, buckets can be in different accounts.
+-----------
+In S3 Replication, is copying done in synchronous or asynchronous way?
+A:
+Copying is asynchronous
+-----------
+What are S3 CRR use cases?
+A:
+Cross Region Replication use cases are: compliance, lower latency access, replication across accounts
+-----------
+What are SRR use cases?
+A:
+Same Region Replication use cases are: log aggregation, live replication between production and test accounts.
+-----------
+In S3 replication, are delete operations replicated?
+A:
+For DELETE operations (S3 replication):
+- If you delete without a version ID, it adds a delete marker, not replicated
+- If you delete with a version ID, it deleted in the source, not replicated
+-----------
+In S3 replication, are you able to "chain" replication across buckets?
+A:
+There is no "chaining" of replication:
+(Example)
+- If bucket 1 has replication into bucket 2, which has replciation into bucket 3
+- - Then object created in bucket 1 are not replicated to bucket 3; however, objected created in bucket 2 will replicate to bucket 3.
+-----------
+For S3 pre-signed URLs, what is recommended approach with SDK or CLI for download and upload URLs?
+A:
+For downloads it is easy to use the CLI
+For uploads it is harder, must use SDK
+-----------
+What is the default timeout for an S3 pre-signed URL?
+A:
+The pre-signed URL is valid for 3600 seconds, can change timeout with --expires-in [TIME_BY_SECONDS] argument.
+-----------
+What are some examples of using an S3 pre-signed URL?
+A:
+Examples:
+- Allow only logged-in users to download a premium video on your S3 bucket
+- Allow an ever changing list of users to download files by generated URLs dynamically
+- Allow temporarily a user to upload a file to a precise location in your bucket.
+-----------
+How do you generate a pre-signed URL in S3 via CLI?
+A:
+Example:
+# aws configure set default.s3.signature_version s3v4
+
+# aws s3 presign s3://my-example-bucket/example.jpg --expires-in 300 --region us-west-1
+-----------
+What are the S3 storage classes?
+A:
+S3 Storage Classes:
+- Amazon S3 standard - General Purpose
+- Amazon S3 Standard-infrequent Access (IA)
+- Amazon S3 One Zone-Infrequent Access (IA)
+- Amazon S3 Intelligent Tiering
+- Amazon Glacier
+- Amazon Glacier Deep Archive
+
+
+- Amazon S3 Reduced Redundancy Storage (deprecated - omitted)
+-----------
+Describe the "S3 Standard - General Purpose" S3 storage class.
+A:
+- High Durability (99.9~%)
+- If you store 10,000,000 objects with Amazon S3, you can on average expect to incur a loss of a single object once every 10,000 years
+- 99.99% availability over a given year
+- Sustain 2 concurrent facility failures
+
+- Use Cases: Big Data analy tics, mobile & gaming applications, content distribution
+-----------
+Describe the "S3 Standard - Infrequent Access" S3 storage class.
+A:
+- Suitable for data that is less frequently accessed, but required rapid access when needed
+- High durability (99.99~%)
+- 99.9% availability
+- Low cost compared to "Amazon S3 Standard"
+- Sustain 2 concurrent facility failures
+
+
+
+- Use Cases: As a data store for disaster recovery, backups.
+-----------
+Describe the "One Zone - Infrequent Access (IA)" S3 storage class.
+A:
+- Same as IA, but data is stored in a single AZ
+- High durability (99.9%) of objects in a single AZ; data lost when AZ is destroyed
+- 99.5% Availabiliy
+- Low latency and high throughput performance.
+- Supports SSL for data at transit and encryption at rest
+- Low cost compared to IA (by 20%)
+
+
+- Use Cases: Storing secondary backup copies of on-premise data, or storing data you can recreate
+-----------
+Describe the "S3 Intelligent Tiering" S3 storage class.
+A:
+- Same low latency and high throughput performance of S3 Standard
+- Automatically moves object between two access tiers based on changing access patterns.
+- Designed for durability of 99.99~% of objects accross multiple Availability Zones
+- Resilient against events that impact an entire Availability Zone
+- Designed for 99.9% availability over a given year.
+-----------
+Describe the "Amazon Glacier" S3 storage class.
+A:
+- Low cost object storage meant for archiving / backup
+- Data is retained for the longer term (10s of years)
+- Alternative to on-premise magnetic tape storage 
+- Average annual durability is 99.99~%
+- Cost per storage per month ($0.004 / GB) + retrieval cost
+- Each item in Glacier is called "Archive" (up to 40 TB)
+- Archives are stored in "Vaults"
+-----------
+How to "Amazon Glacier" and "Amazon Glacier Dep Archive" compare?
+A:
+- Amazon Glacier - 3 retrieval options:
+- - Expedited (1 to 5 minutes)
+- - Standard (3 to 5 hours)
+- - Bulk (5 to 12 hours)
+- - Minimum storage duration of 90 days
+
+- - Amazon Glacier Deep Archive - for long term storage - cheaper:
+- - Standard (12 hours)
+- - Buld (48 hours)
+- - Minimum storage duration of 180 days
+-----------
+Describe moving between storage classes in S3
+A:
+- You can transition objects between storage classes
+
+- For infrequently access object, move them to STANDARD_IA
+- For archive objects you don't need in real-time, Glacier or DEEP_ARCHIVE
+
+- Moving objects can be automated using a lifecycle configuration
+-----------
+What are the S3 Lifecycle Rules
+A:
+- Transition actions: It defines when objects are transitioned to another storage class.
+- - Move objects to Standard IA class 60 days after creation 
+- - Move to Glaciar for archiving after 6 months
+
+- Expiration actions: configure objects to expire (delete) after some time
+- - Access log files can be set to delete after 365 days
+- - Can be used to deleted old versions of files (if versioning is enabled)
+- - Can be used to delete incomplete multi-part uploads
+
+- Rules can be created for a certain prefix (ex - s3://mybucket/mp3/*
+- Rules can be created for certain objects tags (ex - Department: Finanance)
+-----------
+Your application on EC2 creates images thumbnails after profile photos are uploaded to Amazon S3. These thumbnails can be easily recreated, and only need to be kept for 45 days, and afterwards, the user can wait up to 6 hours. How would you design this?
+A:
+S3 Lifecycle rules - Scenario 1:
+
+Answer:
+- S3 source images can be on STANDARD, with a lifecycle configuration to transition them to GLACIER after 45 days..
+- S3 thumbnails can be on ONEZONE_IA, with a lifecycle configuration to expire them (delete them) after 45 days.
+-----------
+A rule in your company states that you should be able to recover your deleted S3 objects immediately for 15 days, although this may happen rarely. After this time, and for up to 365 days, deleted objects should be recoverable within 48 hours.
+A:
+S3 Lifecycle Rules - Scenario 2
+
+Answer:
+- You need to enable S3 versioning in order to have object versions, so that "deleted objects" are in fact hidden by a "delete marker" and can be recovered.
+- You can transition these "noncurrent versions" of the object to S3_IA
+- You can transition afterwards these "noncurrent versions" to DEEP_ARCHIVE
+-----------
+S3 - Baseline Performance Notes
+A:
+- Amazon S3 automatically scales to high request reates, latency 100-200 ms
+- Your application can achieve at least 3,00 PUT/COPY/POST/DELETE and 5,500 GET/HEAD requests per secons per prefix in a bucket.
+- There are no limits to the number of prefixes in a bucket.
+- Example (object path => prefix):
+- - bucket/folder 1/sub 1/file => /folder1/sub1/
+- - bucket/folder1/sub2/file => /folder1/sub1/
+- - bucket/1/file => /1/
+- - bucket/2/file => /2/
+- If you spread reads across all four prefixes evenly, you can achieve 22,000 requests per secondfor GET and HEAD
+-----------
+S3 - KMS Limitation Notes
+A:
+- If you use SSE-KMS, you may be impacted by the KMS limits.
+- When you upload, it calls the GenerateDataKey KMS API
+- Count towards the KMS quota per second (5500, 10000, 30000)
+- As of today, you cannot request a quota increase for KMS
+-----------
+S3 Performance Upload Notes
+A:
+Multi-Part Upload
+- recommended for files > 100MB,
+- Can help parallelize uploads (speed up transfers)
+
+S3 Transfer Acceleration (upload only)
+- Increase transfer speed by transferring file to an AWS edge location which will forward the data to the S3 bucket in the target region
+- Compatible with multi-part upload
+-----------
+S3 Performance - S3 Byte-range Fetches
+A:
+- Parallelize GETs by requesting specific byte ranges
+- Better resilience in case of failures
+- - Can be used to speed up downloads
+- - Can be used to retrieve only partial data (for example the head of a file)
+-----------
+S3 Select & Glacier Select Notes (filtering on AWS-side)
+A:
+- Retrieve less data using SQL by performing server side filtering
+- Can filter by rows & columns (simple SQL statements)
+- Less network transfer, less CPU cost client-side
+-----------
+S3 Event Notifications Notes
+A:
+Events:
+S3:ObjectCreated, S3:ObjectRemoved,
+S3:ObjectRestore, S3:Replication
+
+- Object name filtering possible (*.jpg)
+- Can create as many "S3 events" as desired
+
+- S3 event notifications typically deliver events in seconds but can sometimes take a minute or longer
+- If two writes are made to a single non-versioned object at the same time, it is possible that only a single event notification will be sent
+- If you want to ensure that an event notification is sent for every successful write, you can enable versioning on your bucket.
+-----------
+AWS Athena Notes
+A:
+- Serverless service to perform analytics directly against S3 files
+- Uses SQL language to query the files
+- Has a JDBC / ODBC driver
+- Charges per query and amount of data scanned
+- Support CSV, JSON, ORC, Avra, and Parquet (
+-----------
+S3 Object Lock & Glacier Vault Lock
+A:
+- S3 Object Lock
+- - Adopt a WORM (write once read many) model
+- - Block an object version deletion for a specified amount of time
+
+- Glacier Vault Lock
+- - Adopt a WORM (Write Once Read Many) model
+- - Lock the policy for future edits (can no longer be changed)
+- - Helpful for compliance and data retention
+-----------
+You have enabled versioning and want to be extra careful when it comes to deleting files on S3. What should you enable to prevent accidental permanent deletions?
+A:
+(Enable MFA Delete)
+MFA Delete forces users to use MFA tokens before deleting objects. It's an extra level of security to prevent accidental deletes
+-----------
+You would like all your files in S3 to be encrypted by default. What is the optimal way of achieving this?
+A:
+Enable "Default Encryption" on S3
+-----------
+You suspect some of your employees to try to access files in S3 that they don't have access to. How can you verify this is indeed the case without them noticing?
+A:
+Enable S3 access logs and analyze them using Athena
+
+S3 Access Logs log all the requests made to buckets, and Athena can then be used to run serverless analytics on top of the logs files
+-----------
+You are looking for your entire S3 bucket to be available fully in a different region so you can perform data analysis optimally at the lowest possible cost. Which feature should you use?
+A:
+S3 Cross Region Replication
+
+S3 CRR is used to replicate data from an S3 bucket to another one in a different region
+-----------
+You are looking to provide temporary URLs to a growing list of federated users in order to allow them to perform a file upload on S3 to a specific location. What should you use?
+A:
+S3 Pre-Signed URL
+
+Pre-Signed URL are temporary and grant time-limited access to some actions in your S3 bucket.
+-----------
+How can you automate the transition of S3 objects between their different tiers?
+A:
+Use S3 lifecycle rules
+-----------
+Which of the following is NOT a Glacier retrieval mode?
+A:
+Instance (10 Seconds)
+-----------
+Which of the following is a Serverless data analysis service allowing you to query data in S3?
+A:
+Athena
+-----------
+You are looking to build an index of your files in S3, using Amazon RDS PostgreSQL. To build this index, it is necessary to read the first 250 bytes of each object in S3, which contains some metadata about the content of the file itself. There is over 100,000 files in your S3 bucket, amounting to 50TB of data. how can you build this index efficiently?
+A:
+Create an application that will traverse the S3 bucket, issue a byte range fetch for the first 250 bytes, and store that information in RDS
+-----------

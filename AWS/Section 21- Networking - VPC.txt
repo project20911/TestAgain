@@ -1,0 +1,389 @@
+Understanding CIDR - IPv4 (Classless Inter-Domain Routing)
+A:
+- CIDR are used for Security Group rules, or AWS networking in general
+
+Example:
+0.0.0.0/0
+122.149.196.85/32
+
+- They help to define an IP address range
+- - We've seen WW.XX.YY.ZZ/32 == One IP
+- - We've seen 0.0.0.0/0 == All IPs
+- - But we can define for ex: 192.168.0.0/26: 192.168.0.0 - 192.168.0.63 (64 IP)
+-----------
+Understanding CIDR
+A:
+- A CIDR has two components: 
+- - The base IP (XX.XX.XX.XX)
+-- The subnet mask (/26)
+
+- The base IP represents an IP contained in the range
+- The subnet mask defines how many bits can change in the IP
+
+- The subnet mask can take two forms. Examples:
+- - 255.255.255.0 <- Less common
+- - /24 <- More common
+-----------
+Understanding CIDRS / Subnet Masks
+A:
+- The subnet masks basically allows part of the underlying IP to get additional next values from the base IP
+
+- /32 allows for 1 = IP 2^0
+- /31 allows for 2 IP = 2^1
+- /30 allows for 4 IP = 2^2
+- /29 allows for 8 IP = 2^3
+- /28 allows for 16 IP = 2^4
+- /27 allows for 32 IP = 2^5
+- /26 allows for 64 IP = 2^6
+- /25 allows for 128 IP = 2^7
+- /24 allows for 256 IP = 2^8
+- /16 allows for 65,536 IP = 2^16
+- /0 allows for ALL IPs = 2^32
+
+
+Quick Memo:
+- /32 - no IP number can change (aka only 1 host)
+- /24 - last IP number can change
+- /16 - last IP two numbers can change
+- /8 - last IP three numbers can change
+- /0 all IP numbers can change
+-----------
+Understanding CIDRs: Exercise
+A:
+- 192.168.0.0/24 = ?
+ - - 192.168.0.0 - 192.168.0.255 (256 IP)
+ 
+- 192.168.0.0/16 = ?
+- - 192.168.0.0 - 192.168.255.255 (65,536 IP)
+
+- 134.56.78.123/32 = ?
+- - Just 134.256.78.123
+
+- 0.0.0.0/0
+ - - All IP!
+
+- When in doubt, use this website: https://www.ipaddressguide.com/cidr
+-----------
+Private vs Public IP (IPv4): Allows Ranges
+A:
+- The Internet Assigned Numbers Authority (IANA) established certain blocks of IPv4 addresses for the use of private (LAN) and public (Internet) addresses.
+
+- Private IP can only allow certain values
+ - - 10.0.0.0 - 10.255.255.255 (10.0.0.0/8) <= in big networks
+ - - 172.16.0.0 - 172.31.255.255 (172.16.0.0/12) <= default AWS range
+- - 192.168.0.0 - 192.168.255.255 (192.168.0.0/16) <= example: home network
+
+
+- All the rest of the IP on the internet are public IP
+-----------
+How many IGW (Internet Gateway) can VPC have?
+A:
+A VPC can only have 1 internet gateway attached.
+-----------
+NAT Instances - Network Address Translation (outdated but still in the exam)
+A:
+- Allows instances in the private subnets to connect to the internet
+- Must be launched in a public subnet
+- Must disable EC2 flag: Source / Destination Check
+- Must have Elastic IP attached to it
+- Route table must be configured to route traffic from private subnets to NAT instance
+-----------
+NAT Instances - Comments
+A:
+- Amazon Linux AMI pre-configured are available
+- Not highly available / resilient setup out of the box
+- => Would need to create ASG in multi AZ + resilient user-data script
+- Internet traffic bandwidth depends on EC2 instance performance
+- Must manage security groups & rules
+- - Inbound: 
+- - - Allow HTTP / HTTPS traffic coming from Private Subnets
+ - - - Allow SSH from your home network ( access is provided through Internet Gateway)
+- - Outbound: 
+- - - Allow HTTP / HTTPS traffic to the internet
+-----------
+What is 1 important step in configuring a NAT Gateway Instance?
+A:
+Ensure the Source/Destination check is disabled!
+-----------
+NAT Gateway
+A:
+- AWS Managed NAT, higher bandwidth, better availability, no admin
+- Pay by the hour for usage and bandwidth
+- NAT is created in a specific AZ, uses an EIP
+- Cannot be used by an instance in that subnet (only from other subnets)
+- Requires an IGW (Private Subnet => NAT => IGW)
+- 5 Gbps of bandwidth with automatic scaling up to 45 gbps
+- No security group to manage / required
+-----------
+DNS Resolution in VPC
+A:
+- enableDnsSupport (= DNS Resolution Setting)
+ - - Default True
+ - - Helps decide if DNS resolution is support for the VPC
+ - - IfTrue, queries the AWS DNS server at 169.254.169.253
+
+- enableDnsHostname: (= DNS Hostname setting)
+ - - False by default for newly created VPC, True by default for Default VPC
+- - Won't do anything unless enableDnsSupport=true
+-- IfTrue, Assign public hostname to EC2 instance if it has a public
+
+- If you use custom DNS domain names in a private zone in Route 53, you must set both these attributes to true
+-----------
+Stateful vs Stateless (AWS)
+A:
+Stateful: Return traffic is automatically allowed, regardless of any rules. (Security Groups do this)
+
+Stateless: Return traffic must be explicitly allowed by rules (NACL - Network ACL does this)
+-----------
+Network ACLs
+A:
+- NACL are like a firewall which control traffic from and to subnet
+- Default NACL allows everything outbound and everything inbound
+- One NACL per subnet, new subnets are assigned the Default NACL
+- Define NACL rules:
+ - - Rules have a number (1 - 32766) and higher precedence with a lower number 
+ - - E.g If you define #100 ALLOW <IP> and #200 DENY <IP>, IP will be allowed
+ - - Last rule is an asterisk (*) and denies a request in case of no rule match
+ - - AWS recommends adding rules by increment of 100
+- Newly created NACL will deny everything
+-----------
+VPC Peering
+A:
+- Connect two VPC, privately using AWS' network
+- Make them behave as if they were in the same network
+- Must not have overlapping CIDR
+- VPC peering connection is not transitive (must be established for each VPC that needs to communicate with one another)
+- You can do VPC peering with another AWS account
+- You must update route tables in each VPC's subnets to ensure instances can communicate
+- You must update route tables in each VPC's subnets to ensure instances can communicate
+-----------
+VPC Peering - Good To Know
+A:
+- VPC peering can work inter-region, cross-account
+- You can reference a security group of a peered VPC (works cross account)
+-----------
+Flow Logs (VPC)
+A:
+- Capture information about IP traffic going into your interfaces
+- - VPC flow logs
+- - Subnet flow logs
+- - Elastic Network Interface Flow Logs
+
+- Helps to monitor & troubleshoot connectivity issues
+- Flow logs data can go to S3 / CloudWatch Logs
+- Captures network information from AWS managed interfaces to: ELB, RDS, ElastiCache, Redshift, WorkSpaces
+-----------
+Bastion Hosts
+A:
+- We can use a Bastion Host to SSH into our private instances
+- The bastion is in the public subnet which is then connected to all other private subnets
+- Bastion Host security group must be tightened 
+
+- Exam Time: Make sure the bastion host only has port 22 traffic from the IP you need, not from the security groups of your other instances
+-----------
+Site to Site VPN (VPC)
+A:
+- Virtual Private Gateway:
+ - - VPN concentrator on the AWS side of the VPN connection
+ - - VGW is created and attached to the VPC from which you want to create the Site-to-Site VPN connection
+ - - Possibility to customize the AS
+
+- Customer Gateway:
+ - - Software application or physical device on the customer side of the VPN connection
+ - - Google search "customer gateway devices tested"
+ - - IP Address:
+ - - - Use static, internet-routable IP address for your customer gateway device
+ - - - If behind a CGW behind NAT (with NAT-T), use the public IP address of the NAT
+-----------
+Direct Connect
+A:
+- Provides a dedicated private connection from a remote network to your VPC
+- Dedicated connection must be setup between your DC and AWS Direct Connection locations
+- You need to setup a Virtual Private Gateway on your VPC
+- Access public resources (S3) and private (EC2) on same connection
+- Use Cases:
+ - - Increase bandwidth throughput - working with large data sets - lower cost
+ - - More consistent network experience - applications using real-time data feeds
+ - - Hybrid Environments(on prem + cloud)
+- Supports both IPv4 and IPv6
+-----------
+Direct Connect - Connection Types
+A:
+- Dedicated Connections: 1Gbps and 10 Gbps capacity
+- - Physical ethernet port dedicated to a customer
+- - Request made to AWS first, then completed by AWS Direct Connect Partners
+
+- Hosted Connections: 50Mbps, 500 MBps, to 10 Gbps
+- - Connection requests are made via AWS Direct Connect Partners
+- - Capacity can be added or removed on demand
+- - 1, 2, 5, 10 Gbps available at select AWS Direct Connect Partners
+
+- Lead times are often longer than 1 month to establish a new connection
+-----------
+Direct Connect - Encryption
+A:
+- Data in transit is not encrypted but is private
+
+- AWS Direct Connect + VPN provides an IPsec-encrypted private connection
+
+- Good for an extra level of security, but slightly more complex to put in place
+-----------
+Egress Only Internet Gateway
+A:
+- Egress only Internet Gateway is for IPv6 only
+- Similar functions as a NAT, but a NAT is for IPv4
+- Good to know: IPv6 are all public addresses
+- Therefore all our instances with IPv6 are publicly accessible
+- Egress Only Internet Gateway gives our IPv6 instances access to the internet, but they won't be directly reachable by the internet
+- After created an Egress Only Internet Gateway, edit the route tables
+-----------
+AWS Private Link (VPC Endpoint Services)
+A:
+- Most secure & scalable way to expose a service to 1000s of VPC (own or other accounts) 
+
+- Does not require VPC peering, internet gateway, NAT, route tables. . . 
+
+- Requires a network load balancer (Service VPC) and ENI (Customer VPC)
+
+- If the NLB is in multiple AZ, and the ENI in multiple AZ, the solution is fault tolerant!
+-----------
+EC2-Classic & AWS ClassicLink (deprecated)
+A:
+- EC2-Classic: instances run in a single network shared with other customers
+
+- Amazon VPC: your instances run logically isolated to your AWS account
+
+- ClassicLink allows you to link EC2-Classic instances to a VPC in your account
+- - Must associate a security group
+- - Enabled communication using private IPv4 addresses
+- - Removes the need to make use of public IPv4 addresses or Elastic IP addresses
+
+- Likely to be distractors at the exam
+-----------
+AWS VPN CloudHub
+A:
+- Provide secure communication between sites, if you have multiple VPN connections
+- Low cost hub-and-spoke model for primary or secondary network connectivity between locationsd
+- It's a VPN connection so it goes over the public internet
+-----------
+Transit Gateway
+A:
+- For having transitive peering between thousands of VPC and on-premises, hub-and-spoke (star) connection
+- Regional resource, can work cross-region
+- Share cross-account using Resource Access Manager (RAM)
+- You can peer Transit Gateways across regions 
+- Route Tables: limit which VPC can talk with other VPC
+- Works with Direct Connect Gateway, VPN connections
+- Supports IP Multicast (not support by any other AWS service)
+
+- For a (STAR) topology for the AWS Infra-Network, think Transit Gateway service
+-----------
+VPC Section Summary (1/3)
+A:
+- CIDR: IP Range
+- VPC: Virtual Private Cloud => We define a list of IPv4 & IPv6 CIDR
+- Subnets: Tied to an AZ, we define a CIDR
+- Internet Gateway: at the VPC level, provide IPv4 & IPv6 Internet Access
+- Route Tables: must be edited to add routes from subnets to the IGW, VPC Peering Connections, VPC Endpoint, etc...
+- NAT Instances: gives internet access to instances in private subnets. Old, must be setup in a public subnet, disable Source / Destination check flag
+- Private DNS + Route 53: enable DNS resolution + DNS hostnames (VPC)
+- NACL: Stateless, subnet rules for inbound and outbound, don't forget ephemeral ports
+- Security Groups: Stateful, operate at the EC2 instance level.
+-----------
+VPC Section Summary (2/3)
+A:
+- VPC Peering: Connect two VPC with non overlapping CIDR, non transitive
+- VPC Endpoint: Provide private access to AWS services (S3, DynamoDB, CloudFormation, SSM) within VPC
+- VPC Flow Logs: Can be setup at the VPC/ Subnet / ENI Level, for ACCEPT and REJECT traffic, helps identifying attacks, analyze using Athena or CloudWatch Log Insights
+- Bastion Host: Public instance to SSH into, that has SSH connectivity to instances in private subnets 
+- Site to Site VPN: setup a Customer Gateway on DC, a Virtual Private Gateway on VPC, and site-to-site VPN over public internet
+- Direct Connect: setup a Virtual Private Gateway on VPC, and establish a direct private connection to an AWS Direct Connect Location
+- Direct Connect Gateway: Setup a Direct Connect to many VPC in different regions
+- Internet Gateway Egress: like a NAT Gateway, but for IPv6
+-----------
+VPC Section Summary (3/3)
+A:
+- Private Link / VPC Endpoint Services:
+- - Connect services private from your service VPC to customers VPC
+- - Doesn't neet VPC peering, public internet, NAT gateway, route tables,
+- - Must be used with Network Load Balancer A& ENI
+
+- ClassicLink: connect EC2-Classic instances privately to your VPC
+
+- VPN CloudHub: hub-and-spike VPN model to connect your sites
+- Transit Gateway: transitive peering connection for VPC, VPN & DX
+-----------
+What does this CIDR correspond to? 10.0.4.0/28
+A:
+Answer: 1.0.4.0 to 10.0.4.15
+
+
+
+Note; /28 means 16 IPs (=2^(32-28) = 2^4), means only the last digit can change.
+-----------
+You have a corporate network of size 10.0.0.0/8 and a satellite office of size 192.168.0.0/16. Which CIDR is acceptable for your AWS VPC if you plan on connecting your networks later on?
+
+A: 192.168.4.0/18
+B: 172.16.0.0/12
+C: 172..16.0.0/16
+D: 10.0.16.0/16
+A:
+Answer: 172.16.0.0/16
+
+Note: CIDR not should overlap, and the max CIDR size in AWS is /16
+-----------
+You plan on creating a subnet and want it to have at least capacity for 28 EC2 instances. What's the minimum size you need to have for your subnet?
+A:
+Answer: /26
+
+Note: /26 = (64 IP)
+-----------
+You have set up an internet gateway in your VPC, but your EC2 instances still don't have access to the internet. What is NOT a possible issue?
+
+A: Route Tables are missing entries
+B: The security group does not allow network in
+C: The NACL does not allow network traffic out
+A:
+Answer: B ; The security group does not allow network in
+
+
+Note: security groups are stateful and if traffic can go out, then it can go back in
+-----------
+You would like to provide internet access to your instances in private subnets with IPv4, while making sure this solution requires the least amount of administration and scales seamlessly. What should you use?
+A:
+Answer: NAT Gateway
+-----------
+VPC Peering has been enabled between VPC A and VPC B, and the route tables have been updated for VPC A. Still, your instances cannot communicate. What is the likely issue?
+A:
+Answer: Check the route tables in VPC B
+
+
+Note: Route tables must be updated in both VPC that are peered
+-----------
+You have set-up a direct connection between your Corporate Data Center and your VPC A. You need to access VPC B in another region from your Corporate Data Center as well. What should you do?
+A:
+Answer: Use a Direct Connect gateway
+
+
+Note: This is the main use case of Direct Connect Gateways
+-----------
+Which are the only two services that have a Gateway Endpoint instead of an Interface Endpoint as a VPC endpoint?
+A:
+Answer: Amazon S3 & DynamoDB
+
+
+Note: these two services have a Gateway endpoint (remember it), all the other ones have an interface endpoint (powered by Private Link - means a private IP)
+-----------
+Your company has created a REST API that it will sell to hundreds of customers as a SaaS. Your customers are on AWS and are using their own VPC. You would like to allow your customers to access your SaaS without going through the public internet while ensuring your infrastructure is not left exposed to network attacks. What do you recommend?
+A:
+Answer: Create a PrivateLink
+-----------
+Your company has several on-premise sites across the USA. These sites are currently linked using a private connection, but your private connection provider has been recently quite unstable, making your IT architecture partially offline. You would like to create a backup connection that will use the public internet to link your on-premise sites, that you can failover in case of issues with your provider. What do you recommend?
+A:
+Answer: VPN CloudHub
+-----------
+Networking Costs in AWS per GB - Simplified
+A:
+- Use Private IP instead of Public IP for good savings and better network performance
+- Use same AZ for maximum savings (at the cost of high availability)
+-----------

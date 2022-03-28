@@ -1,0 +1,255 @@
+What is Amazon S3?
+A:
+- Short for Amazon Simple Storage Service (the 3 s's)
+- Amazon S3 allows people to store objects (files) in "buckets" (directories)
+-----------
+What is the Amazon S3 naming convention/rules?
+A:
+- Buckets must have a globally unique name
+- Buckets are defined at the region level
+ - Naming Convention
+- - No uppercase
+- - No underscore
+- - 3-63 characters long
+- - Not an IP
+- - Must start with lowercase
+-----------
+What do AWS S3 buckets contain?
+A:
+S3 buckets contain objects(files)
+-----------
+What is an AWS S3 bucket key?
+A:
+The key is the FULL path of the file/object.
+
+( i.e s3://my-bucket/my_file.txt )
+-----------
+If there is an S3 folder structure, what is the path before the key called?
+A:
+The "path", "folders", or "name" before the key is called the "key prefix". Also, the key prefix can contain more than one folder leading up to the key/object.
+
+( i.e bucket/<key prefex>/<key> ) = ( i.e bucket/some_folder/text.txt )
+-----------
+What is an S3 key composed of?
+A:
+The key is composed of the prefex + object name.
+-----------
+In a literal sense, does S3 have a concept of "directories"
+A:
+No, there is no concept of directories within buckets.
+(although, the UI will trick you to think otherwise)
+-----------
+Since there is no concept of "directories" in AWS S3, what would it then be considered?
+A:
+A long "directory" path would just be considered a very long key name.
+
+(i.e s3://my-bucket/test_folder/second_folder/text.txt ) = ( i.e s3://<bucket name>/<key= <key prefix> + <object name>>
+-----------
+Is AWS S3 just made up of a bunch of directory paths?
+A:
+No, these are not directories. They are just long key names that contain slashes.
+-----------
+What is the max object size of an S3 object/file?
+A:
+The max object size is 5TB (5000GB)
+-----------
+If you are uploading more than a 5GB object in S3, what process must you use?
+A:
+If you are uploading more than 5GB object/file, then this must be done a "multi-part" upload. This is 5GB parts that can make up to a 5TB(max) object.
+-----------
+What attributes can an S3 object/file have?
+A:
+- Metadata (list of text key / value pairs - system or user metadata)
+- Tags (Unicode key / value pair - up to 10 - useful for security lifecycle)
+- Version ID (if versioning is enabled)
+-----------
+What is a best practice for S3 buckets when it comes to reliability, restoration, or availability?
+A:
+- It is best practice to version your buckets
+- - Versioning also protects against unintended deleted (ability to restore a version)
+- - It is easy to roll back to a previous version.
+-----------
+At what level is S3 enabled/disabled for versioning?
+A:
+It is enabled at the bucket level.
+-----------
+Prior to enabling versioning, what is the label/version of S3 files(objects)?
+A:
+Any file that is not versioned prior to enabling versioning will have a version "null" for "Version ID"
+-----------
+Does suspending S3 versioning delete previous versions? (or not?)
+A:
+Suspending versioning does not delete the previous versions.
+-----------
+What are the 4 methods of encryption for S3?
+A:
+1 . SSE-S3: encrypts S3 objects using keys handled & managed by AWS
+2. SSE-KMS: leverage AWS Key Management Service to manage encryption keys 
+3. SSE-C: when you want to manage your own encryption keys
+4. Client Side Encryption
+-----------
+What is SSE-S3 in AWS S3?
+A:
+- SSE, stands for Server Side Encryption.
+- The object is encrypted server side.
+- AES-256 is the encryption type.
+- Must set header: "x-amz-server-side-encryption": "AWS256"
+-----------
+What does SSE stand for in AWS S3?
+A:
+- SSE stands for Server Side Encryption
+-----------
+What is SSE-KMS in AWS S3?
+A:
+- SSE-KMS: encryption using keys handled & managed by AWS KMS
+- Advantage feature is the ability to use user control + audit trail
+- The object is encrypted server side
+- Must set header: "x-amz-server-side-encryption": "aws:kms"
+-----------
+What is SSE-C in AWS S3?
+A:
+- Server-side encryption using data keys fully managed by the customer outside of AWS
+- Amazon S3 does not store the encryption keys you provide
+- HTTPS must be used
+- Encryption keys must be provided in HTTP headers, for every HTTP request made
+-----------
+What is Client Side Encryption in AWS S3?
+A:
+- Encryption fully managed by the client
+- On the client side, a client library such as the Amazon S3 Encryption Client can be used
+- Clients must decrypt data themselves when retreiving from S3
+- The customer fully manages the keys and encryption cycle
+-----------
+What endpoints does Amazon S3 expose?
+A:
+- Amazon S3 exposes an HTTP and HTTPS endpoint.
+- The HTTPS endpoint uses encryption in flight
+- The HTTP endpoint is non encrypted
+-----------
+Which endpoint types are you able to use in Amazon S3? (HTTP/s)
+A:
+You are free to use whichever endpoint you want. However, HTTPS is recommended.
+-----------
+What is the default endpoint encryption setting for Amazon S3?
+A:
+Most clients would use the HTTPS endpoint by default
+-----------
+For Amazon S3 SSE-C, are clients allowed to use non-encrypted endpoints? (HTTP/s)
+A:
+- HTTPS is mandatory for SSE-C
+-----------
+(Amazon S3) The term "encryption in flight" also means?
+A:
+- Encryption in flight is also called SSL / TLS
+-----------
+List/describe user based policy for Amazon S3.
+A:
+User based policy is the following,
+- IAM policies - which API calls should be allowed for a speicifc user form IAM console
+-----------
+List/describe resource base policy for Amazon S3.
+A:
+Resource based policy is the following,
+- Bucket Policies - bucket wide rules from the S3 console - allows cross account 
+- Object Access Control List (ACL) - finer grain
+- Bucket Access Control List (ACL) - less common
+-----------
+List/desribe IAM pricipal access for an S3 object.
+A:
+- An IAM principal can access an S3 object if the user IAM permissions allow it OR the resource policy ALLOWS it.
+- AND There is no explicit DENY
+-----------
+Here is a list of OTHER Amazon S3 security points.
+A:
+- Networking 
+- - Supports VPC endpoints (for instances in VPC without www internet) 
+- Logging and Audit
+- - S3 Access Logs can be stored in other S3 bucket
+- - API calls can be logged in AWS CloudTrail
+- User Security 
+- - MFA Delete: MFA (multi factor authentication) can be required in versioned buckets to delete objects
+- - Pre-signed URLs: URLs that are valid only for a limited time (ex: premium video service for logged in users)
+-----------
+(Amazon S3) What does CORS stand for?
+A:
+CORS means Cross-Origin Resource Sharing
+-----------
+(Amazon S3) In relation to CORS, what is an origin?
+A:
+- An origin is a scheme (protocal), host(domain), and port
+- - E.g.: https://www.example.com (implied port is 443 for HTTPS, 80 for HTTP)
+-----------
+(Amazon S3) What is an example of using a same origin in CORS?
+A:
+A same origin in CORS would be the following,
+https://example.com/app_1 & http://example.com/app_2
+-----------
+(Amazon S3) What is an example of using different origins in CORS?
+A:
+Using different origins in CORS would be the following,
+http://example.com/app_1 V.S https://other.com/app_2
+
+Client Example: If a user makes a request to example.com/index.html, but the index.html forwards the other to a file/image on https://other.com/image.jpg
+-----------
+(Amazon S3) When a user is accessing an S3 enabled bucket where the index.html file forwards the user to another web enabled S3 bucket (which contains some image files). What would occur in a defaults CORS setting?
+A:
+If CORS is not enabled/configured, then the request would fail. The CORS Headers (ex: Access-Control-Allow-Origin) is needed for this type of action
+
+(i.e: Access-Control-Allow-Origin: http://example.com )
+-----------
+(Amazon S3) When using CORS in S3, would you be able to allow all origins, or specific origins?
+A:
+Both situations are allowed. You can specify a region OR specify all regions by using * wildcard (for all origins)
+-----------
+(Amazon S3) How does read after write consistency for PUTS of new objects work?
+A:
+- As soon as a new object is written, we can retrieve it
+- - ex: (PUT 200 => GET 200)
+- This is true, EXCEPT if we did a GET before to see if the object existed
+- - ex: (GET 404 => PUT 200 => GET 404 ) - eventually consisten
+-----------
+(Amazon S3) How does eventually Consistency for DELETES and PUTS of existing objects work?
+A:
+- If we read an object after updating, we might get the older version.
+ - - ex: (PUT 200 => PUT 200 => GET 200 (you might get an older version - eventual consistency)
+- If we delete an object, we might still be able to retrieve it for a short time 
+ - - ex: (DELETE 200 => GET 200 - eventually consistent)
+-----------
+Amazon S3's consistency model is "eventually consistent". Would you be able to request a stronger consistency for S3 operations?
+A:
+There is no way to request a "strong consistency"
+-----------
+(Amazon S3) You're trying to upload a 25 GB file on S3 and it's not working.
+A:
+You should use Multi Part upload when your file is bigger than 5GB
+-----------
+(Amazon S3) I tried creating an S3 bucket named "dev" but it didn't work. This is a new AWS Account and I have no buckets at all. What is the cause?
+A:
+Bucket names must be globally unique and "dev" is already taken
+-----------
+(Amazon S3) You've added files in your bucket and then enabled versioning. The files you've already added will have which version?
+A:
+null
+-----------
+(Amazon S3) Your client wants to make sure the encryption is happening in S3, but wants to fully manage the encryption keys and never store them in AWS. You recommend
+A:
+SSE-C (Server Side Encryption - Client)
+-----------
+(Amazon S3) Your company wants data to be encrypted in S3, and maintain control of the rotation policy for the encryption keys, but not know the encryption keys values. You recommend
+A:
+SSE-KMS (Server Side Encryption - Key Management Service)
+-----------
+(Amazon S3) Your company does not trust S3 for encryption and wants it to happen on the application. You recommend
+A:
+Client Side Encyption
+-----------
+(Amazon S3) The bucket policy allows our users to read/write files in the bucket, yet we were not able to perform a PutObject API call.
+A:
+The IAM user must have an explicit DENY in the attached IAM policy
+-----------
+(Amazon S3) You have a website that loads files from another S3 bucket. When you try the URL of the files directly in your Chrome browser it works, but when the website you're visiting tries to load these files it doesn't. What's the problem?
+A:
+CORS is wrong
+
+Reason: Cross-origin resource sharing (CORS) defines a way for client web applications that are loaded in one domain to interact with resources in a different domain. To learn more about CORS, go here: https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html
+-----------

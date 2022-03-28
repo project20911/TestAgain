@@ -1,0 +1,131 @@
+Mobile application: MyToDoList
+A:
+- We want to create a mobile application with the following requirements
+
+
+- Expose as REST API with HTTPS
+- Serverless architecture
+- Users should be able to directly interact with their own folder in S3
+- users should authenticate through a managed serverless service 
+- The users can write and read to-dos, but they mostly read them
+- The database should scale, and have some high read througput
+-----------
+AWS Limits to Know
+A:
+Execution:
+- Memory Allocation: 128MB - 3008MB (64 MB increments)
+- Maximum Execution Time: 900 seconds (15 minutes)
+- Environment variables: 4KB
+- Disk Capacity in the "function container" (in /tmp): 512 MB
+- Concurrency Executions: 1000 (can be increased)
+
+Deployment:
+- Lambda function deployment size (compressed .zip): 50 MB
+- Size of uncompressed deployment (code + dependencies): 250 MB
+- Can use /tmp directory to load other files at startup
+- Size of environment variables: 4KB
+-----------
+Mobile application: MyToDoList (general architecture needs)
+A:
+- Serverless REST API: HTTPS, API Gateway, Lambda, DynamoDB
+- Using Cognito to generate temporary credentials with STS to access S3
+- Caching the reads on DynamoDB using DAX
+- Caching the REST requests at the API Gateway level
+- Security for authentication and authorization with Cognito, STS
+-----------
+Micro Services architecture
+A:
+- We want to switch to a micro service architecture
+- Many services interact with each other directly using a REST API
+- Each architecture for each micro service may vary in form and shape
+
+
+- We want a micro-service architecture so we can have a leaner development lifecycle for each service
+-----------
+Discussions on Micro Services
+A:
+- You are free to design each micro-service the way you want
+- Synchronous patterns: API Gateway, Load balancers
+- Asynchronous patterns: SQS, Kinesis, SNS, Lambda Triggrs (S3)
+
+- Challenges with Micro-Services:
+- - Repeated overhead for creatinge each new microservice
+- - Issues with optimizing server density/utilization
+- - complexity of running multipole versions of multiple microservices simultaneously
+- - proliferation of client-side code requirements to integrate with many seperate services.
+
+- Some of the challenges are solved by Serverless patterns:
+- - API Gateway, Lambda scale automatically and you pay per usage
+- - You can easily clone API, reproduce environments
+- - Generated client SDK through Swagger integrations for the API Gateway
+-----------
+Big Data Ingestion Pipeline discussion
+A:
+- IoT Core allows you to harvest data from IoT devices 
+- Kinesis is great for real-time data collection
+- Firehose helps with data delivery to S3 in near real-time (1 minute)
+- Lambda can help Firehose with data transformation
+- Amazon S3 can trigger notification to SQS
+- Lambda can subscribe to SQS (we could have connecter S3 to Lambda)
+- Athena is a serverless SQL service and results are stored in S3
+- The reporting bucket contains analyzed data and can be used by reporting tool such as AWS QuickSight, Redshift, etc....
+-----------
+As a solutions architect, you have been tasked to implement a fully Serverless REST API. Which technology choices do you recommend?
+A:
+Answer: API Gateway + AWS Lambda
+
+Note: This is fully serverless
+-----------
+Which technology does not have an out of the box caching feature?
+A:
+Lambda
+
+Note: Lambda does not have an out of the box caching feature (it's often paired with API gateway for that)
+-----------
+Which service allows to federate mobile users and generate temporary credentials so that they can access their own S3 bucket sub-folder?
+A:
+Cognito
+
+
+Note: Cognito in combination with STS
+-----------
+You would like to distribute your static content which currently lives in Amazon S3 to multiple regions around the world, such as the US, France and Australia. What do you recommend?
+A:
+Cloudfront
+-----------
+You have hosted a DynamoDB table in ap-northeast-1 and would like to make it available in eu-west-1. What must be enabled first to create a DynamoDB Global Table?
+A:
+Answer: DynamoDB Streams
+
+Note: Streams enable DynamoDB to get a changelog and use that changelog to replicate data across regions
+-----------
+A Lambda function is triggered by a DynamoDB stream and is meant to insert data into SQS for further long processing jobs. The Lambda function does seem able to read from the DynamoDB stream but isn't able to store messages in SQS. What's the problem?
+A:
+The Lambda IAM role is missing permissions
+-----------
+You would like to create a micro service whose sole purpose is to encode video files with your specific algorithm from S3 back into S3. You would like to make that micro-service reliable and retry upon failure. Processing a video may take over 25 minutes. The service is asynchronous and it should be possible for the service to be stopped for a day and resume the next day from the videos that haven't been encoded yet. Which of the following service would you recommend to implement this service?
+A:
+Answer: SQS + EC2
+
+
+Note: SQS allows you to retain messages for days and process them later, while we take down our EC2 instances
+-----------
+You would like to distribute paid software installation files globally for your customers that have indeed purchased the content. The software may be purchased by different users, and you want to protect the download URL with security including IP restriction. Which solution do you recommend?
+A:
+CloudFront
+
+
+Note: This will have security including IP restriction
+-----------
+You are a photo hosting service and publish every month a master pack of beautiful mountains images, that are over 50 GB in size and downloaded from all around the world. The content is currently hosted on EFS and distributed by ELB and EC2 instances. You are experiencing high load each month and very high network costs. What can you recommend that won't force an application refactor and reduce network costs and EC2 load dramatically?
+A:
+Answer: Create a CloudFront distribution
+
+Note: CloudFront can be used in front of an ELB
+-----------
+You would like to deliver big data streams in real time to multiple consuming applications, with replay features. Which technology do you recommend?
+A:
+Answer: Kinesis Data Stream
+
+Note: Kinesis Data Streams has all these features
+-----------

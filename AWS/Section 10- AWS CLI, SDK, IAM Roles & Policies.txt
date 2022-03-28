@@ -1,0 +1,78 @@
+What is the preferred process for running using awscli `aws configure` in an EC2 instance?
+A:
+You should never do this. CLI/API credentials should never be stored in an EC2 instance under any circumstance.
+
+Using an IAM Role is a much proffered way.
+-----------
+What it the preferred way to use AWSCLI on an EC2 instance?
+A:
+- The proffered way is using an IAM role.
+- - IAM roles can be attached to EC2 instances 
+- - IAM Roles can come with a policy authorizing exactly what the EC2 instance should be able to do
+- - EC2 instances can then use these profiles automatically without any additional configurations.
+- - This is the best practice on AWS and you should 100% use this method.
+-----------
+How do you access the EC2 instance metadata?
+A:
+You can access it INTERNALLY by visiting the following address,
+
+http://169.254.169.254/latest/meta-data
+-----------
+Can you retrieve the IAM role name from the metadata in an EC2 instance?
+A:
+Yes, you can retrieve the IAM role name
+-----------
+Can you retrieve the IAM Policy from the metadata in an EC2 instance?
+A:
+No, you cannot retrieve the IAM policy
+-----------
+What is the metadata in regards to EC2?
+A:
+Metadata is the info about the EC2 instance.
+-----------
+What is userdata in regard to EC2?
+A:
+User data is launch script of the EC2 instance.
+-----------
+Here are some points for using AWS SDK
+A:
+- We have to use the AWS SDK when coding against AWS services such as DynamoDB
+- The AWS CLI uses the Python 3 SDK (boto3)
+- The exam expects you to know when you should use an SDK
+-----------
+Here are some points for Security point of view when using AWS SDK
+A:
+- It is recommended to use the default credential provider chain
+- The default credential provider chain works seamlessly with: 
+- - AWS credentials at ~/.aws/credentials (only on our computers or on premise)
+- - Instance Profile Credentials using IAM Roles (for EC2 machines, etc....)
+- - Environment variables (AWS_ACCESS_KEY_ID, AWS_SECRETE_ACCESS_KEY)
+
+- Overall, NEVER EVER STORE AWS CREDENTIALS IN YOUR CODE.
+- - The best practice is for credentials to be inherited from hechanisms above, and 100% IAM Roles if working from within AWS Services.
+-----------
+What is exponential backoff in regard to AWS API
+A:
+- Exponential Backoff 
+- - Any API that fails because of too many calls needs to be retried with Exponential Backoff
+- - These apply to rate limited API
+- - Retry mechanism included in SDK API calls
+-----------
+My EC2 Instance does not have the permissions to perform an API call PutObject on S3. What should I do?
+A:
+I should ask an administrator to attach a Policy to the IAM Role on my EC2 instance that authorizes it to do the API call
+-----------
+I have an on-premise personal server that I'd like to use to perform AWS API calls
+A:
+Answer: I should run `aws configure` and put my credebtuaks there. Invalidate them when I'm done.
+
+- Even better would be to create a user specifically for that one on-premise server
+-----------
+I need my colleagues help to debug my code. When he runs the application on his machine, it's working fine, whereas I get API authorisation exceptions. What should I do?
+A:
+Answer: Compare his IAM policy and my IAM policy in the policy simulator to understand the differences.
+-----------
+To get the instance id of my EC2 machine from the EC2 machine, the best thing is to...
+A:
+Answer: Query the meta data at http://169.254.169.254/latest/meta-data
+-----------

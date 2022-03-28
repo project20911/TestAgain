@@ -1,0 +1,41 @@
+What is ElasticBeanStalk?
+A: It is a managed service that is used for,
+- Instance configuration / OS handled by Beanstalk
+- Deployment strategy is configurable but performed by ElasticBeanStalk
+-----------
+What is the responsibility of the developer when using ElasticBeanStalk?
+A: Only the application code is the responsibility (that is one of the main goals of the Elastic BeanStalk service)
+-----------
+What are the three architecture models of Elastic BeanStalk?
+A: - Single instance deployment (good for dev)
+- Load Balancer + Autoscaling Group (great for prod or pre-prod web apps)
+- Autoscaling Group only (great for non-web apps in prod)
+-----------
+What are three components of Elastic BeanStalk?
+A: - Application
+- Application Version (each deployment gets assigned a version)
+- Environment Name (dev,test,prod, free naming)
+-----------
+You have an ASG that scales on demand based on the traffic going to your new website: TriangleSunglasses.Com. You would like to optimise for cost, so you have selected an ASG that scales based on demand going through your ELB. Still, you want your solution to be highly available so you have selected the minimum instances to 2. How can you further optimize the cost while respecting the requirements?
+A: Reserve two EC2 instances
+-----------
+Which of the following will NOT help make our application tier stateless?
+(A) Offload data in RDS
+(B) Store the session data in ElastiCache
+(C) Send the session data through the client cookies
+(D) Storing shared data on EBS volumes
+A: Answer: D (Storing shared data on EBS volumes)
+Reason: Once that instance is delete, the data is removed, which causes issue. This makes the instance stateful instead of stateless.
+-----------
+Which of the following will NOT help make our application tier stateless?
+A: Store the software updates on EFS and mount EFS as a network drive.
+-----------
+As a solution architect managing a complex ERP software suite, you are orchestrating a migration to the AWS cloud. The software traditionally takes well over an hour to setup on a Linux machine, and you would like to make sure your application does leverage the ASG feature of auto scaling based on the demand. How do you recommend you speed up the installation process?
+A: Use a Golden AMI
+-----------
+I am creating an application and would like for it to be running with minimal cost in a development environment with Elastic Beanstalk. I should run it in
+A: Single Instance Mode
+-----------
+My deployments on Elastic Beanstalk have been painfully slow, and after looking at the logs, I realize this is due to the fact that my dependencies are resolved on each EC2 machine at deployment time. How can I speed up my deployment with the minimal impact?
+A: Create a Golden AMI that contains the dependencies and launch the EC2 instances from that.
+-----------

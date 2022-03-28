@@ -1,0 +1,2541 @@
+Are AWS Security Groups statefull or stateless?
+
+A: Stateful
+-----------
+When using EC2 instances with Dedicated Hosting, which of the following modes are you able to transition between by stopping the instance and starting it again?
+
+A: Dedicated & Host
+-----------
+What is the storage limitation of a single value in DynamoDB?
+
+A: The Value and Name combined must not exceed 400 KB
+-----------
+What is the S3 path-style URL format?
+
+A: https://s3.Region.amazonaws.com/bucket-name/key name
+s3, region name, then bucket as a subdomain
+-----------
+What is the S3 Virtual Hosted Style URL format?
+
+A: https://bucket-name.s3.Region.amazonaws.com/key name
+bucket name, s3, region-name
+-----------
+What is the S3 static URL format?
+
+A: http://bucket-name.s3-website.Region.amazonaws.com/key name
+your own domain or your bucket name 1st, s3-website 2nd, followed by the region.
+-----------
+What is the S3 legacy URL format?
+
+A: Has no region
+-----------
+What is the maximum response time for a Business Level 'production down' Support Case?
+
+A: 1 hour
+-----------
+What is a VPC Flow Logs?
+
+A: This is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC. This data can be published to Amazon CloudWatch Logs or Amazon S3.
+-----------
+When monitoring the health of your EC2 instances, which resource requires you to set up a custom CloudWatch metric?
+
+A: Memory usage
+-----------
+What does RDS support?
+
+A: MariaDB, PostgreSQL, MySQL, SQLServer, Oracle, and Aurora
+-----------
+Which S3 storage type doesn't support 11 x 9s redundancy?
+
+A: Reduced Redundancy Storage
+-----------
+What is gateway-cached?
+
+A: This enable you to store primary data in Amazon S3 via the standard Internet Small Computer System Interface (iSCSI). By storing your data on Amazon S3, you minimize the need to scale your local storage infrastructure.
+-----------
+What is gateway-VTL?
+
+A: This is a format of AWS Storage Gateway service where it is configured to act as a Virtual Tape Library that spans from your on-premises environment, where your production applications are, to the AWS cloud's highly scalable, redundant and durable storage services, Amazon S3, Amazon S3 Glacier, and Amazon S3 Glacier Deep Archive.
+-----------
+What is gateway-snapshot?
+
+A: This provides the ability to back up point-in-time snapshots data to Amazon Simple Storage (Amazon S3) for durable off-site recovery, as well as import the data to an Amazon Elastic Block Store (EBS) volume in Amazon Elastic Compute Cloud (EC2)
+-----------
+What is File Gateways?
+
+A: This is a configuration of the AWS Storage Gateway service that provides your applications a file interface to seamlessly store files as objects in Amazon S3, and access them using industry standard file protocols.
+-----------
+What is AWS Storage Gateway?
+
+A: This connects an on-premises software appliance with cloud-based storage to provide seamless integration with data security features between your on-premises IT environment and the AWS storage infrastructure.
+-----------
+What AWS services are global?
+
+A: WAF, CloudFront, Route53, Key Pairs (if made correctly), IAM roles
+-----------
+What Route 53 routing policies are there?
+
+A: Simple, Weighted, Latency, Failover, Multivalue answer, Geoproximity. and Geolocation
+-----------
+Does strong consistency in DynamoDB impact cost?
+
+A: Yes, there is an increased cost for this type of consistency
+-----------
+Which AWS services allow native encryption of data, while at rest?
+
+A: S3, Elastic Block Store (EBS), Elastic File System (EFS)
+-----------
+What are the valid ways of encrypting data in S3?
+
+A: Server Side Encryption (SSE)-S3, SSE-C, SSE-KMS or a client library such as Amazon S3 Encryption Client.
+-----------
+What do SSL Certificates enable?
+
+A: These are useful to encrypt data in transit. When a web browser contacts your secured website, the SSL certificate enables an encrypted connection. It's kind of like sealing a letter in an envelope before sending it through the mail.
+-----------
+Are NACLs (network access control lists) stateful or stateless?
+
+A: Stateless
+-----------
+How many IP addresses are available for a /28 subnet?
+
+A: 16 - this is low
+-----------
+How may IP addresses does AWS reserve?
+
+A: AWS reserves both the first four and the last IP address in each subnet's CIDR block.
+-----------
+How does AWS deliver the promised levels of DynamoDB performance?
+
+A: The Database is partitioned across a number of nodes and the data is stored on solid state disks.
+-----------
+How does AWS deliver durability with DynamoDB?
+
+A: It is automatically replicated across multiple AZs
+-----------
+What is a NAT instance?
+
+A: You can use this in a public subnet in your VPC to enable instances in the private subnet to initiate outbound IPv4 traffic to the internet or other AWS services, but prevent the instances from receiving inbound traffic initiated by someone on the internet.
+-----------
+What is an Elastic IP address?
+
+A: This is a reserved public IP address that you can assign to any EC2 instance in a particular region, until you choose to release it. It will persist even if you delete the EC2 instance
+-----------
+What is CloudHSM?
+
+A: This is a cloud-based hardware security module (HSM) that enables you to easily generate and use your own encryption keys on the AWS Cloud. With this, you can manage your own encryption keys using FIPS 140-2 Level 3 validated HSMs.
+-----------
+When you copy an AMI from one region to another, what needs to be reapplied to the AMI so that it matches it's original version?
+
+A: launch permissions, user-defined tags, and amazon s3 bucket permissions
+-----------
+What is CIDR blocks?
+
+A: This is a method for allocating IP addresses and for IP routing.
+This is a compact representation of an IP address and its associated routing prefix.
+-----------
+What is an IGW (Internet Gateway)?
+
+A: An internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
+-----------
+What is a NACL?
+
+A: This provides a rule-based tool for controlling network traffic ingress and egress at the protocol and subnet level. In other words, these monitor and filter traffic moving in and out of a network. You can attach one of these to one or more subnets within your Virtual Private Cloud (VPC)
+-----------
+What does the VisibilityTimeout attribute value do in SQS?
+
+A: This notes the amount of time a message will be hidden from other consumer instances once it has been retrieved by a different consumer to reduce CPU usage
+-----------
+How long does it take for for a change in traffic allowance to take affect?
+
+A: A change would take affect immediately
+-----------
+How do you change the hosting configuration of a VPC?
+
+A: You can change the hosting value of a VPC by using the CLI, SDK, or API. This will change the hosting settings for new instances only. If you want to change old instances you'll need to stop them and then update the hosting settings via the CLI, SDK, or API.
+-----------
+What's the difference between default and dedicated hosting of EC2 instances?
+
+A: Dedicated tenancy ensures all EC2 instances that are launched in a VPC run on hardware that's dedicated to a single customer. Default tenancy means that resources can be shared with multiple customers.
+-----------
+To allow an EC2 instance to connect to the internet from your VPC via NAT, what must be done to the NAT instance?
+
+A: Each EC2 instance performs source/destination checks by default. This means that the instance must be the source or destination of any traffic it sends or receives. However, a NAT instance must be able to send and receive traffic when the source or destination is not itself. Therefore, you must disable source/destination checks on the NAT instance.
+-----------
+When should you use AWS Storage Gateway - Tape Gateway?
+
+A: The Tape Gateway's VTL interface eliminates large upfront tape automation capital expenses, multi-year maintenance contract commitments, and ongoing media costs. You pay only for the capacity you use and scale as your needs grow. The need to transport storage media to offsite facilities and handle tape media manually goes away, and your archives benefit from the design and durability of the AWS Cloud platform.
+-----------
+When should you use AWS Storage Gateway - Volume Gateway?
+
+A: Customers often choose the volume gateway to backup local applications and use it for disaster recovery based on EBS Snapshots, or Cached Volume Clones. The Volume Gateway integration with AWS Backup enables customers to use the AWS Backup service to protect on-premises applications that use Storage Gateway volumes.
+-----------
+When should you use AWS Storage Gateway - File Gateway?
+
+A: Customers use the File Gateway to store file data into S3 for use by object-based workloads including data analytics or machine learning, as a cost-effective storage target for backups, and as a repository or tier in the cloud for application file storage.
+-----------
+How can you secure s3 buckets?
+
+A: Using either Access Control Lists (Permissions) or by using bucket Policies.
+-----------
+Which services have built in fault tolerance across multiple AZs?
+
+A: S3, SQS, DynamoDB
+-----------
+What languages can be used to create cloud formation tempaltes?
+
+A: JSON and YAML
+-----------
+What are the three types of scaling in AWS?
+
+A: proactive Cycle Scaling, proactive Event-Based Scaling, Auto-Scaling Based on Demand
+-----------
+What is proactive Cycle Scaling?
+
+A: automatically start up and shutdown vms during peak periods, e.g. 9am-5pm mon-fri.
+-----------
+What is proactive Event-Based Scaling?
+
+A: Can automatically scale in anticipation peaks caused by certain events. E.g. black-friday, boxing day, half price sale days.
+-----------
+What is proactive Auto-Scaling Based on Demand?
+
+A: scale-up based on things like cpu, ram, bandwidth, reaches a certain predefined upper limit, e.g. 80%. This type of scaling has small delay when scaling up/down. I.e. it can take a couple of minutes for new EC2 register and become part of the applicaiton. Hence, end users may experience minor outages, if there is a very sharp peak. Another way to scale is based on jobs in the queue (e.g. queueing jobs in the Jenkins setup)
+-----------
+What does the WaitTimeSeconds attribute do in SQS?
+
+A: When the consumer instance polls for new work, the SQS service will allow it to wait a certain time for one or more messages to be available before closing the connection.
+-----------
+What does the DelaySeconds attribute do in SQS?
+
+A: When a new message is added to the SQS queue, it will be hidden from consumer instances for a fixed period.
+-----------
+What is an Instance-Store root volume?
+
+A: This is a type of EC2 instance wehre the root volume is associated with the EC2 only while running. If you stop the EC2 isntance you will loose everything sociated with the EBS.
+-----------
+How many internet gateways can you attach to a VPC?
+
+A: 1
+-----------
+What is Lambda
+
+A: This is an event-driven, serverless computing platform provided by Amazon as a part of Amazon Web Services. It is a computing service that runs code in response to events and automatically manages the computing resources required by that code.
+-----------
+What is a high level serverless architecture?
+
+A: Will start with API gateway to direct traffic, API gateway will pass jobs to Lambda, Lambda will interact with a serverless database like DynamoDB or Aurora Serverless
+-----------
+What languages does Lambda Support?
+
+A: Node.js, Java, Python, C#, Go, PowerShell
+-----------
+How is lambda priced?
+
+A: Number of requests: first 1M request free, then $0.20/1M requests
+Duration: Duration is calculated from the time your code begins executing until it returns or otherwise terminates, rounded up to the nearest 100ms. The price depends on the amount of memory you allocate to your function. You are charged 0.00001667 for every GB-second used.
+-----------
+What are the benefits of Lambda?
+
+A: No Servers, continuous scaling,
+-----------
+How does Lambda scale?
+
+A: It scales out (not up) automatically =
+-----------
+Are lambda functions independent?
+
+A: Yes, 1 event = 1 function
+-----------
+Is lambda serverless?
+
+A: Yes, no servers involved
+-----------
+Can Lambda functions trigger others?
+
+A: Yes, one event can = x functions if functions trigger other functions
+-----------
+What's the AWS debugging service?
+
+A: This is called AWS x-ray, it allows you to debug what is happening
+-----------
+What is a lambda trigger?
+
+A: This is a Lambda resource or a resource in another service that you configure to invoke your function in response to lifecycle events, external requests, or on a schedule.
+-----------
+Can lambda interact globally?
+
+A: Yes, lambda can interact with S3 buckets to other s3 buckets etc
+-----------
+What is SAM (serverless application model)?
+
+A: This is a cloudformation extension optimized for serverless applications
+-----------
+What is a high level traditional architecture?
+
+A: An elastic load balancer goes to an EC2 instance (WebServer) that then stores in a traditional database. Can scale but not as scaleable as serverless
+-----------
+What are the services that can invoke Lambda functions directly?
+
+A: ALB, Cognito, Lex, Alexa, API Gateway, CloudFront, and Kinesis Data Firehose are all valid direct (synchronous) triggers for Lambda functions.
+-----------
+What is a load balance?
+
+A: This balance the load across multiple web servers. It doesn't have to be internet facing, can be for applications as well.
+-----------
+What are the three types of load balancers in AWS?
+
+A: Application Load Balancer, Classic Load Balancer, Network Load Balancer
+-----------
+What is an application load balancer?
+
+A: These are best suited for load balancing of HTTP and HTTPS traffic. They operate at layer 7 and are application aware. They are intelligent, and you can create advanced request routing, sending specified requests to specific web servers. 
+These are intelligent, they can do very advanced routing.
+-----------
+What is a network Load Balancer
+
+A: These are best suited for load balancing of TCP traffic where extreme performance is required. Operating at the connection level (layer 4), Network Load Balancer are capable of handling millions of requests per second, while maintaining ultra-low latency. 
+Used for extreme performance
+-----------
+What is a Classic Load Balancer
+
+A: These are legacy load balancer. You can load balance HTTP/HTTPS applications and use Layer 7-specific features, such as X-Forwarded and sticky sessions. You can also use strict Layer 4 load balancing for applications that rely purely on the TCP protocol.
+-----------
+What is a 504 error?
+
+A: On classic load balancers if your application stops responding the ELB (classic load balancer) will respond with this error.
+This means there is an application issue, could be at either the Web Server layer or the Database Layer. 
+The gateway has timed out (application is not responding)
+-----------
+What is the X-Forwarded-For header?
+
+A: This is the true IP address of the individual who hit the load balancer with a request and then the load balancer pushed that request to an EC2 instance. 
+It's a way of identify the original request IPv4 address
+-----------
+When an instance is monitored by an ELB what are the two values the instance can have?
+
+A: InService or OutofService
+-----------
+What do Health Checks do?
+
+A: These check the instance health by talking to it
+-----------
+Do Load Blanacers have an IP address?
+
+A: No, load balancers have their own DNS name.
+-----------
+What are sticky sessions?
+
+A: Enables your users to stick to the same EC2 instance. Can be useful if you are storing information locally to that instance.
+This allows you to bind a user's session to a specific EC2 instance. This ensures that all requests from the user during the session are sent to the same instance.
+-----------
+What is cross zone load balancing?
+
+A: This allows load balancers to send traffic across availability zones. This helps to keep the traffic to instance evenly distributed regardless of the zone the load balancer and instances are in
+-----------
+What are path patrerns?
+
+A: Allows you to direct traffic to different EC2 instances based on the URL contained in the request. 
+You can create a listener with rules to forward requests based on the URL path. This is known as path-based routing. If you are running microservices, you can route traffic to multiple back-end services using path-based routing. For example, you can route general requests to one target group and requests to render images to another target group.
+-----------
+What are the three different components of Auto Scaling?
+
+A: Groups, Configuration Templates, Scaling Options
+-----------
+What are auto scaling groups?
+
+A: Logical component. Webserver group or application group or database group etc.
+-----------
+What are auto scaling configuration templates?
+
+A: Groups uses a launch template or a launch configuration as a configuration template for its EC2 instances. You can specify information such as the AMI ID, instance type, key pair, security groups, and block device mapping for your instances.
+-----------
+What are auto scaling options?
+
+A: These provide several ways for you to scale your Auto Scaling groups. For example, you can configure a group to scale based on the occurrence of specified conditions (dynamic scaling) or on a schedule
+-----------
+What are the five different scaling options?
+
+A: Maintain current instance levels at all times
+Scale manually 
+Scale based on a schedule 
+Scale based on demand
+Use predictive scaling
+-----------
+Scaling Options: Maintain current instance levels at all times
+
+A: You can configure your Auto Scaling group to maintain a specified number of running instances at all times. 
+Periodic health check ensures instances are up, and launches new ones as needed.
+-----------
+Scaling Options: Scale manually
+
+A: Most basic way to scale resources. You determine the increase or decrease in size and Auto Scaling the process adds or terminates instances.
+-----------
+Scaling Options: Scale on Schedule
+
+A: Scaling actions are performed automatically as a function of time and date
+-----------
+Scaling Options: Scale on demand
+
+A: Using scale policies, you can define paramters that control the scaling process. Increasing or decreasing resource as demand requires
+-----------
+Scaling Options: Predictive Scaling
+
+A: By combining EC2 auto scaling with AWS Auto Scaling to scale resources across multiple services. 
+Based on pervious performance, AWS Auto Scaling predicts when you will need more resources
+-----------
+What is the AWS Directory Service?
+
+A: A managed service for connecting your AWS resources to an existing on-premises Microsoft Active Directory or to set up and operate a new, standalone directory in the AWS Cloud.
+-----------
+With AWS Managed Microsoft AD, what does AWS manage and what does the customer manage?
+
+A: AWS: 
+Multi-AZ deployment
+Patch, Monitor, recover
+Instance rotation (latest software)
+Snapshot and restore 
+Customer: 
+User, Groups, GPOs
+Standard AD Tools
+Scale out DCs
+Trust (resource forest)
+Certificate authorities (LDAPS)
+Federation
+-----------
+What is Simple AD?
+
+A: When you need a standalone managed directory with basic AD features. 
+There can be small (less than 500 users) or large (less than 5000 users). 
+Makes it easier to manage ec2 instances
+-----------
+What is a manager difference between simple AD and managed AD?
+
+A: Simple AD does not support trusts (can't join to an on-premises AD)
+-----------
+What is an AD connector?
+
+A: This is used when you want a direct gateway (proxy) for an on-premises AD. It helps to avoid caching information in the cloud. It allows on-premises users to log in to AWS using AD. Scales across multiple AD connectors
+-----------
+What is cloud directory?
+
+A: This is a directory-based store for developers. It supports multiple hierarchies with hundreds of millions of objects.
+Use Cases: org charts, course catalogs, device registries
+Fully managed service
+-----------
+What is Amazon Cognito User Pools?
+
+A: Managed user directory for SaaS applications. Sign-up and sign-in for web or mobile. Often used with social media identities.
+-----------
+List the AD compatible AWS directory services
+
+A: Managed Microsoft AD (aka directory service for microsoft AD)
+AD Connector
+Simple AD
+-----------
+List the non AD compatible AWS directory services
+
+A: Cloud Directory
+Cognito user pools
+-----------
+What is the ARN (Amazon Resource Name)?
+
+A: Identifies every resource in AWS. 
+Naming structure: arn:partition_name:service_name:region_name:account_id:
+-----------
+What is an IAM policy?
+
+A: This is simply a JSON document that defines permission. these can be Identity Policies or Resource Policies.
+They are not effective until they are attached.
+-----------
+What happens to any policy that isn't explicitly allowed?
+
+A: If it's not explicitly allowed it's implicitly denied
+-----------
+What are premission boundaries?
+
+A: These are used to delegate administration to other users.
+This is an advanced feature used to prevent privilege escalation or unnecessarily broad permissions. 
+It controls the maximum permissions an IAM policy can grant
+-----------
+What is Resource Access Manager (RAM)?
+
+A: This allows resource sharing between accounts - if you have multiple aws accounts and thus resources separated out across accounts.
+-----------
+What type of resources can you share with RAM?
+
+A: App Mesh, Aurora, CodeBuild, EC2, EC2 Image Builder, License Manager, Resource Groups, Route 53
+-----------
+What is AWS SSO (Single Sign-On)?
+
+A: This is a service that helps to centrally manage access to AWS accounts and business applications.
+With this you can manage granular account access permissions. 
+If you see SAML in a question, look for SSO
+-----------
+What is the difference between a public and private subnet?
+
+A: If a subnet is associated with a route table that has a route to an internet gateway, it's known as a public subnet. If a subnet is associated with a route table that does not have a route to an internet gateway, it's known as a private subnet.
+-----------
+What is a VPC ?
+
+A: A virtual network dedicated to your AWS account.
+This lets you provision a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network that you define. You have complete control over your virtual networking environment, including a selection of your own IP address range, creation of subsets, and configuration of route tables and network gateways.
+-----------
+What does VPC stand for?
+
+A: Virtual Private Cloud
+-----------
+What are the different components of a VPC?
+
+A: VPC consist of IGWS (virtual private gateways), Route Tables, Network Access Control Lists, Subnets, and Security Groups
+-----------
+What's the ratio of subnets to availability zones
+
+A: It's one to one
+1 subnet = 1 AZ
+-----------
+Are Security groups statful or stateless?
+
+A: Stateful, this means you can only add allow rules (not deny)
+-----------
+Are Network Access Control Lists statful or stateless?
+
+A: Stateless, this means you can add deny rules as well as allow rules.
+-----------
+Is peering transitive in VPCs?
+
+A: No, there is no transitive peering. You must create a peering connection between VPCs if you want them to interact.
+-----------
+When you create a VPC, what is created by default?
+
+A: A default Route Table, Network Access Control List (NACL) and a default Security Group
+-----------
+When you create a VPC are subnets or internet gateways created?
+
+A: No, when you create a VPC a default internet gateway and subnet is not created
+-----------
+Are AZ's randomized by account?
+
+A: Yes, US-East-1A in your AWS account can be a completely different availability zone to US-East-1A in another AWS account
+-----------
+How many IP addresses does Amazon reserve by default within your subnet?
+
+A: 5
+-----------
+How many internet gateways can you have per VPC?
+
+A: 1
+-----------
+Can security groups span VPCs?
+
+A: No, security groups cannot span VPCs
+-----------
+What is a NAT Instance?
+
+A: A NAT instance is an EC2 instance that allows private instances to access the internet. These are out of date and likely shouldn't be used because they are a single source of failure and do not scale well.
+-----------
+NAT Instance Tips
+
+A: When creating a NAT instance, disable source/destination check on the instance
+NAT instances must be in a public subnet
+There must be a route out of the private subnet to the NAT instance, in order for this to work
+The amount of traffic that NAT instances can support depends on the instance size. If you are bottle-necking, increase the instance size. 
+Must be behind a security group 
+You can create high availability using Autoscaling Groups, multiple subnets in different AZs, and a script to automate failover...but it's not easy
+-----------
+What is a NAT gateway?
+
+A: These are redundant inside the availability zone, not a single instance
+You can only have on NAT gateway per AZ
+Preferred by the enterprise
+Starts at 5Gbps and scales currently to 45Gbps
+No need to patch
+Not associated w/ security group
+Automatically assigned a public ip address
+Remember to update your route tables 
+No need to disable Source/Destination Checks
+-----------
+NAT gateway best practice, if you have resources in multiple AZ's how many NAT gateways should you have?
+
+A: One for each AZ for high availability. In the event that the NAT gateway's Availability Zone is down, resources in the other availability zones will lose internet access. To create an Availability Zone-independent architecture, create a NAT gateway in each AZ and configure your routing to ensure that resources use NAT gateway in the same AZ
+-----------
+How can you block IP Addresses?
+
+A: You can block IP addresses using Netwrok ACLs, not Security groups
+-----------
+Does your VPC automatically come with a default network ACL?
+
+A: Yes it does and by default it allows all outbound and inbound traffic
+-----------
+When you create a custom network ACL what are the default inbound and outbound rules?
+
+A: All inbound and outbound traffic is denied by default when you create a custom NACL
+-----------
+Can a VPC not be associated with a network ACL?
+
+A: No, a VPC must be associated with a network ACL. If you don't explicitly associated a subnet with a network ACL, the subnet is automatically associated with the default network ACL.
+-----------
+How many subnets can be associated with a Network ACL?
+
+A: You can associated multiple subnets to one ACL
+-----------
+How many network ACLs can a subnet be associated with?
+
+A: Only one, subnets cannot to more than one NACL. If you associated a NACL with a subnet, the subnet's previous association is removed.
+-----------
+What do NACLs do?
+
+A: They contain a numbered list of connection/access rules that is evaluated in order, starting with the lowest number rule
+-----------
+Do network ACLs have inbound AND outbound rules?
+
+A: Yes, they have separate inbound and out bound rules and each rule can either allow or deny traffic
+-----------
+Are NACL's stateless?
+
+A: Yes, they are stateless which means responses to allowed inbound traffic are subject to the rules for outbound traffic (and vice versa).
+-----------
+Can you enable flow logs that are peered with your VPC?
+
+A: You cannot enable flow logs for VPCs that are peered with your VPC unless the peer VPC is in your account.
+-----------
+Can you attach tags to your flow logs?
+
+A: Yes, you can now tag flow logs
+-----------
+How do you change a flowlogs configuration after it's created?
+
+A: You cannot change it's configuration after it's created, for example you cannot associate a different IAM role with the flow log.
+-----------
+What IP Traffic isn't monitored?
+
+A: Traffic generated by instances when they contact the Amazon DNS server are not monitored. However if you use your own DNS server, then all traffic to that DNS server is logged. 
+Traffic generated by a windows instance from Amazon Windows licenses activation will not be monitored. 
+Traffic to and from 169.254.169.254 for instance metadata will not be monitored
+DHCP traffic is not monitored
+Traffic to the reserved IP address for the default VPC router is not monitored
+-----------
+What is a bastion host?
+
+A: This is a special-purpose computer on a network specifically designed and configured to withstand attacks. The computer generally hosts a single application, for example, a proxy server, and all other services are removed or limited to reduce the threat to the computer. It is hardened in this manner primarily due to its location and purpose, which is either on the outside of a firewall or in a demilitarized zone (DMZ) and usually involves access from untrusted networks or computers.
+-----------
+What is Direct Connect?
+
+A: This is a cloud service solution that makes it easy to establish a dedicated network connection from your premises between aws and your datacenter, office, or colocation environment, which in many cases can reduce your network costs, increase bandwidth throughput, and provide a more consistent network experience than internet-based connections.
+-----------
+How do you create a direct connect connection?
+
+A: Create a virtual interface in the direct connect console. This is a public virtual interface
+Go to the VPC console and then to VPN connections. Create a customer gateway 
+Create a virtual private gateway 
+Attach the virtual private gateway to the desired VPC
+Select VPN Connections and create new VPN connection
+Select the Virtual Private Gateway and the Customer Gateway
+Once the VPN is available, setup the VPN on the customer gateway or firewall
+-----------
+What is Global Accelerator?
+
+A: This is a service in which you create accelerators to improve availability and performance of your applications for local and global users. 
+This directs traffic to optimal endpoints over the AWS global network. This improves the availability and performance of your internet applications that are used by a global audience.
+-----------
+How many default IP addresses does Global Accelerator provide you with?
+
+A: This provides you with two default IP addresses however you can bring your own
+-----------
+What are the different components of a global accelerator?
+
+A: Static IP Addresses, Accelerator, DNS Name, Network Zone, Listener, Endpoint Group, Endpoint
+-----------
+What does a Global Accelerator DNS name look like
+
+A: It looks similar to randomcharcters.awsglobalaccelerator.com
+-----------
+What are TCP protocols?
+
+A: This is a suite of communication protocols used to interconnect network devices on the internet. TCP/IP can also be used as a communications protocol in a private computer network
+-----------
+What are UDP protocols?
+
+A: This is a communications protocol that is primarily used for establishing low-latency and loss-tolerating connections between applications on the internet. It speeds up transmissions by enabling the transfer of data before an agreement is provided by the receiving party.
+-----------
+What is a Route Table?
+
+A: This contains a set of rules, called routes, that are used to determine where network traffic from your subnet or gateway is directed.
+-----------
+What is an Internet Gateway?
+
+A: A gateway that you attach to your VPC to enable communication between resources in your VPC and the internet.
+This is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet.
+-----------
+What does an Internet Gateway do in a VPC?
+
+A: This provides a target in your VPC route tables for internet-routable traffic, and to perform network address translation (NAT) for instances that have been assigned public IPv4 addresses.
+-----------
+What is a subnet?
+
+A: A range of IP addresses in your VPC.
+This is a logical subdivision of an IP network. The practice of dividing a network into two or more networks is called submitting. This logically breaks up a VPC.
+-----------
+What is DNS (Domain Name System)?
+
+A: This is a standard by which names used on the internet are resolved to their corresponding IP addresses. A DNS hostname is a name that uniquely and absolutely names a computer; it's composed of a host name and a domain name.
+-----------
+What is a VPC endpoint?
+
+A: Enables you to privately connect your VPC to supported AWS services and VPC endpoint services powered by PrivateLink without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection. Instances in your VPC do not require public IP addresses to communicate with resources in the service. Traffic between your VPC and the other service does not leave the Amazon network.
+-----------
+Global Accelerator: what is a network zone?
+
+A: A network zone services the static IP addresses for your accelerator from a unique IP subnet. Similar to an AWS Availability Zone, a network zone is an isolated unit with its own set of physical infrastructure. When you configure an accelerator, by default, Global Accelerator allocates two IPv4 addresses for it. If one IP address from a network zone becomes unavailable due to IP address blocking by certain client networks, or network disruptions, then client applications can retry on the healthy static IP address from the other isolated network zone.
+-----------
+Global Accelerator: what is a listener?
+
+A: This processes inbound connections from clients to Global Accelerator, based on the port (or port range) and protocol that you configure. Global Accelerator supports both TCP and UDP protocols. Each one of these has one or more endpoint groups associated with it, and traffic is forwarded to endpoints in one of the groups. You associate endpoint groups with one of these by specifying the Regions that you want to distribute traffic to. Traffic is distributed to optimal endpoints within the endpoint groups associated with one of these.
+-----------
+Global Accelerator: what is an endpoint group?
+
+A: Each one of these is associated with a specific AWS Region. These include one or more endpoints in the Region. You can increase or reduce the percentage of traffic that would be otherwise directed to one of these by adjusting a setting called a traffic dial. The traffic dial lets you easily do performance testing or blue/green deployment testing, for example, for new releases across different AWS Regions.
+-----------
+Global Accelerator: what is an endpoint?
+
+A: This can be Network Load Balancers, Application Load Balancers, EC2 instances, or Elastic IP addresses. An Application Load Balancer endpoint can be an internet-facing or internal. Traffic is routed to endpoints based on configuration options that you choose, such as endpoint weights. For each endpoint, you can configure weights, which are numbers that you can use to specify the proportion of traffic to route to each one. This can be useful, for example, to do performance testing within a Region.
+-----------
+VPC Endpoints: what is endpoint service?
+
+A: Your own application in your VPC. Other AWS principals can create a connection from their VPC to your endpoint service
+-----------
+VPC Endpoints: what is gateway endpoint?
+
+A: A gateway endpoint is a gateway that you specify as a target for a route in your route table for traffic destined to a supported AWS service.
+Supported for S3 and DynamoDB
+-----------
+VPC Endpoints: what is interface endpoint?
+
+A: An interface endpoint is an elastic network interface with a private IP address from the IP address range of your subnet that serves as an entry point for traffic destined to a supported service.
+-----------
+Can you use a NAT gateway as a bastion host?
+
+A: No, you cannot
+-----------
+What is the benefit of Direct Connect?
+
+A: Useful for high throughput workloads or if you need a stable and reliable secure connection from AWS to your data center.
+-----------
+When you create a VPC what else is created in your AWS environment?
+
+A: route table, security group, and a network ACLs
+-----------
+At what three levels can VPC flow logs be created?
+
+A: VPC Level, Subnet Level, Network Interface Level
+-----------
+What is a chief advantage of using VPC Gateway Endpoints to connect your VPC to services such as S3?
+
+A: VPC Gateway Endpoints ensure traffic between your VPC and the other service does not leave the Amazon network
+-----------
+A VPN connection consists of which of the following components?
+
+A: Customer Gateway (to connect to the customers system) and Virtual Private Gateway (contains information regarding the AWS side of the VPN)
+-----------
+What is the name given to an isolated unit with its own set of physical infrastructure which is used to provide global accelerator services?
+
+A: Similar to Availability Zones, network zones are isolated units with their own set of physical infrastructure and service IP addresses from a unique IP subnet. If one IP address from a network zone becomes unavailable, due to network disruptions or IP address blocking by certain client networks, your client applications can retry using the healthy static IP address from the other isolated network zone.
+-----------
+An Application Load Balancer must be deployed into at least two subnets?
+
+A: True, ALBs must be in two subnets
+-----------
+What is the advantage of running your AWS VPN connection through your Direct Connect connection over using the ordinary Internet?
+
+A: It is likely that if you choose to run your VPN through a Direct Connect from your datacenter to the AWS network that your VPN connection will be both faster, and more secure.
+-----------
+Do ELBs have a pre-defined IPv4 address?
+
+A: No, ELBs do not have pre-defined IPv4 addresses; you resolve to them using a DNS name.
+-----------
+What's the difference between an Alias Record and a CNAME?
+
+A: The A record maps a name to one or more IP addresses when the IP are known and stable. The CNAME record maps a name to another name. Think of the CNAME as a pointer.
+-----------
+What are the common DNS types?
+
+A: SOA (Start of Authority) Records
+NS Record
+A Records 
+CNAMES
+MX Records
+PTR Records
+-----------
+Can you buy a domain name directly with AWS?
+
+A: Yes, AWS is a registrar
+-----------
+How long can it take for the registration of a domain name?
+
+A: Up to three days
+-----------
+What is a simple routing policy?
+
+A: In Route53 this is the simplest routing policy you can get. You can only have one record with multiple IP addresses. If you specify multiple values in a record, Route 53 returns all values to the user in a random order.
+-----------
+What is a weighted routing policy?
+
+A: This allows you to split your traffic based on different weights assigned. For example, you can set 10% of your traffic to go to US-EAST-1 and 90% to go to EU-WEST-1.
+-----------
+What are health checks?
+
+A: In Route53, this is how you can check the health of your different individual records.
+-----------
+What can health checks enable?
+
+A: If a record fails on of these it will be removed from Route53 until it passes the check. Additionally, you can set up SNS notification to alert you if a check failed.
+-----------
+What is a latency-based routing policy?
+
+A: This allows you to route your traffic based on the lowest network latency for your end user (i.e. which region will give them the fastest response time.) 
+Inorder to use this routing policy, you must create a latency resource record set for the EC2 or ELB resource in each region that hosts your website.
+-----------
+What is a failover routing policy?
+
+A: This is used when you want to create an active/passive set up. For example, you may want your primary site to be in EU-WEST-2 and your secondary DR Site in AP-SOUTHEAST-2. Route53 will monitor the health of your primary site using a health check and route clients to your DR site if a failure is detected.
+-----------
+What is a geolocation routing policy?
+
+A: This lets you choose where your traffic will be sent based on the geographic location of your users (i.e. the location from which DNS queries originated).
+-----------
+What is a geoproximity routing policy?
+
+A: This is available in traffic flow only. This allows Route 53 to route traffic to your resources based on the geographic location of your users and your resources. You can also choose to route traffic to different resources by value, known as a bias.
+-----------
+What is a multivalue answer routing policy?
+
+A: These let you configure Amazon Route 53 to return multiple values, such as IP addresses for your web servers, in response to DNS queries. You can specify multiple values for almost any record, but multivalue answer routing also lets you check the health of each resource so Route 53 returns only values for healthy resources.
+This is similar to simple routing but it lets you put health checks on each record set.
+-----------
+What's a relational database?
+
+A: Think of excel - rows and columns
+Standard DB used for reporting
+-----------
+What relational databases are available in AWS for RDS?
+
+A: SQL Server
+Oracle 
+MySQL Server
+PostgresSQL
+Aurora 
+MariaDB
+-----------
+What are the two key features of RDS?
+
+A: Multi - AZ - for disaster recovery
+Read Replicas - for performance
+-----------
+What's a non-relational DB?
+
+A: Think JSON, made up of collections, documents, and key-value pairs. 
+Collections = Table
+Documents = Row 
+Key-Value Pairs = Fields
+-----------
+Difference between non-relational vs relational DB?
+
+A: relational requires consistency, if you add a new column you must add that column for all values in your database. non-relational can add columns for a single records.
+-----------
+What is redshift?
+
+A: This is amazons answer to OLAP - online analytics process. This is amazon's data warehousing solution.
+-----------
+What is ElastiCache?
+
+A: This is a web service that makes it easy to deploy, operate, and scale an in-memory cache in the cloud. The service improves the performance of web applications by allowing you to retrieve information from fast, managed, in-memory caches, instead of relying entirely on slower disk-based databases.
+-----------
+What is DynamoDB?
+
+A: This is amazon's No SQL solution
+-----------
+What different memory options are there for Elasticache?
+
+A: Memcached and Redis
+-----------
+What is Elasticache used for?
+
+A: This is used to speed up existing databases, caching frequently identical queries.
+-----------
+Where does RDS run?
+
+A: It runs on virtual machines but you cannot log into the instance/operating system.
+-----------
+Is RDS Serverless?
+
+A: No, this is not a serverless technology (with the exception of Aurora)
+-----------
+What are the two types of backups for RDS?
+
+A: Automated and Database Snapshot
+-----------
+What are automated backups for RDS?
+
+A: These allow you to recover your database to any point in time within a "retention period". The retention period can be between one and 35 days. Automated Backups will take a full daily snapshot and will also store transaction logs throughout the day. This allows you to do a point in time recovery down to the second, within the retention period.
+-----------
+What are snapshots for RDS?
+
+A: These are done manually (they are user initiated). They are stored even after you delete the original RDS instance, unlike automated backups.
+-----------
+What is a read replica?
+
+A: Read replicas allow you to have a read-only copy of your production database. This is achieved by using Asynchronous replication from the primary RDS instance to the read replica. You use read replicas primarily for very read-heavy database workloads.
+-----------
+What is Multi-AZ for databases?
+
+A: This is an AWS disaster recovery support. Copys of data bases are placed in different AZ's to increase fault tolerance. This doesn't increase performance at all, only fault tolerance.
+-----------
+What are characteristics of read-replicas?
+
+A: This is used for scaling, not disaster recovery
+Must have automatic backups turned on in order to deploy a read replica 
+You can have up to 5 read replica copies of any database
+You can have read replicas of read replicas
+Each read replica will have it's own DNS end point
+Read replicas can have multi-AZ
+Read replicas can span a second regions 
+You can promote read-replicas to be their own DB but this breaks the replication
+-----------
+Can you have a read replica for SQL Server?
+
+A: No, SQL Server is not supported. MySQL, PostgresSQL, MariaDB, Oracle, Aurora are all supported.
+-----------
+What are the key characteristics of DynamoDB?
+
+A: Stored on SSD storage
+Spread across 3 geographically distinct data centers
+Two Consistency Options: Eventual consistent Reads (Default) and Strongly Consistent Reads
+-----------
+What is eventual consistent reads?
+
+A: Consistency across all copies of data is usually reached within a second. Repeating a read after a short time should return the updated data. (best read performance)
+-----------
+What is strongly consistent reads?
+
+A: A strongly consist read returns a result that reflects all writes that received a successful response prior to the read
+-----------
+What is Redshift used for?
+
+A: It's used for BI
+-----------
+Where is Redshift available?
+
+A: It's available in only one AZ
+-----------
+How is Redshift backed up?
+
+A: Backups are enabled by default with a one day retention period 
+The maximum retention period is 35 days 
+Redshift always attempts to maintain at least three copies of your data (the original and replica on the compute nodes and a backup in Amazon S3)
+Redshift can also asynchronously replicate your snapshots to s3 in another region for disaster recovery
+-----------
+What is Aurora?
+
+A: This is a MySQL and PostgresSQL - compatible relational database engine that combines the speed and availability of high-end commercial databases with the simplicity and cost-effectiveness of open source databases
+-----------
+What is Aurora Serverless?
+
+A: This is an on-demand, autoscaling configuration for the MySQL-compatible and PostgresSQL-compatible editions of Amazon Aurora. An Aurora Serverless DB cluster automatically starts up, shuts down, and scales capacity up or down based on your application's needs
+-----------
+When should Aurora Serverless be used?
+
+A: This should be used when you need a relatively simple, cost-effective option for infrequent, intermittent, or unpredictable workloads.
+-----------
+How many copies of your data does Aurora keep?
+
+A: six copies total. 2 copies of your data are contained in each availability zone, with minimum of 3 availability zones.
+-----------
+Can you share Aurora Snapshots with other AWS accounts?
+
+A: Yes
+-----------
+What are the three types of replicas available for Aurora?
+
+A: Aurora Replicas, MySQL replicas, and PostgresQL replicas. However, automated failover is only available with Aurora Replicas.
+-----------
+What's aurora's backup approach?
+
+A: Backups are automatically turned on by default. You can also take snapshots with Aurora and share snapshots with other AWS accounts
+-----------
+When should you use Elasticache?
+
+A: Use this to increase database and web application performance
+-----------
+Is Redis Multi-AZ?
+
+A: Yes
+-----------
+Can you backup and restore Redis?
+
+A: Yes
+-----------
+What is DynamoDB Accelerator? (DAX)
+
+A: This is a fully managed, highly available, in-memory cache
+Provides 10x performance improvement
+Reduces request time from milliseconds to microseconds - even under load
+-----------
+What is Database Migration Services (DMS)?
+
+A: This is a cloud service that makes it easy to migrate relational databases, data warehouses, NoSQL databases, and other types of data stores. 
+This can be used to migrate your data into the AWS Cloud, between on-premises instances, or between combinations of cloud and on-premises setups
+-----------
+DMS Migration Types: Homogenous
+
+A: same type of db that you're moving to the cloud
+-----------
+DMS Migration Types: Heterogenous
+
+A: different type of DB, you're converting it and moving it to the cloud
+-----------
+What is SCT?
+
+A: This is the AWS scheme conversation tool, used for migration or db conversion
+-----------
+Which services have caching capabilities in AWS?
+
+A: CloudFront, API Gateway, ElastiCache (memcached and Redis), DynamoDB (DAX)
+-----------
+What's the point of Caching/
+
+A: It's a balancing act between up-to-date, accurate information and latency.
+-----------
+What is Elastic Map Reduce (EMR)?
+
+A: This is an industry-leading cloud big data platform for processing vast amounts of data using open-source tools such as Apache Spark, Apache Hive, Apache HBase, Apache Flink, Apache Hudi, and Presto. 
+With this you can run petabyte-scale analysis at less than half the cost of traditional on-premises solutions and over three times faster than standard Apache Spark.
+-----------
+What is an EMR Cluster?
+
+A: This is a collection of Amazon Elastic Compute Cloud (EC2) instances. Each instance in this is called a node. Each node has a role within the cluster, referred to as the node type.
+-----------
+What is an EMR Master Node?
+
+A: This is a node that manages the cluster. This tracks the status of tasks and monitors the health of the cluster. Every cluster must have one of these.
+-----------
+What is an EMR Core Node?
+
+A: This is a node with software components that runs tasks and stores data in the hadoop distrubted file system on your cluster. Multi-node clusters have at least one of these.
+-----------
+What is an EMR Task node?
+
+A: This is a node with software components that only runs tasks and does not store data in HDFS. These are optional.
+-----------
+How do you persist log data from EMR master node?
+
+A: You can configure a cluster to periodically archive the log files stored on the master node to Amazon s3. 
+The log files are archived at five minutes intervals. 
+Must be set up when setting up a cluster.
+-----------
+What is EC2?
+
+A: This is a web service that provides resizable compute capacity in the cloud. This reduces the time required to obtain and boot new server instances to minutes, allowing you to quickly scale capacity, both up and down, as your computing requirements change
+-----------
+On Demand
+
+A: ec2 pricing model that allows you to pay a fixed rate by the hour (or by the second) with no commitment
+-----------
+Reserved
+
+A: ec2 pricing model that provides you witha capacity reservation, and offers a significant discount on the hourly charge for an instance. Contract terms are 1 or 3 years.
+-----------
+spot
+
+A: ec2 pricing model that enables you to bid whatever price you want for instance capacity, providing for even greater savings if your applications have flexible start and end times
+-----------
+dedicated host
+
+A: ec2 pricing model where physical servers are dedicated for your use. These can help you reduce costs by allowing you to use your existing server-bound software licenses
+-----------
+Standard Reserved Instances
+
+A: These offer up to 75% off on demand instnaces. The more you pay up front and the logner the contract, the greater the discount.
+-----------
+Convertible Reserved Instances
+
+A: These offer up to 54% off on demand capability to change the attributes of the RI as long as the exchange results in the creation of Reserved Instances of equal or greater value
+-----------
+Scheduled Reserved Instances
+
+A: These are available to launch within the time windows you reserve. This option allows you to match your capacity reservation to a predictable recurring schedule that only requires a fraction of a day, a week, or a month
+-----------
+Spot instance termination
+
+A: If you terminate the instance then you pay for any hour in which the instance ran, if Amazon terminates it you pay nothing for the partial hour.
+-----------
+What is termination protection?
+
+A: On an EC2 instances, this doesn't allow you to terminate the instance until you specifically turn the protection off. 
+The default on an EC2 instance is to have this off, you must turn it on if you want it applied.
+-----------
+What's the default action for an EBS instance when you delete an EC2 instnace?
+
+A: The root EBS volume will be deleted, however other additional EBS volumes will not be deleted by default. You must select that they be deleted when adding them.
+-----------
+Can EBS Root Volumes of your DEFAULT AMI's be encrypted?
+
+A: Yes, they can be encrypted in the console. Additionally, you can use a third party tool (such as bit locker) to encrypt the root volume, or this can be done when creating AMI's in the AWS console or using the API.
+-----------
+Can additional volumes added to your EC2 instance be encrypted?
+
+A: Yes, they can be
+-----------
+When you make a change to a security group, how long does it take to go into affect?
+
+A: Changes go into affect immediately
+-----------
+What does stateful mean?
+
+A: For EC2, this means that if you have created an inbound rule allowing traffic in on port 80, an outbound rule will automatically be created for the same port.
+-----------
+What does EBS stand for?
+
+A: Elastic Block Storage
+-----------
+What does EBS do?
+
+A: This provides block-level storage volumes for use with EC2 instances. These volumes behave like raw, unformatted block devices (virtual hard disk in the cloud). You can attach multiple volumes to the same instance within the limits specified by your AWS account. These are automatically replicated in an AZ to protect you from component failure, offering high availability and durability.
+-----------
+What is a Block Device
+
+A: These are are highly available and reliable storage volumes. In aws these are called EBS. EBS can be attached to any running instance that is in the same Availability Zone. EBS volumes that are attached to an EC2 instance are exposed as storage volumes that persist independently from the life of the instance.
+-----------
+When should you use EBS with an EC2 Instnace?
+
+A: This is recommended when data must be quickly accessible and requires long-term persistence. These volumes are particularly well-suited for use as the primary storage for file systems, databases, or for any applications that require fine granular updates and access to raw, unformatted, block-level storage. This is well suited to both database-style applications that rely on random reads and writes, and to throughput-intensive applications that perform long, continuous reads and writes.
+-----------
+What is an AMI?
+
+A: This provides the information required to launch an instance (ec2). You must specify this when you launch an instance. You can launch multiple instances from a single one of these when you need multiple instances with the same configuration. You can use different ones of these to launch instances when you need instances with different configurations.
+-----------
+What does AMI stand for?
+
+A: Amazon Machine Image
+-----------
+What is the default for inbound traffic on ec2?
+
+A: All inbound traffic is blocked by default, you must enable individual ports.
+-----------
+How is outbound traffic handled on ec2?
+
+A: All outbound traffic is allowed, this is because security groups are stateful
+-----------
+How many ec2 instances can you have within a security group?
+
+A: You can have any numberof instances within a security group
+-----------
+Can you have multiple security groups attached to EC2 instances?
+
+A: Yes, you can have multiple security groups attached to an ec2 instance
+-----------
+Can you block specific IP address using security groups?
+
+A: No, you must use a NACL to block specific IP addresses
+-----------
+What is a NACL?
+
+A: Network Access Control List
+-----------
+What type of rules can you set up in a security group?
+
+A: You can set up allow rules in a security group, you cannot set up a deny rule in a security group.
+-----------
+General Purpose SSD
+
+A: This is an EBS type. This balances price and perfroamnce for a wide variety of transaction workloads. 
+Use Case: most work loads
+API Name: gp2
+Volume Size: 1gb - 16tb
+Max. IOPS**/Volume: 16,000
+-----------
+Provisioned IOPS SSD
+
+A: This is an EBS type. This is the Highest-performance SSD volume designed for mission-cirtical applications
+Use Case: Databases
+API Name: io1
+Volume Size: 4gb - 16tb
+Max. IOPS**/Volume: 64,000
+-----------
+Throughput Optimized HDD
+
+A: This is an EBS type. Low cost HDD volume designed for frequently accessed, throughput-intensive workloads
+Use Case: Big Data & Data Warehouses
+API Name: st1
+Volume Size: 500gb - 16tb
+Max. IOPS**/Volume: 500
+-----------
+Cold HDD
+
+A: This is an EBS type. Lowest cost HDD volume designed for less frequently accessed workloads.
+Use Case: File Server
+API Name: sc1
+Volume Size: 500gb - 16tb
+Max. IOPS**/Volume: 250
+-----------
+EBS Magnetic
+
+A: This is an EBS type. Previous generation HDD
+Use Case: Workloads where data is infrequently accessed
+API Name: standard
+Volume Size: 1gb - 1tb
+Max. IOPS**/Volume: 40-200
+-----------
+io1
+
+A: API Name for Provisioned IOPS SSD
+-----------
+gp2
+
+A: API Name for General Purpose SSD
+-----------
+st1
+
+A: API Name for Throughput Optimized HDD
+-----------
+sc1
+
+A: API Name for Cold HDD
+-----------
+Standard
+
+A: API Name for EBS Magnetic
+-----------
+What type of EBS volume should you use for File Server
+
+A: Cold HDD (sc1)
+-----------
+What type of EBS volume should you use for Most Work Loads?
+
+A: General Purpose SSD (gp2)
+-----------
+What type of EBS volume should you use for Databases?
+
+A: Provisioned IOPS SSD (io1)
+-----------
+What type of EBS volume should you use for Big Data & Data Warehouse?
+
+A: Throughput Optimized HDD (st1)
+-----------
+What type of EBS volume should you use for Workloads where data is infrequently accessed?
+
+A: EBS Magnetic (Standard)
+-----------
+EBS
+
+A: Elastic Block Store
+-----------
+When creating a new EBS and associating it with an instance, what availability zone is it created in?
+
+A: It's always in the same AZ - you want the VM and Virtual Hard Disk drive to be close together
+-----------
+How can you move an EBS volume to a new availability zone?
+
+A: Take a snapshot of it, create an AMI from the snapshot and then use the AMI to launch the EC2 instance to a new AZ.
+-----------
+Where do snapshots exist in AWS?
+
+A: They exist in S3. Think of them as photographs of the disk.
+-----------
+What are snapshots?
+
+A: They are point in time copies of Volumes (EBS).
+-----------
+Are snapshots incremental?
+
+A: Yes, this means that only the blocks that have changed since your last snapshot are moved to s3.
+-----------
+How do you move an EC2 instance to a new region?
+
+A: Take a snapshot of it, create an AMI from the snapshot and then copy the AMI from one region to the other. Then use the copied AMI to launch the new EC2 instance in the new region.
+-----------
+What's another name for Instance Store Volumes?
+
+A: These can sometimes be called Ephemeral Storage
+-----------
+Can instance store volumes be stopped?
+
+A: No, if the underlying host fails you will lose your data.
+-----------
+Can EBS volumes be stopped?
+
+A: Yes, EBS backed instances can be stopped. You will not lose the data on this instance if it is stopped.
+-----------
+Can you reboot EBS and Instance Store Volumes?
+
+A: Yes, you can reboot both and you will not lose your data. With Instance Store, you'll only lose your data if the underlying host is stopped.
+-----------
+What occurs with root volumes for both EBS and Instance Store Volumes when you terminate an instance?
+
+A: The default action is for the root volume to be deleted. However, with EBS you can tell AWS to keep the root device volume.
+-----------
+What is ENI?
+
+A: Elastic Network Interface - essentially a virtual network card
+-----------
+What is EN?
+
+A: Enhanced Networking. Uses single root I/O virtualization (SR-IOV) to provide high-performance networking capabilities unsupported instance types.
+-----------
+What is EFA (elastic fabric adapter)
+
+A: A network device that you can attach to your Amazon EC2 instance to accelerate High Performance Computing (HPC) and machine learning applications.
+-----------
+What scenarios are there for an ENI?
+
+A: For basic networking. Perhaps you need a separate management network to your production network or a separate logging network and you need to do this at low cost. In this scenario use multiple ENI's for each network.
+-----------
+What scenarios are there for an EN (Enhanced Network)?
+
+A: For when you need speeds between 10Gbps and 100Gbps. Anywhere you need reliable, high throughput.
+-----------
+What scenarios are there for an Elastic Fabric Adapter?
+
+A: For when you need to accelerate High Performance Computing (HPC) and machine learning applications or if you need to do an OS by-pass. If you see a scenario question mentioning HPC or ML and asking what network adapter you want, choose EFA.
+-----------
+Are snapshots of encrypted volumes encrypted automatically?
+
+A: Yes, if the snapshot is encrypted the volume is default encrypted
+-----------
+If you restore a volume from an encrypted snapshot what type of volume is the restored volume?
+
+A: It's an encrypted volume
+-----------
+What is cloudwatch?
+
+A: Monitors performance 
+Can monitor most of AWS as well as your applications that run on AWS
+With EC2 will monitor every 5 minutes by default, can turn on detailed monitoring for every 1-minute interval
+Can turn on cloud watch alarms to trigger notifications
+-----------
+What is cloudtrail?
+
+A: This is a tool to audit your applications through logging API calls. 
+Nothing to do with performance, only auditing.
+-----------
+What is a benefit of a role in EC2?
+
+A: Roles are more secure than storing your access key and secret access key on individual EC2 instances
+Roles are easier to manage
+Roles are universal, can be used in any region 
+Roles can be assigned to any EC2 instance after it's created via command line or console
+-----------
+What is EFS?
+
+A: Elastic File System, part of AWS storage
+-----------
+What are characteristics of EFS?
+
+A: Supports the Network File System version 4 (NFSv4) protocol
+You only pay for the storage you use (no pre-provisioning required.) 
+Can scale up to the petabytes
+Can support thousands of concurrent NFS connections
+Data is stored across multiple AZ's within a region 
+Read after write consistency
+-----------
+What is AWS FSx for Windows?
+
+A: This provides a fully managed native Microsoft Windows file system so you can easily move your Windows-based applications that require file storage to AWS. This is built on Windows Server.
+-----------
+What is FSx for Luster?
+
+A: This is a fully managed file system that is optimized for compute-intensive workloads, such as high-performance computing, machine learning, media data processing workflows, and electronic design automation.
+-----------
+When should you use FSx for Luster?
+
+A: When you need high-speed, high-capacity distributed storage. This will be for applications that do High Performance Compute (HPC), financial modeling etc. Remember that FSx for Lustre can store data directly on S3.
+-----------
+When should you use Windows FSx?
+
+A: When you need centralized storage for windows-based applications such as Sharepoint, Microsoft SQL Server, Workspaces, IIS Web Server or any other native Microsoft Application
+-----------
+When should you use EFS?
+
+A: When you need distributed, highly resilient storage for LInux instances and Linux-based applications.
+-----------
+What is an EC2 Clustered Placement Group?
+
+A: It's a logical grouping of instances within a single availability zone. These are recommended for applications that need low network latency, high network throughput, or both.
+Only certain instances can be placed in a clustered placement group.
+-----------
+What is an EC2 Spread Placement Group?
+
+A: This ensure that a group of instances are each placed on distinct underlying hardware. 
+Recommended for applications that have a small number of critical instances that should be kept separate from each other.
+-----------
+What is an EC2 Partitioned Placement Group?
+
+A: This is when Amazon EC2 divides each group into logical segments called partitions. EC2 ensures that each partition within a group has its own set of racks. Each rack has its own network and power source. This allows you to isolate the impact of hardware failure within your application.
+-----------
+What is WAF?
+
+A: Web Application Firewall
+-----------
+What does WAF do?
+
+A: This is a web application firewall that lets you monitor the HTTP and HTTPs requests that are forwarded to Amazon Cloudfront, an application load balancer, or API gateway. 
+This also lets you control access to your content
+-----------
+What behaviors does WAF allow?
+
+A: 1) allow all requests except the ones you specify
+2) block all requests except the ones you specify 
+3) count the requests that match the properties you specify
+-----------
+What conditions can you use to specify in WAF to block web-access?
+
+A: IP Addresses that the request originates from
+Country that the request comes from 
+Values in the request headers
+Strings that appear in requests
+Length of requests
+Presence of SQL code that is likely to be malicious
+Presence of a script that is likely to be malicious
+-----------
+What can you do with CloudWatch?
+
+A: Dashboards - create dashboards to see what's happening with your AWS environment
+Alarms - allows you to set alarms that notify you when particular thresholds are hit
+Events - CloudWatch events helps you to respond to state changes in your AWS resources
+Logs - helps you to aggregate, monitor, and store logs
+-----------
+What are BootStrap scripts?
+
+A: These run when an EC2 instance first boots
+Can be a powerful way of automating software installs and updates
+-----------
+What is meta-data and user-data?
+
+A: using curl commands you can get information about your instance.
+-----------
+What are spot blocks?
+
+A: This allows you to stop your Spot Instances from being terminated even if the Spot price goes over your max Spot price. You can set these for between one to six hours currently
+-----------
+How do you terminate a spot instance?
+
+A: 
+-----------
+What is a spot fleet?
+
+A: This is a collection of Spot Instances, and optionally, On-Demand Instances.
+-----------
+What is a capacityOptimized spot fleet?
+
+A: The spot instance comes from the pool with optimal capacity for the number of instances launched
+-----------
+What is a lowestPrice spot fleet?
+
+A: The Spot Instances come from the pool with the lowest price. This is the default strategy
+-----------
+What is a InstnacePoolsToUseCount spot fleet?
+
+A: The Spot Instances are distributed across the number of spot instance pools you specify. This parameter is valid only when used in combination with lowestPrice
+-----------
+What is a diversified spot fleet?
+
+A: The Spot Instances are distributed across all pools
+-----------
+What is EC2 hibernate?
+
+A: This is when the operating system is told to perform hibernation (suspend-to-disk). This saves the contents from the instnace memory (RAM) to your Amazon EBS root volume. The amazon EBS root volume and any attached Amazon EBS data volumes persist
+-----------
+What's the benefit of EC2 Hibernate?
+
+A: The instance boots much faster. The operating system does not need to reboot because the in-memory state (RAM) is preserved. 
+Helpful for long-running processes
+Services that take a lot of time to initialize
+-----------
+What are the restrictions for an EC2 instances to use EC2 Hibernate?
+
+A: RAM must be less than 150 GB
+Available for windows, amazon Linux 2 AMIs, and ubuntu
+Cannot hibernate for more than 60 days
+EBS volume must have enough storage to support the RAM
+Available for on-demand instances and reserved instances
+-----------
+What is HPC?
+
+A: High-performance computing
+-----------
+What is AWS Batch?
+
+A: This is a set of batch management capabilities that enables developers, scientists, and engineers to easily and efficiently run hundreds of thousands of batch computing jobs on AWS.
+-----------
+What is AWS ParallelCluster
+
+A: This is an AWS-supported open source cluster management tool that makes it easy for you to deploy and manage High Performance Computing (HPC) clusters on AWS.
+-----------
+How can you achieve HPC on AWS?
+
+A: Data Transfer, Compute and networking, Storage, Orchestration and automation
+-----------
+What are the best ways to move large amounts of data into AWS?
+
+A: Snowball or Snowmobile
+-----------
+What does AWS DataSync do?
+
+A: This allows you to store local files (or files in other AWS EFS locations) in S3, EFS, FSx for windows, etc.
+-----------
+How can you achieve HPC on AWS for compute and networking?
+
+A: EC2 instances that are GPU or CPU optimized
+EC2 fleets (spot instances or spot fleets)
+Placement groups (cluster placement groups)
+Enhanced networking single root I/O virtualization (SR-IOV)
+Elastic Network Adapters or Intel 82599 Virtual Function
+Elastic Fabric Adapters
+-----------
+How can you achieve HPC on AWS for storage?
+
+A: Instance-attached Storage: 
+EBS: Scale up to 64,000 IOPS with provisioned IOPS (PIOPS) 
+Instance Store: Scale to millions of IOPS; low latency
+
+Network storage: 
+Amazon S3: distributed object-based storage; not a file system
+Amazon EFS: Scale IOPS based on total size, or use Provisioned IOPS
+Amazon FSx for Lustre: HPC-optimized distributed file system; millions of IOPs, which is also backed by S3
+-----------
+How can you achieve HPC for Orchestration and automation
+
+A: AWS Batch
+AWS Parallel Cluster
+-----------
+What is Athena?
+
+A: Interactive query service which enables you to analyze and query data located in s3 using standard sql
+-serverless, nothing to provision, pay per query/per TB scanned
+-No need to set up complex Extract/Transform/Load (ETL) processes
+-Works directly with data stored in s3
+-----------
+What is Macie?
+
+A: Security services which uses Machine Learning and NLP (Natural Language Processing) to discover, classify and protect sensitive data stored in s3
+- uses AI to recognize if your s3 objects contain sensitive data such as PII
+-Dashboards, reporting and alerts
+-Works directly with data stored in s3
+-Can also analyze CloudTrail logs
+-Great for PCI-DSS and preventing ID theft
+-----------
+When would you use Macie?
+
+A: This should be used when trying to identify PII in your data files. Helps with PCI-DSS (credit card payments) compliance and preventing ID theft
+-----------
+When should you use Athena?
+
+A: -Can be used to query log files stored in s3 e.g. ELB logs, s3 access logs, etc. 
+-Generate business reports on data stored in s3
+-Analyse AWS cost and usage reports
+-Run queries on click-stream data
+-----------
+What is PII?
+
+A: Personally Identifiable Information
+-----------
+What is Storage Gateway?
+
+A: This is a service that connects an on-premises software appliance with cloud-based storage to provide seamless and secure integration between an organization's on-premises IT environment and AWS's storage infrastructure. 
+The service enables you to securely store data to the AWS cloud for scalable and cost-effective storage.
+-----------
+What is Storage Gateway used for?
+
+A: This is used to create a hybrid cloud solution - connecting an on prem environment to the AWS cloud for storage.
+-----------
+Where does storage gateway fall under the AWS service catalog?
+
+A: Storage
+-----------
+What options do you have for installing storage gateway?
+
+A: This can be installed using software of physical hardware
+-----------
+What are the three different Storage Gateway types?
+
+A: File Gateway (NFS & SMB)
+Volume Gateway (iSCSI)
+Tape Gateway (VTL)
+-----------
+What is File Gateway?
+
+A: Files are stored as objects in your s3 buckets, accessed through a Network File System (NFS) mount point. Ownership, permissions, and timestamps are durably stored in s3 in the user-metadata of the object associated with the file. Once objects are transferred to s3, they can be managed as native s3 objects, and bucket policies such as versioning, lifecycle management, and cross-region replication apply directly to objects stored in your bucket.
+-----------
+What is Volume Gateway?
+
+A: This presents cloud-based iSCSI block storage volumes to your on-premises applications. 
+Data written to these volumes can be asynchronously backed up as point-in-time snapshots of your volumes, and stored in the cloud as Amazon EBS snapshots. 
+Snapshots are incremental backups that capture only changed blocks. All snapshots storage is also compressed to minimize your storage charges.
+-----------
+What is Tape Gateway?
+
+A: This offers IT organizations a seamless way to transfer backup jobs from tape or Virtual Tape Library systems to the cloud - while keeping trusted backup tools and processes in place.
+Helps remove tapes - helps to move backups to the cloud and transfer off of backup applications on-prem.
+-----------
+What is Volume Gateway Stored Volumes?
+
+A: The entire Dataset is stored on-site and is asynchronously backed up to s3.
+This lets you store your primary data locally, while asynchronously backing up that data to AWS. 
+This provides your on-premises applications with low-latency access to their entire datasets while providing durable, off-site backups. You can create storage volumes and mount them as iSCSI devices from your on-premises application servers. Data written to your stored volumes are stored on your on-premises storage hardware. 
+This data is asynchronously backed up to Amazon Simple Storage Service (s3) in the form of an Amazon Elastic Block Store (EBS) snapshot. 
+1 GB - 16 TB in size for Stored Volumes
+-----------
+What is Volume Gateway Cached Volumes?
+
+A: The entire Dataset is stored on s3 and the most frequently accessed data is cached on site. 
+This lets you use s3 as your primary data storage while retaining frequently accessed data locally in your storage gateway. 
+This minimizes the need to scale your on-premises storage infrastructure, while still providing your applications with low-latency access to their frequently accessed data. 
+You can create storage volumes up to 32 TB in size and attach to them as iSCSI devices from your on-premises application servers. Your gateway stores data that you write to these volumes in Amazon s3 and retains recently read data in your on-premises storage gateway's cache and upload buffer storage. 
+1GB - 32 TB in size for Cached Volumes.
+-----------
+What is NFS (Network File System)?
+
+A: This is a distributed file system protocol originally developed by Sun Microsystems in 1984, allowing a user on a client computer to access files over a computer network much like local storage is accessed.
+-----------
+What is SMB (Server Message Block)?
+
+A: This is a network communication protocol for providing shared access to files, printers, and serial ports between nodes on a network. It also provides an authenticated inter-process communication mechanism.
+-----------
+What is iSCSI (Internet Small Computer Systems Interface)?
+
+A: This is an Internet Protocol-based storage networking standard for linking data storage facilities. It provides block-level access to storage devices by carrying SCSI commands over a TCP/IP network.
+-----------
+What is VTL (virtual tape library)?
+
+A: This is a data storage virtualization technology used typically for backup and recovery purposes. This presents a storage component as tape libraries or tape drives for use with existing backup software.
+-----------
+What is Snowball?
+
+A: This is a petabyte-scale data transport solution that uses secure appliances to transfer large amounts of data into and out of AWS. 
+Essentially a Large Disc
+-----------
+What challenges does Snowball address?
+
+A: Snowball supports challenges with large-scale data transfers including high network costs, long transfer times, and security concerns.
+-----------
+What is the benefit of Snowball?
+
+A: Data transfers are simple, fast, secure, and can be as little as one-fifth the cost of high-speed internet
+-----------
+What size options are there with Snowball?
+
+A: 50TB or 80TB
+-----------
+What layers of security does Snowball offer?
+
+A: Tamper-resistant enclosure
+256-bit encryption
+Industry Standard Trusted Platform Module (TPM)
+-----------
+What is AWS Snowball Edge?
+
+A: This is a 100TB data transfer device with on-board storage and compute capabilities. You can use this to move large amounts of data into and out of AWS, as a temporary storage tier for large local datasets, or to support local workloads in remote or offline locations.
+Compute and Storage
+-----------
+What is AWS Snowmobile?
+
+A: This is an Exabyte-scale data transfer service used to move extremely large amounts of data to AWS. You can transfer up to 100PB per container.
+-----------
+What are the benefits of Snowmobile?
+
+A: This makes it easyt o move massive volumes of data to the cloud, including video libraries, image repositories, or even a complete data center migration. It's secure, fast and cost effective.
+-----------
+Snowball and S3
+
+A: Snowball can import to and export from s3
+-----------
+What is CloudFront?
+
+A: This is a CDN (Content Delivery Network) which is a system of distributed servers (networks) that deliver webpages and other web content to a user based on the geographic locations of the user, the origin of the webpage, and a content delivery server
+-----------
+What is an Edge Location?
+
+A: This is a location where content will be cashed. Separate from AZ or Region
+-----------
+What is an Origin?
+
+A: This is is the origin of all the files that a CDN will distribute. This can be an s3 bucket, an EC2 instnace, an Elastic Load Balancer, or Route53
+-----------
+What is a Distribution?
+
+A: This is the name given the CDN which consists of a collection of Edge Locations
+-----------
+What can CloudFront be used for?
+
+A: This can be used to delier your entire website, including dynamic, static, streaming and interactive content using a global network of edge locations. 
+Requests for your content are automatically routed to the nearest edge location, so content is delivered with the best possible performance.
+-----------
+What are the two types of distributions?
+
+A: Web Distribution - typically used for websites
+RTMP - Used for media and streaming
+-----------
+Are Edge Locations read only?
+
+A: You can write to edge locations as well, they are not just read only - objects can be put in them
+-----------
+What is TTL (time to live)?
+
+A: This is the amount of time an Object is cached at an edge location.
+-----------
+Can you clear cached objects from an edge location?
+
+A: You can clear cached objects from an edge location but you will be charged
+You can invalidate the cache on an edge location
+-----------
+Under what service category does CloudFront fall under?
+
+A: Networking & Content Delivery
+-----------
+What are signed URLs vs signed cookies?
+
+A: Signed URLS are for individual files 1 file = 1 url
+Signed cookies are for multiple files 1 cookie = multiple files
+-----------
+What are signed URLS and cookies used for?
+
+A: Used to secure content so that only the people you authorize are able to access it
+-----------
+What is AWS Organizations?
+
+A: This is an account management services that allows you to consolidate multiple accounts into one organization that you create and centrally manage
+This essentially acts like the root account, allowing you to track other accounts
+-----------
+What does AWS Organization enable you to do?
+
+A: This enables consolidated billing across separate accounts
+-----------
+When should you use AWS Organizations?
+
+A: When ever you have separate teams with separate AWS accounts and you need to track their and pay for their accounts 
+Whenever you need to implement policies across separate accounts to limit the resources and options account owners have
+-----------
+What is Consolidated Billing?
+
+A: The idea behind this is that the more you use the less you pay. the more storage you use in S3 the less you pay for that storage. By doing this you can associate different account usage with one paying account - decreasing overall cost
+-----------
+What are the advantages of consolidated billing?
+
+A: There is one bill per AWS account
+Very easy to track charges and allocate costs
+Volume pricing discount
+-----------
+Where do Organizations fall in the AWS services?
+
+A: Management & Governance
+-----------
+What are the three different ways to create an Organization?
+
+A: -from the console you can choose your account name from the bar and select my organization
+-under services and under Management and Governance select Organizations
+-----------
+What is an OU (Organizational units)?
+
+A: This is a way of organizing different accounts within an Organization
+-----------
+What do Policies in an Organization do?
+
+A: Helps restrict services accounts can use (through service control policy).
+-----------
+What different types of policies are there in an Organization?
+
+A: Service Control - these offer central control over the maximum available permissions for all accounts in you organization. 
+Tag - define tag keys and their allowed values. Helping you to remain organized within your Organization
+-----------
+What are best practices for AWS organizations?
+
+A: -Always Enable MFA on root account
+-Always use a strong and complex password on root account 
+-Paying account should be used for billing purposes only. Do not deploy resources into the paying account 
+-Enable/Disable AWS services using Service Control Policies (SCP) either on OU or on individual accounts
+-----------
+What is s3?
+
+A: This is an object storage service in the cloud
+-----------
+What is object-based?
+
+A: s3 is object based which means you can upload files to it. It is not block-based
+-----------
+Can you install an OS on S3?
+
+A: S3 is object based, so this is for file storage not operating systems. Block-based is best for os installation and applications
+-----------
+What size files can be stored in s3?
+
+A: Files that are 0 to 5 TB
+-----------
+What's the storage limit on s3?
+
+A: s3 has no storage limit
+-----------
+Where are files/objects stored in s3?
+
+A: buckets
+-----------
+What are buckets?
+
+A: Buckets are ways of organizing and securing objects in s3. Folder int he cloud
+-----------
+What's s3's namespace?
+
+A: universal, the name must be unique
+-----------
+What is the s3 default DNS name format?
+
+A: Example: https://acloudguru.s3.amazonaws.com/
+or: https:// + 'Name of bucket' + 'name of service (s3)' + amazonaws.com/
+-----------
+What is the s3 non-default regions DNS name format?
+
+A: Example: https://acloudguru.eu-west-1.amazonaws.com/
+or: https:// + 'Name of bucket' + 'name of region' + amazonaws.com/
+-----------
+Is s3 suitable to install an operating system on?
+
+A: s3 is object based not block based, so it's not suitable to install an os or data base on it
+only used to store files
+-----------
+What do you get when you successfully upload an object to s3?
+
+A: HTTP 200 status code
+-----------
+How can you secure objects in an s3 bucket?
+
+A: ACL (access control lists) can secure specific objects in a bucket
+-----------
+What is MFA delete?
+
+A: This forces the user to complete multi-factor auth in order to delete an object in s3. Helps protect them
+-----------
+What is a key?
+
+A: Within an object, this is the name of it
+-----------
+What is a value?
+
+A: within an object, this is the value or information contained int he object - made up of bytes
+-----------
+What is the metadata?
+
+A: this is data about data
+-----------
+What are subresources?
+
+A: Subresources in an object are access control lists and torrents
+-----------
+What is an ACL (Access Control List)?
+
+A: ACLs allow you to create network rules across entire subnets. Within s3 these allow you to lock down buckets and objects in buckets so that only certain roles, groups, users, etc. can access/view certain content
+-----------
+What is the s3 consistency model?
+
+A: Read after Write consistency for PUTS of new objects 
+Eventual Consistency for overwrite PUTS and DELETES of objects (can take sometime to propagate so you might view an object that has already been deleted on accident).
+-----------
+s3 standard
+
+A: s3 storage type
+99.99% availability
+99.999999999% (11) durability
+Stores object redundantly across multiple devices in multiple facilities and is designed to sustain the loss of 2 facilities concurrently
+-----------
+s3 - IA (infrequently access)
+
+A: s3 storage type 
+For data that is access less frequently, but requires rapid access when needed. Lower fee than s3, but you are charged a retrieval fee.
+-----------
+s3 one zone - IA
+
+A: s3 storage type
+For when you want a lower-cost option for infrequently accessed data, but do not require the multiple AZ data resilience
+-----------
+s3 - Intelligent Tiering
+
+A: s3 storage type
+Designed to optimize costs by automatically moving data to the most cost-effective access tier, without performance impact or operational overhead.
+-----------
+s3 glacier deep archive
+
+A: s3 storage type This is Amazon s3's lowest-cost storage class where a retrieval time of 12 hours is acceptable
+-----------
+s3 glacier
+
+A: s3 storage type
+This is a secure, durable, and low-cost storage class for data archiving. Retrieval times configurable from minutes to hours.
+-----------
+What are bucket policies?
+
+A: This allows you to grant permission to your Amazon S3 buckets. It is a JSON-based access policy language.
+-----------
+When should you use a bucket policy over an ACL?
+
+A: ACLs give you control of the bucket and the objects in the bucket
+Bucket policies are only at the bucket level
+
+Use S3 bucket policies if you want to:
+- Control access in S3 environment
+- Know who can access a bucket
+- Stay under 20kb policy size max
+Use ACLs if you want to:
+- Control access to buckets and objects
+- Exceed 20kb policy size max
+- Continue using ACLs and you're happy with them
+-----------
+What makes up the cost of s3?
+
+A: Storage
+Requests and data retrievals
+Data transfer
+Management & Replication
+-----------
+In order, what are the most to least expensive s3 storage options?
+
+A: 1) s3 standard
+2) s3 - IA (Infrequent Access)
+3) s3 - Intelligent Tiering
+4) s3 - One Zone - IA
+5) s3 glacier
+6) s3 glacier deep archive
+-----------
+When should you use s3 Standard?
+
+A: You probably don't want to use this unless you have millions of objects and thus using this will decrease the cost you have to pay AWS to manage those objects
+-----------
+When should you use s3 - IA?
+
+A: You should use this for anything that will not be accessed frequently but that needs to be available within milliseconds when it is accessed. You'll have to pay a retrieval fee.
+-----------
+When should you use s3 - Intelligent Tiering?
+
+A: This should probably be the default for frequently accessed s3 objects. The only time you might not want to do this is if you have millions of objects and thus you'll need to pay AWS quite a bit to manage those objects. This the option that uses machine learning to switch between standard and IA
+-----------
+When should you use s3 one zone - IA?
+
+A: You can use this whenever you have items that don't need to be super available/redundantly stored and that are infrequently access
+-----------
+When should you use S3 Glacier?
+
+A: This is a good option for archiving objects that still need a relatively fast retrieval time - minutes to hours.
+-----------
+When should you use S3 Glacier deep archive?
+
+A: This is good when you're trying to cheaply archive objects and you don't need to be able to retrieve them quickly - can take 12 hours
+-----------
+What type of encryption is there for s3?
+
+A: Encryption at rest on the server-side or on the client-side
+-----------
+What Encryption at Rest Server-Side options are there for s3?
+
+A: 1) S3 Managed Keys - SSE-S3: amazon manages the keys
+2) AWS Key Managed Service, Managed Keys - SSE-KMS: amazon and you managed the system
+3) Server Side Encryption with Customer Provided Keys - SSE-C: you provide keys to amazon and you manage the encryption, they just maintain the keys
+-----------
+What are the two types of encryption?
+
+A: 1) encryption in transit - done when visiting HTTPS, SSL/TLS 
+2) encryption at rest - encryption on the server side
+-----------
+What is versioning in s3?
+
+A: This stores all versions of an object (including all writes and even if you delete an object)
+Great backup tool 
+Once enabled, Versioning cannot be disabled, only suspended
+Integrates with Lifecycle rules
+Versioning as MFA delete capability
+When you delete with versioning AWS places a delete marker over that version - not actually deleting it
+-----------
+What impact does versioning have on an S3 bucket?
+
+A: This will increase your overall storage as you keep prior versions stored in a bucket
+-----------
+What is LifeCycle Management?
+
+A: This allows you to move your objects between different storage tiers
+Can be used in conjunction with versioning
+Can be applied to current versions and previous versions
+-----------
+What are three ways to share s3 buckets across accounts?
+
+A: 1) Using bucket policies & IAM (applies across the entire bucket.). Programmatic Access Only. 
+2) Using Bucket ACLs & IAM (individual objects). Programmatic Access Only.
+3) Cross-account IAM Roles. Programmatic AND Console access
+-----------
+If you need to grant access to s3 buckets across accounts from the AWS console, how should you do it?
+
+A: Use Cross-account IAM Roles. This is the only way of sharing s3 buckets across accounts that is not programmatic.
+-----------
+When you implement replication and delete something from one bucket, what happens to the object in the other bucket?
+
+A: Nothing, deletes of an object in a replicated bucket do not cross buckets
+It does not delete delete-markers or original object versions
+-----------
+How do you implement replication?
+
+A: in s3, hit management, create or select a bucket to replicate into as the target
+Good idea to use a separate region
+-----------
+Where must versioning be enabled in s3 to work properly?
+
+A: Both the source and the destination
+-----------
+Are files in an existing s3 bucket replicated once replication is turned on for a target bucket?
+
+A: No, only new objects are replicated once replication is enabled
+-----------
+What is s3 Transfer Acceleration?
+
+A: This utilizes the cloudfront edge network to accelerate your uploads to s3.
+Instead of uploading directly to your s3 bucket, you can use a distinct URL to upload directly to an edge location which will then transfer that file to s3.
+Example URL: accloudguru.s3-accelerate.amazonaws.com
+-----------
+What is S3 Object Lock?
+
+A: Used to store objects using a write once, read many (WORM) model
+Can be individual objects or applied across the bucket as a whole
+-----------
+What is S3 Glacier Vault Lock?
+
+A: This allows you to easilty deploy and enforce compliance controls for individual S3 Glacier vaults with a Vault Lock policy. You can specify controls such as WORM in a vault lock policy and lock the policy from future edits. Once locked, the policy can no longer be changed
+-----------
+What is Object Lock Governance Mode?
+
+A: Users can't overwrite or delete an object version or alter its lock settings unless they have special permissions.
+-----------
+What is Object Lock Compliance Mode?
+
+A: A protected object version can't be overwritten or deleted by any user, including the root user in your AWS account.
+-----------
+What is a prefix in S3?
+
+A: This is the pathway between a bucket and an object
+-----------
+How do you get better performance in S3?
+
+A: Spread your reads across different prefixes. If you use two prefixes you can achieve 11,000 requests per second
+-----------
+What is S3 KMS?
+
+A: KMS is an encryption service used to encrypt objects in s3. KMS has a an impact on performance.
+-----------
+What is a multipart upload?
+
+A: This is a way to increase S3 performance that allows you to parallelize uploads (increase efficiency) by breaking objects up and loading them into S3.
+-----------
+What is a byte-range fetch?
+
+A: This is a way to increase S3 performance by breaking up downloads into specific byte-ranges
+-----------
+What is S3 Select?
+
+A: Allows you to pull data from S3 using SQL. This increases performance drastically
+-----------
+What is Glacier Select?
+
+A: This allows you to run SQL queries against Glacier directly
+-----------
+What is DataSync?
+
+A: This is used to move large amounts of data from on-premise to AWS. 
+Allows for replication hourly, weekly, daily
+Can replicate EFS to EFS
+Used with NFS and SMG compatible file systems
+Just install DataSync agent to being
+-----------
+What is SQS (Simple Queue Service)?
+
+A: This is an AWS web service that gives you access to a message queue that can be used to store messages while waiting for a computer to process them.
+This helps you to 'decouple' infra/microstructures
+-----------
+What's the benefit of SQS?
+
+A: It allows you store messages independently, so that even if an EC2 instance goes down the message will not be lost
+-----------
+What is a Standard Queue in SQS?
+
+A: This is the default queue type. It lets you have a nearly-unlimited number of transactions per second. This guarantees a message is delivered at least once.
+-----------
+What is a FIFO queue in SQS?
+
+A: For applications that can handle out of order messages or multiple of the same message need to use this. This is First-in-first-out delivery and exactly-once processing. 
+Limited to 300 transactions per second (not as fast)
+-----------
+Is SQS pull-based or push based?
+
+A: Pull based, messages must be pulled from the queue by EC2
+-----------
+Whats the SQS message size limit?
+
+A: 256KB
+-----------
+How long can messages remain in the SQS queue?
+
+A: Default retention is 4 days. Can adjust to 1 minute to 14 days.
+-----------
+What is SQS Viability Timeout?
+
+A: This is the amount of time that the message is invisible in the SQS queue after a reader picks up that message. If the message is processed the message will be deleted in SQS otherwise, the message will be sent to another writer (causing possible double delivery)
+Maximum is 12 hours
+-----------
+What is long polling?
+
+A: This is a way to retrieve messages from your Amazon SQS queues. While the regular short polling returns immediately, long pulling doesn't return a response until a message arrives int he message queue or the long poll times out - this can save you money
+-----------
+What is the Simple Work Flow Service (SWF)?
+
+A: This is a web service that makes it easy to coordinate work across distributed application components. This enables applications for a range of use cases, including media, processing, web application back-ends, business process workflows, and analytics pipelines to be designed as a coordination of tasks.
+-----------
+What is Simple Notification Service (SNS)?
+
+A: This is a web service that makes it easy to set up, operate, and send notifications from the cloud. 
+It provides developers with a highly scalable, flexible, and cost-effective capability to publish messages from an application and immediately deliver them to subscribers or other applications.
+-----------
+How can SNS send notifications?
+
+A: It can send push notifications directly to mobile devices, sms text or email to Amazon SQS Queue or any HTTP endpoint
+-----------
+What is an SNS Topic?
+
+A: This allows you to group multiple recipients using topics. A topic is an "access point" for allowing recipients to dynamically subscribe for identical copies of the same notification
+-----------
+How is availability managed with SNS?
+
+A: All messages published to SNS are stored redundantly across multiple availability zones
+-----------
+What are the benefits of SNS?
+
+A: Instantaneous, push-based delivery (no polling)
+Simple APIs and easy integration with applications
+Flexible message delivery over multiple transport protocols
+Inexpensive pay as you go
+Web-based, simple config
+-----------
+What's the difference between SNS and SQS?
+
+A: Both are messaging systems but SNS is push while SQS is pull.
+-----------
+What's the difference between SWF and SQS?
+
+A: SWF is a workflow that allows for human steps to combine with technical code. SQS is a messaging service, no human interactions
+-----------
+What is Elastic Transcoder?
+
+A: This is a media transcoder (converter) in the cloud. Allows you to change formats of your media.
+-----------
+What is API Gateway?
+
+A: This is a fully managed service that makes it easy for developers to publish, maintain, monitor, and secure APIs at any scale.
+Connects back-end to applications
+-----------
+What can API gateway do?
+
+A: Expose HTTPS endpoints to define RESTful API
+Serverless-ly connect to services like Lambda & Dynamo DB
+Send each API endpoint to a different target
+Run efficiently with low cost
+Scale effortlessly 
+Control usage by API key
+Throttle requests to prevent attackes
+Connect to cloudwatch to monitor and track logs
+Maintain multiple version of API
+-----------
+What is the same origin policy?
+
+A: In computing, this is an important concept in the web application security model. Under the policy, a web browser permits scripts contained in a first web page to access data in a second web page, but only if both web pages have the same origin.
+Prevents cross-site scripting (XSS) attacks
+-----------
+What is CORS?
+
+A: This is one way the server at the other end can relax the same-origin policy. This allows restricted resources on a webpage to be requested from another domain outside the domain from which the first resource was served.
+-----------
+What is Kinesis?
+
+A: This is a platform on AWS to send your streaming data to. This makes it easy to load and analyze streaming data, and also providing the ability for you to build your own custom applications for your business needs.
+-----------
+What is Kinesis Streams?
+
+A: This is used to store streaming data from different data producers. Default is 24 hours can increase retention to 7 days
+Data is stored in Shards - more shards the more data you can store
+-----------
+What is Kinesis Firehose?
+
+A: With this there is no data storage, something must be done with the data immediately (for example a lambda function is triggered).
+-----------
+What is Kinesis Analytics?
+
+A: Works with firehose and streams to analyze data on the fly and then push that analysis to a AWS storage system
+-----------
+What is web identity federation?
+
+A: This allows you to give users access to AWS resources after they have successfully authenticated with a web-based identify provider like Amazon, Facebook, or Google. Following successful authentication, the user receives an authentication code from the Web ID provider, which they can trade for temporary AWS security credentials
+-----------
+What is Amazon Cognito?
+
+A: This is AWS's service that provides Web Identify Federation with the following features: 
+-sign-up and sign in to your apps
+-access for guest users
+-acts as an identify broker between your application and Web ID providers, so you don't need to write any additional code
+-synchronizes users data for multiple devices
+-----------
+When should you use Cognito>
+
+A: brokers between the app and facebook or google to provide temporary credentials which map to an IAM role allowing access to the required resources.
+-----------
+What's the difference between a user pool and a identify pool?
+
+A: -A user pool is user based. It handles things like user registration, authentication, and account recovery. 
+-Identify pool authorizes access to your AWS resources
+-----------
+What is a region?
+
+A: a physical location in the world that combines two or more availability zones
+-----------
+What is an availability zone (AZ)?
+
+A: This is one or more discrete data centers, each with redundant power, networking and connectivity, housed in separate facilities.
+-----------
+What is an edge location?
+
+A: These are endpoints for AWS which are used for caching content. Typically this consists of CloudFront, Amazons Content Delivery Network (CDN).
+-----------
+What is IAM?
+
+A: This allows you to manage users and their level of access to the AWS console.
+-----------
+Is IAM global or regional?
+
+A: this is global
+-----------
+What features does IAM allow?
+
+A: -centralized control of your AWS account
+-Shared access to your AWS account
+-Granular permissions
+-Identity Federation (including Active Directory, Facebook, linked in, etc.)
+-Multi-Factor Authentication
+-Provides temporary access for users/devices and services where necessary
+-Integrates with many AWS services 
+-Supports PCI DSS Compliance (credit card payments)
+-----------
+What are users?
+
+A: End users such as people, employees of an orginization, etc.
+-----------
+What are groups?
+
+A: A collection of users. Each user in the group will inherit the permissions of the group.
+-----------
+What are policies?
+
+A: These are made up of documents, called Policy documents. These documents are in a format called JSON and they give permissions as to what a User/Group/Role is able to do.
+-----------
+What are roles?
+
+A: You create these and then assign them to AWS Resources. (exmp giving a virtual machine access to an S3 bucket)
+-----------
+What is the root account?
+
+A: This is the account that's used to set up your AWS account. It has complete Admin access.
+-----------
+What permissions do new users have?
+
+A: no permissions
+They must be applied through the administrator access policy
+-----------
+What is the Access Key ID & Secret Access Keys
+
+A: These are assigned to new users when they are first created. 
+They are used to programmatically access the ecosystem
+The user access key is not the same as a password, it cannot be used to log into the console.
+-----------
+What are the types of access a user can have?
+
+A: programmatic, console, or both types of access.
+-----------
+How many times do you get to view the users access key id and secret access key?
+
+A: once, if lost you'll need to regenerate
+-----------
+
+
+A: 
+-----------
+What is KMS?
+
+A: This is a regional managed service used to encryot and decrypt data
+It manages CMKs (Customer MasterKeys)
+Ideal for encrypting S3, database passwords,etc
+4K size limit 
+FIPS 140-2 Level 2
+-----------
+What is the AWS Managed CMK?
+
+A: Free; used by default if you pick encryption in most AWS services. Only that service can use them directly
+-----------
+What is the AWS Owned CMK?
+
+A: Used by AWS on shared basis across many accounts; you typically won't see these
+-----------
+What is the Customer Managed CMK?
+
+A: Allows key rotation; controlled via key policies and can be enabled/disabled
+-----------
+What's the difference between an Symmetric and Asymmetric CMK?
+
+A: Symmetric: 
+-Same key used for encryption and decryption 
+-AES-256
+-Import your own key materials
+Asymmetric: 
+-Mathematically related public/private key pair
+-RSA and elliptic-curve cryptography (ECC)
+-Must call the KMS APIs to use private key
+-Download the public key and use outside AWS
+-----------
+What is CloudHSM?
+
+A: This is a dedicated hardware security model (HSM)
+FIPS 140-2 Level 3
+You manage your own keys (dedicated to you as a customer)
+No access to the AWS-managed component of HSM
+-----------
+What is Systems Manager Parameter Store?
+
+A: This is a component of AWS Systems Manager (SSM)
+Serverless storage for configuration and secerets for passwords, API keys, license codes, etc. 
+Can encrypt values via KMS
+Can store params in hierarchies
+-----------
+What is Secrets Manager?
+
+A: This is similar to Parameter Store however it allows for Automatic rotation of secrets. 
+Apply the new key/password in RDS for you 
+Allows you to generate random secrets
+-----------
+What is Shield Standard?
+
+A: Automatically enable for all customers at no costHelps prevent common layer 3 and 4 attacks:
+-SYN/UDP floods
+-reflection attacks
+Stopped a 2.3 TBS DDoS attack for three days in February 2020
+-----------
+What is Shield Advanced?
+
+A: $3000 per month, per org
+Enhanced protection for EC2, ELB, CloudFront, Global Accelerator, Route 53
+24/7 DDoS response team
+DDoS cost protection
+-----------
+What is an EC2 Instance Store?
+
+A: Ephemeral Volumes, Only certain EC2 instances, fixed capacity, disk type and capacity depends on EC2 isntance type, application-level durability 
+This has low durability and would not be great for an application that needs to be highly resilient
+-----------
+When should you use an EC2 instance store?
+
+A: This should be used for caching temporary data that you're replicating somewhere else
+-----------
+What is an EBS (elastic block store)
+
+A: This is an attachable volume that can be attached to one EC2 instance at a time. 
+Supports encryption, has snapshots, provisioned capacity, independent of the life cycle of the EC2 instance (generally), multiple volumes can be striped to create large volumes
+-----------
+When should you use EBS SSD volumes?
+
+A: Use SSD volumes when you need better IOPS (read/write). These should be used for databases or large database work. These are great for random access
+-----------
+When should you use EBS HDD volumes?
+
+A: HDD is good for sequential workloads, any application that requires consistent through put at a low price
+-----------
+What is EFS (elastic file store)
+
+A: This is file storage in the AWS Cloud, it's shared storage, provides petabyte-scale file systems, elastic capacity (can go up), compatible with Linux-based AMIS for Amazon EC2
+-----------
+When should you use EFS more detail?
+
+A: This can be connected to a VPC to store large quantities of data, such as large analytic workloads. This is is designed to provide performance for a broad spectrum of workloads and applications, including Big Data and analytics, media processing workflows, content management, web serving, and home directories.
+-----------
+When can you use a SQS over a Elastic Load Balancer (ELB)?
+
+A: Whenever you do not need a response from the caller, you can use SQS. If you need a response, use a load balancer
+-----------
+When should you use an elastic IP address?
+
+A: When you need to build resilience for external clients connecting to VPCs you should use an elastic IP. Elastic IPs can point clients to different VPCs if one goes down unexpectedly. This decouples the IP address from the identity of the server.
+-----------
+What does CloudFormation enable?
+
+A: This is a declarative programming language for deploying AWS resources. It uses templates and stacks to provision resources. It allows you to create, update, and delete a set of resources as as ingle unit (stack)
+-----------
+Do AMI ID's differ across regions?
+
+A: Yes, they do differ across regions
+-----------
+How can you use CloudFormation to deploy to EC2 instances to two different regions using the same base Amazon Machine Image (AMI)
+
+A: You can do this by using mappings to specify the base AMI since AMI IDs are different in each region
+-----------
+Where do all print statements and logging output show up in Lambda?
+
+A: These are pushed to CloudWatch logs. Cloudwatch logs are key for debugging lambda
+-----------
+What does RTO stand for?
+
+A: Recovery Time Objective (how long till the system is serviceable)
+-----------
+What does RPO stand for?
+
+A: Recovery Point Objective (asses a systems fitness) - how much data is lost in recovery
+-----------
+What's the difference between high availability and fault tolerance?
+
+A: High availability means the system will be on, although it could be degraded. Fault tolerant means the system hides it's failures from end users.
+-----------
+Is data stored on an EBS automatically replicated within an AZ?
+
+A: Yes, data is replicated across AZs automatically for EBS volumes
+-----------
+When should you use RDS?
+
+A: RDS provides a managed relational database. It should be used for Complex transactions or complex queries. A medium-to-high query/write rate, no more than a single worker node/shard, and high availability
+-----------
+When should you not use RDS?
+
+A: When there are massive read/write rates (e.g. 150K write/second), Sharding is required, Simple get/put requests and queries, when you need RDBMS customization
+-----------
+How can you scale RDS instances?
+
+A: You can scale up, by increasing the size of the instance. Additionally you can create read replicas, used as copies of your RDS instance but only for reading data.
+-----------
+What is an RCU?
+
+A: read capacity unit, specific to DynamoDB. It allows one strongly consistent read per second and two eventually consistent reads per second.
+-----------
+What is a WCU?
+
+A: Write Capacity Unit, specific to DynamoDB. This allows on write per second.
+-----------
+Which RDS DB options support read replicas?
+
+A: MySQL, MariaDB, PostgreSQL, Aurora - it's supported for everything but Oracle and Microsoft SQL Server
+-----------
+What's the difference when comparing caching of ElastiCache and CloudFront?
+
+A: ElastiCache sits infront of your database and caches often requested data, instead of requiring you to ask for it from your DB. CloudFront caches web assets at edge locations, making it faster for end users to see and consume your data.
+-----------
+What's the difference between ElastiCache Memcached and Redis?
+
+A: Memcached is simpler and easier to set up. Memcached is used for low maintenance, multithreading, easy horizontal scalability with Auto Discovery. Redis supports data structures, atomic operations, pub/sub messaging, read replicas/failover, cluster mode/sharded clusters - it's more advanced and used for more complex db caching needs.
+-----------
+What's the benefit of cloudfront for content delivery?
+
+A: Regardless of caching, you use the AWS backbone as opposed to the public internet. You can host static or dynamic content, of origins ranging from EC2, S3, ELB, HTTP servers, protect private content, and improve security with AWS Shield (standard or advanced) and AWS WAF.
+-----------
+What's the best way to scale horizonatly in AWS?
+
+A: Use AWS Auto Scaling. Auto Scaling can launch and terminate instances across AZs. It can automatically register new instances with load balancers.
+-----------
+What components of AWS allow you to scale EC2 instances?
+
+A: Auto Scaling - is alerted to add or remove instances 
+Cloud Watch - used to set alarms for CPU usage or similar, showing there is a need for more instances 
+Elastic Load Balancer - allow you to send traffic to an EC2 or scaled EC2 instances
+-----------
+What is the template that AutoScaling uses to launch fully configured instances automatically?
+
+A: Auto Scaling uses Launch Configurations
+-----------
+What is an Auto Scaling Launch Configuration?
+
+A: Specifies EC2 instance size and AMI name
+-----------
+What is an Auto Scaling Group?
+
+A: References the launch configuration, specifies min, max, and desired size of the Auto Scaling Group, may references an ELB, Health Check Type
+-----------
+What is an Auto Scaling Policy?
+
+A: Specifies how much to scale in our scale out. One or more may be attached to Auto Scaling group
+-----------
+If you have a known time that there will be a traffic spike for your EC2 instances, what's the best way to resolve it?
+
+A: Create an auto-scaling group that has a schedule increase at the specific time you know there will be increase traffic. Ensure there is enough time for the EC2 instances to scale up.
+-----------
+What's the difference between Security Groups and Access Control Lists?
+
+A: NACLS: 
+Stateless 
+Explicit allow or deny rules
+Applied to subnets
+
+Security Groups: 
+Stateful - if a message gets in, it can go out
+Explicit allow only
+Applied to ENIs (network interfaces)
+-----------
+What are the different services that allow data to flow into and out of VPCs?
+
+A: Internet Gateways: connect to the internet 
+Virtual Private Gateways: connect to VPN
+AWS Direct Connect: dedicated pipe
+VPC Peering: connect to other VPCs
+NAT Gateways: allow internet traffic from private subnets
+-----------
+How can you secure data in transit?
+
+A: Use SSL over the web, VPN for IPsec, IPsec over AWS Direct Connect, Import/Export/Snowball
+Data sent to AWS API (uses https/ssl by default)
+-----------
+What are the server side encryption services in AWS?
+
+A: Amazon S3-Managed Keys (SSE-S3)
+KMS-Managed Keys (SSE-KMS)
+Customer-provided Keys (SSE-C)
+-----------
+What are the client-side encryption options in aws?
+
+A: KMS Managed master encryption keys (CSE-KMS)
+Customer managed master encryption keys (CSE-C)
+-----------
+What does CSE stand for in encryption?
+
+A: Client Side Encryption
+-----------
+What does SSE stand for in encryption?
+
+A: server-side encryption
+-----------
+What is KMS (key management service)?
+
+A: customer software-based key management, integrated with many AWS services, used directly from application
+-----------
+How can you save on S3 retrieval costs?
+
+A: Use cloudfront to cache the data from S3. There are no data transfer costs for S3 and cloudfront
+-----------
+What does Hibernating an EC2 instance do?
+
+A: This instance saves the contents of RAM to the Amazon EBS root volume. When the instance restarts, the RAM contents are reloaded.
+-----------
+What is CORS in s3?
+
+A: Web browsers will block the execution of a script that originates from a server with a different domain name than the webpage. Amazon S3 can be configured with CORS to send HTTP headers that allow the script execution.
+-----------
+Do security groups operate at the instance or subset level?
+
+A: The instance level
+-----------
+Do security groups support allow and deny rules?
+
+A: No, they only support deny rules
+-----------
+Do security groups evaluate rules in a number order or do they evaluate all rules?
+
+A: They evaluate all rules
+-----------

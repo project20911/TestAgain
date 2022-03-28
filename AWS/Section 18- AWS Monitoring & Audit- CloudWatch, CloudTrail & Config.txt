@@ -1,0 +1,286 @@
+AWS CloudWatch Metrics
+A:
+- CloudWatch provides metrics for every service(s) in AWS
+- Metric is a variable to monitor (CPUUtilization, NetworkIn...)
+- Metrics belong to namespaces
+- Dimension is an attribute of a metric (instance id, environment, etc ...)
+- Up to 10 dimensions per metric
+- Metrics have timestaps
+- Can create CloudWatch dashboard of metrics
+-----------
+AWS CloudWatch EC2 Detailed Monitoring
+A:
+- EC2 instance metrics have metrics "every 5 minutes"
+- With detail monitoring (for a cost), you get data "every 1 minute" 
+- Use details monitoring if you want to more prompt scale your ASG!
+
+- The AWS FreeTier allows us to have 10 details monitoring metrics
+
+- Note: EC2 Memory usage is by default not pushed ( must be pushed from inside the instance as a custom metric)
+-----------
+AWS CloudWatch Custom Metrics
+A:
+- Possibility to define and send your own custom metrics to CloudWatch
+
+- Ability to use dimensions (attributes) to segment metrics
+ - - Instance.id
+ - - Environment.name
+
+- Metric resolution:
+ - - Standard: 1 minute
+ - - High Resolution: up to 1 second (StorageResolution API parameter) - Higher cost
+
+- Use API call PutMetricData
+
+- Use exponential back off in case of throttle errors
+-----------
+CloudWatch Dashboards
+A:
+- Great way to setup dashboard for quick access to keys metrics
+- Dashboards are global
+- Dashboards can include graphs from different regions
+- You can change the time zone & time range of the dashboards
+- You can setup automatic refresh (10s, 1m, 2m, 5m, 15m)
+
+
+- Pricing:
+ - - 3 dashboards (up to 50 metrics ) for free
+ - - $3/dashboard/month afterwards
+-----------
+AWS CloudWatch Logs
+A:
+- Applications can send logs to CloudWatch using the SDK
+
+- CloudWatch can collect log from:
+- - Elastic Beanstalk: collection og logs from application
+- - ECS: collection from containers
+- - AWS Lambda: collection from function logs
+- - VPC Flow Logs: VPC specific logs
+- - API Gateway
+- - CloudTrail based on filter
+- - CloudWatch log agents: for example on EC2 machines
+- - Route53: Log DNS queries
+
+- CloudWatch Logs can go to: 
+- - Batch exporter to S3 for archival
+- - Stream to ElasticSearch cluster for further analytics
+-----------
+AWS CloudWatch Logs Cont.d
+A:
+- Logs storage Architecture:
+ - - Log groups: arbitrary name, usually representing an application
+ - - Log stream: instances within application / log files / containers
+
+- Can define log expiration policies (never expire, 30 days, etc)
+
+- Using the AWS CLI we can tail CloudWatch logs
+
+- To send logs to CloudWatch, make sure IAM permissions are corect!
+
+- Security: encryption of logs using KMS at the Group level
+-----------
+CloudWatch Logs Metric Filter & Insights
+A:
+- CloudWatch Logs can use filter expressions
+- - For example, find a specific IP inside of a log
+- - Metric filters can be used to trigger alams
+
+- CloudWatch Logs Insights (new - 2018) can be used to query logs and add queries to CloudWatch Dashboards
+-----------
+CloudWatch Logs for EC2
+A:
+- By default, no logs from your EC2 machine will go to CloudWatch
+- You need to run a CloudWatch agent on EC2 to push the log files you want
+- Make sure IAM permissions are correct
+- The CloudWatch log agent can be setup on-premises too
+-----------
+CloudWatch Logs Agent & Unified Agent
+A:
+- For virtual servers (Ec2 instances, on-premise servers...)
+
+- CloudWatch Logs Agent
+- - Old version of the agent 
+- - Can only send to CloudWatch Logs
+
+- CloudWatch Unified Agent
+- - Collect additional system-level metrics such as RAM, processes, etc...
+- - Collect logs to send to CloudWatch Logs
+- - Centralized configuration using SSM Parameter Store
+-----------
+CloudWatch Unified Agent - Metrics
+A:
+- Collected directly on your Linux server / EC2 instance
+
+- CPU 
+- Disk Metrics
+- RAM
+- Netstat
+- Processes
+- Swap Space
+
+
+
+- Reminder: Out of the box metrics for EC2 - disk, CPU, network (high level)
+-----------
+AWS CloudWatch Alarms
+A:
+- Alarms are used to trigger notifications for any metric
+- Alarms can go to Auto Scaling, EC2 actions, SNS notifications
+- Various options (sampling, %, max, etc ... )
+
+- Alarm States:
+ -- OK
+ -- Insufficient_Data
+ -- Alarm
+
+- Period
+- - Length of time in seconds to evaluate the metric
+- - High resolution custom metrics: can only choose 10 sec or 30 sec
+-----------
+EC2 Instance Recovery
+A:
+- Status Check: 
+- - Instance status = check the EC2 VM
+- - System status = check the underlying hardware 
+
+
+- Recovery: Same private, public, elastic IP, metadata, placement group
+-----------
+AWS CloudWatch Events
+A:
+- Schedule: Cron Jobs
+- Event Pattern: Event rules to react to a service doing something
+ - - Ex: CodePipline state changes!
+
+- Triggers to Lambda functions, SQS/SNS/Kinesis Messages 
+- CloudWatch Event created a smalll JSON document to give information about the change
+-----------
+AWS CloudTrail
+A:
+- Provides governance, compliance and audit for your AWS account
+- CloudTrail is enabled by default!
+- Get an history of events / API calls made within your AWS account by: 
+ - - Console
+ - - SDK
+ - - CLI
+ - - AWS Services
+- Can put logs from CloudTrail into CloudWatch Logs
+- If a resource is deleted in AWS< look into CloudTrail first!
+-----------
+AWS Config
+A:
+- Helps with auditing and recording compliance of your AWS resources
+
+- Helps record configurations and changes over time
+
+- Possibility of storing the configuration data into S3 (analyzed by Athena)
+
+- Questions can can be solved by AWS Config:
+ - - Is there unrestricted SSH access to my security groups?
+ - - Do my buckets have any public access?
+ - - How has my ALB configuration changed over time?
+
+- You can receive alerts (SNS notifications) for any changes
+
+- AWS Config is a per-region service
+
+- Can be aggregated across regions and accounts
+-----------
+AWS Config Resource
+A:
+- View compliance of a resource over time
+
+- View configuration of a resource over time
+
+- View CloudTrail API calls if enabled
+-----------
+AWS Config Rules
+A:
+- Can use AWS managed config rules (over 75)
+
+- Can make custom config rules (must be defined in AWS lambda)
+- - Evaluate if each EBS disk is of type gp2
+- - Evaluate if each EC2 instance is t2.micro
+
+- Rules can be evaluated / triggered:
+ - - For each config change
+ - - And / or : at regular time intervals
+ - - Can trigger CloudWatch Events if the rule is non-compliant (and chain with Lambda)
+
+- Rules can have auto remediation: 
+ - - If a resource is not compliant, you can trigger an auto remediation
+ - - Ex: stop instances with non-approved tags
+
+- AWS config rules does not prevent actions from happening (no deny)
+-----------
+CloudWatch vs CloudTrail vs Config
+A:
+- CloudWatch:
+ - - Performance monitoring (metrics, CPU, network, etc...) & dashboards
+ - - Events & alerting
+ - - Log aggregation & analysis
+
+- CloudTrail:
+ - -Record API calls made within your account by everyone
+ - - Can define trails for specific resources
+ - - Global service
+
+- Config
+ - - Record configuration changes
+ - - Evaluate resources against compliance rules
+ - - Get timeline of changes and compliance
+-----------
+CloudWatch vs CloudTrail vs Config: For an Elastic Load Balancer (example)
+A:
+- CloudWatch:
+ - - Monitoring Incoming connections metric
+ - - Visualize error codes as a % over time 
+ - - Make a dashboard to get an idea of your load balancer performance
+
+- Config:
+ - - Track security group rules for the Load Balancer
+ - - Track configuration changes for the Load Balancer
+ - - Ensure an SSL certificate is always assigned to the Load Balancer (compliance)
+
+- CloudTrail:
+ - - Track who made any changes to the Load Balancer with API calls
+-----------
+We'd like to have CloudWatch Metrics for EC2 at a 1 minute rate. What should we do?
+A:
+Answer: Enable Detailed Monitoring
+
+Note: This is a paid offering and gives you EC2 metrics at a 1 minute rate
+-----------
+High Resolution Custom Metrics can have a minimum resolution of
+A:
+Answer: 1 Second
+-----------
+Your CloudWatch alarm is triggered and controls an ASG. The alarm should trigger 1 instance being deleted from your ASG, but your ASG has already 2 instances running and the minimum capacity is 2. What will happen?
+A:
+Answer: The alarm will remain in "ALARM" state but never decreased the number of instances in my ASG`
+
+Note: The number of instances in an ASG cannot go below the minimum, even if the alarm would in theory trigger an instance termination
+-----------
+An Alarm on a High Resolution Metric can be triggered as often as
+A:
+10 seconds
+-----------
+You have made a configuration change and would like to evaluate the impact of it on the performance of your application. Which service do you use?
+A:
+CloudWatch
+-----------
+Someone has terminated an EC2 instance in your account last week, which was hosting a critical database. You would like to understand who did it and when, how can you achieve that?
+A:
+Look at CloudTrail
+
+
+NOte: CloudTrail helps audit the API calls made within your account, so the database deletion API call will appear here (regardless if made from the console, the CLI, or an SDK)
+-----------
+You would like to ensure that over time, none of your EC2 instances expose the port 84 as it is known to have vulnerabilities with the OS you are using. What can you do to monitor this?
+A:
+Setup config rules
+-----------
+You would like to evaluate the compliance of your resource's configurations over time. Which technology do you choose?
+A:
+Config
+-----------

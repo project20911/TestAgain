@@ -1,0 +1,125 @@
+What is Route 53?
+A: Route53 is a managed DNS (Domain Name System)
+-----------
+What is DNS? (Route 53)
+A: DNS (Domain Name System) is a collection of rules and records which help clients understand how to reach a server through its domain name.
+-----------
+In Route 53, what are the most common records?
+A: A: hostname to IPv4
+AAAA: hostname to IPv6
+CNAME: hostname to hostname
+Alias: hostname to AWS resource
+-----------
+(Route 53) What is an A record?
+A: hostname to IPv4
+-----------
+(Route 53) What is a AAAA record?
+A: hostname to ipv6
+-----------
+(Route 53) What is a CNAME record?
+A: hostname to hostname
+-----------
+(Route 53) What is an Alias record?
+A: hostname to AWS resource
+-----------
+(Route 53) What is TTL?
+A: TTL is Time to Live
+-----------
+(Route 53) What does TTL do?
+A: As a practical answer, TTL (time to live) is used by the client to determine when it needs to update/sync the cached record.
+
+Benefits? This results in less queries to the DNS 
+
+Example? If TTL is 24 hours, the client will not renew DNS record/cache until TTL is expired.
+-----------
+(Route 53) What is High and Low TTL?
+A: High TTL (time to live): 
+- 24 hours
+- Less traffic on DNS
+- Possibly outdated records 
+
+Low TTL (time to live): 
+- 60 seconds
+- Records are outdated for less time.
+- Easy to change records
+-----------
+(Route 53) Does CNAME work for NON-ROOT, ROOT, both ROOT and NON-ROOT domains?
+A: CNAME records only work with NON-ROOT domains. Example: subdoman.domain.com
+-----------
+(Route 53) Does ALIAS work for NON-ROOT, ROOT, both ROOT and NON-ROOT domains?
+A: ALIAS records work for ROOT DOMAIN and NON ROOT DOMAINS (Both)
+-----------
+(Route 53) Do ALIAS records have or do NOT have a native health check?
+A: Yes, ALIAS records have a native health check in Route 53
+-----------
+(Route 53) What type of record do you use for a NON-ROOT domain?
+A: You can use either ALIAS or CNAME, but ALIAS is more efficient and preferred as it has more features such as health check and native resource targets.
+-----------
+(Route 53) What type of records do you use for a ROOT domain?
+A: Only an ALIAS (A) record will work in this scenario. Since CNAME does not support this type of domain.
+-----------
+(Route 53) How does weighted policy work?
+A: It controls the % of requests that go to a specific endpoint
+
+Example: 
+for weight 70, 20, 10
+- 70% of requests will be answered for the 70 endpoint
+- 20% of requests will be answered for the 20 endpoint
+- 10% of requests will be answered for the 10 endpoint
+
+Using just 2 weights (like work):
+- 100 = 100% requests will be answered for the 100% endpoint
+- 0 = 0% requests will be answered for the 0 endpoint (basically stopping answers for this endpoint)
+-----------
+(Route 53) What is the default amount of healthchecks done in Route 53?
+A: The default amount of healthchecks is 3
+-----------
+(Route 53) What happens if specified X amount of healthchecks fail in Route 53?
+A: 
+-----------
+(Route 53) What is the default healthcheck interval?
+A: The default interval is 30 seconds.
+-----------
+(Route 53) What would occur if you decrease the healtchcheck interval in Route 53, from a billing standpoint?
+A: When lower than the defaults (i.e 10seconds). There will be a higher cost associated.
+-----------
+(Route 53) What type of healthchecks are there?
+A: You can configure HTTP, TCP, and HTTPS (no SSL verification).
+-----------
+(Route 53) What type of monitoring does CloudWatch integrate with for Route 53?
+A: CloudWatch has the possibility of integrating with healthchecks for Route 53
+-----------
+(Route 53) How many healthcheckers will check the endpoint health in Route 53?
+A: There will be about 15 health checkers that will check the endpoint health.
+-----------
+(Route 53) When do you use a Multi Value routing policy in Route 53? (w/ key points)
+A: - Use when routing traffic to multiple resources
+- Want to associate a Route 53 health checks with records
+- Up to 8 healthy records are returned for each Multi Value query
+- Multi Value is not a substitute for having an ELB
+-----------
+(Route 53) Does Route 53 support 3rd party domains from different registrar?
+A: Yes, if you buy your domain on 3rd party website, you can still use Route53.
+
+How to do this,
+1) Create a Hosted Zone in Route 53
+2) Update the NS records on the 3rd party website to use Route 53 name servers
+-----------
+(Route 53) You have purchased "mycoolcompany.com" on the AWS registrar and would like for it to point to lb1-1234.us-east-2.elb.amazonaws.com . What sort of Route 53 record is NOT POSSIBLE to set up for this?
+A: CNAME
+-----------
+(Route 53) You have deployed a new Elastic Beanstalk environment and would like to direct 5% of your production traffic to this new environment, in order to monitor for CloudWatch metrics and ensuring no bugs exist. What type of Route 53 records allows you to do so?
+A: Weighted
+-----------
+(Route 53) After updating a Route 53 record to point "myapp.mydomain.com" from an old Load Balancer to a new load balancer, it looks like the users are still not redirected to your new load balancer. You are wondering why...
+A: it's because of the TTL
+-----------
+(route 53) You want your users to get the best possible user experience and that means minimizing the response time from your servers to your users. Which routing policy will help?
+A: Latency (routing policy)
+-----------
+(Route 53) You have a legal requirement that people in any country but France should not be able to access your website. Which Route 53 record helps you in achieving this?
+A: Geolocation (routing policy)
+-----------
+(Route 53) You have purchased a domain on Godaddy and would like to use it with Route 53. What do you need to change to make this work?
+A: Create a public hosted zone and update the 3rd party registrar NS records
+-----------
