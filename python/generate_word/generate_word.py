@@ -11,7 +11,7 @@ from requests.utils import quote
 
 nameFile = sys.argv[1]
 nameExcel = nameFile.replace(".srt", ".xlsx")
-sub_a = pysrt.open(nameFile)
+sub_a = pysrt.open(nameFile, encoding="utf-8")
 arr = []
 current_dich = 0
 max = 20
@@ -29,40 +29,38 @@ def phan_tich_cau(index=0):
     print('Chạy phân tích câu')
     is_infinity = True
     count = index * max + 1
-    while is_infinity:
-        for x in range(index, len(arr)):
-            for y in arr[x]:
-                text = y.text.replace(u'\u3000', u' ').replace('\n', ' ')
-                currentRow = (count, str(y.start), text)
-                ws.append(currentRow)
-                if (ROOT_2 / (text + ".json")).exists():
-                    with open(ROOT_2 / (text + ".json"), "r") as fp:
-                        result = json.load(fp)
-                        if (result is not None):
-                            for res in result['data']:
-                                if (res['pos_tag'] == 'Noun'):
-                                    ws.append(('', '', '', str(res['token']), 'Danh từ'))
-                                elif (res['pos_tag'] == 'Verb'):
-                                    ws.append(('', '', '', str(res['token']), 'Động từ'))
-                else:
-                    result = Tokens.request(text)
+    for x in range(index, len(arr)):
+        for y in arr[x]:
+            text = y.text.replace(u'\u3000', u' ').replace('\n', ' ')
+            currentRow = (count, str(y.start), text)
+            ws.append(currentRow)
+            if (ROOT_2 / (text + ".json")).exists():
+                with open(ROOT_2 / (text + ".json"), "r", encoding="utf-8") as fp:
+                    result = json.load(fp)
                     if (result is not None):
-                        result = json.loads(result.json())
                         for res in result['data']:
                             if (res['pos_tag'] == 'Noun'):
                                 ws.append(('', '', '', str(res['token']), 'Danh từ'))
                             elif (res['pos_tag'] == 'Verb'):
                                 ws.append(('', '', '', str(res['token']), 'Động từ'))
-                        save2(text, result)
-                count += 1
-                print('[Phân tích] Hàng: ' + str(x) +' || ' + str(count - 1) + '/' + str(max_line))
-                if (count % 10 == 0):
-                    print('[Phân tích] Save !!')
-                    wb.save(filename=nameExcel)
-        wb.save(filename=nameExcel)
-        if (count >= max_line):
-            print('Xong phân tích câu')
-            is_infinity = False
+            else:
+                result = Tokens.request(text)
+                if (result is not None):
+                    result = json.loads(result.json())
+                    for res in result['data']:
+                        if (res['pos_tag'] == 'Noun'):
+                            ws.append(('', '', '', str(res['token']), 'Danh từ'))
+                        elif (res['pos_tag'] == 'Verb'):
+                            ws.append(('', '', '', str(res['token']), 'Động từ'))
+                    save2(text, result)
+            count += 1
+            print('[Phân tích] Hàng: ' + str(x) +' || ' + str(count - 1) + '/' + str(max_line))
+            if (count % 10 == 0):
+                print('[Phân tích] Save !!')
+                wb.save(filename=nameExcel)
+    wb.save(filename=nameExcel)
+    if (count >= max_line):
+        print('Xong phân tích câu')
 
 def dich_jisho(index=2):
     print('Chạy từ_điển_1')
@@ -88,7 +86,7 @@ def dich_tu(index=2):
             word = row[5].value
             print('[mazii] Hàng: ' + str(row[0].row) + ' ' + str(row[5].value))
             if (ROOT / (word + ".json")).exists():
-                with open(ROOT / (word + ".json"), "r") as fp:
+                with open(ROOT / (word + ".json"), "r", encoding="utf-8") as fp:
                     json_res = json.load(fp)
                     if (json_res.get('found')):
                         row[6].value = json_res.get('data')[0].get('means')[0].get('mean')
@@ -104,7 +102,7 @@ def dich_tu(index=2):
             word = row[3].value
             print('[mazii] Hàng: ' + str(row[0].row) + ' ' + str(row[3].value))
             if (ROOT / (word + ".json")).exists():
-                with open(ROOT / (word + ".json"), "r") as fp:
+                with open(ROOT / (word + ".json"), "r", encoding="utf-8") as fp:
                     json_res = json.load(fp)
                     if (json_res.get('found')):
                         row[6].value = json_res.get('data')[0].get('means')[0].get('mean')
@@ -126,12 +124,12 @@ def dich_tu(index=2):
 
 def save(word, r):
     ROOT.mkdir(exist_ok=True)
-    with open(ROOT / f"{word}.json", "w") as fp:
+    with open(ROOT / f"{word}.json", "w", encoding="utf-8") as fp:
         fp.write(json.dumps(r, indent=4, ensure_ascii=False))
         
 def save2(word, r):
     ROOT.mkdir(exist_ok=True)
-    with open(ROOT_2 / f"{word}.json", "w") as fp:
+    with open(ROOT_2 / f"{word}.json", "w", encoding="utf-8") as fp:
         fp.write(json.dumps(r, indent=4, ensure_ascii=False))
 
 def main():
